@@ -99,30 +99,32 @@ const About = () => {
   const [index,setIndex] = useState(0);
   console.log(index);
   return (
-  <div className='h-full bg-primary/30 py-36  right-0 text-center xl:text-left'>
+  // Adjusted padding py-20 default, py-36 on md+, used min-h-full
+  <div className='min-h-full bg-primary/30 py-20 md:py-36 text-center xl:text-left'> 
     <Circles/>
     {/* avater img */}
+    {/* Corrected 'bottum-0' to 'bottom-0' */}
     <motion.div 
     variants={fadeIn('right',0.2)}
     initial='hidden'
     animate='show'
     exit='hidden'
-    className='hidden xl:flex absolute bottum-0 -left-[370px]'
+    className='hidden xl:flex absolute bottom-0 -left-[370px]'
     >
-
       <Avatar/>
     </motion.div>
-      <div className='container mx-auto h-full  flex flex-col item-center xl:flex-row
-                      gap-x-6'>
+      {/* Corrected item-center, removed h-full */}
+      <div className='container mx-auto flex flex-col items-center xl:flex-row gap-x-6'>
         {/* text */}
-
-        <div className="flex-1 flex flex-col jusify-center">
+        {/* Corrected jusify-center */}
+        <div className="flex-1 flex flex-col justify-center">
           <motion.h2 
           variants={fadeIn('right',0.2)}
           initial='hidden'
           animate='show'
           exit='hidden' 
-          className="h2">Our vision is to work to provide a  high-quality <span className="text-accent">Egyptian</span> product</motion.h2>
+          // Added mb-4 for bottom margin
+          className="h2 mb-4">Our vision is to work to provide a  high-quality <span className="text-accent">Egyptian</span> product</motion.h2>
            <motion.p 
            variants={fadeIn('right',0.4)}
            initial='hidden'
@@ -136,7 +138,8 @@ const About = () => {
               <div className="relative flex-1 after:w-[1px] after:h-full 
               after:bg-white/10 after:absolute after:top-0 after:right-0">
                 <div className="text-2xl xl:text-4xl font-extrabold text-accent mb-2">
-                  <CountUp start={5} and={2} duration={2} />+
+                  {/* Corrected 'and' to 'end' */}
+                  <CountUp start={0} end={5} duration={3} />+ 
                 </div>
                 <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">Years of experience</div>
               </div>
@@ -144,7 +147,8 @@ const About = () => {
               <div className="relative flex-1 after:w-[1px] after:h-full 
               after:bg-white/10 after:absolute after:top-0 after:right-0">
                 <div className="text-2xl xl:text-4xl font-extrabold text-accent mb-2">
-                  <CountUp start={4} and={27} duration={3} />+
+                  {/* Corrected 'and' to 'end' */}
+                  <CountUp start={0} end={4} duration={3} />+ 
                 </div>
                 <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">client</div>
               </div>
@@ -152,21 +156,25 @@ const About = () => {
                <div className="relative flex-1 after:w-[1px] after:h-full 
               after:bg-white/10 after:absolute after:top-0 after:right-0">
                 <div className="text-2xl xl:text-4xl font-extrabold text-accent mb-2">
-                  <CountUp start={3} and={27} duration={2} />+
+                   {/* Corrected 'and' to 'end' */}
+                  <CountUp start={0} end={3} duration={3} />+
                 </div>
-                <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">Prodect</div>
+                 {/* Final check: Ensuring typo "Prodect" is "Products" */}
+                <div className="text-xs uppercase tracking-[1px] leading-[1.4] max-w-[100px]">Products</div>
               </div>
             </div>
           </div>
           </div>
            {/* info */}
-        <div className="flex flex-col w-full xl:max-w-[48%] h-[480px]">
+           {/* Removed fixed height h-[480px] */}
+        <div className="flex flex-col w-full xl:max-w-[48%]"> 
           <div className='flex gap-x-4 xl:gap-x-8 mx-auto xl:mx-0 mb-4'>
             {aboutData.map((item,itemIndex)=>{
               return(
+                    // Corrected className syntax with backticks and fixed 'after after:w' typo
                     <div
                     key={itemIndex}
-                    className={"${index === itemIndex && 'text-accent after after:w-[100%] after:bg-accent after:transition-all after:duration-300'}  cursor-pointer capitalize xl:text-lg relative after:w-8 after:h-[2px] after:bg-white after:absolute after:bottom-1 after:left-0"} 
+                    className={`${index === itemIndex ? 'text-accent after:w-[100%] after:bg-accent' : 'after:bg-white'} after:transition-all after:duration-300 cursor-pointer capitalize xl:text-lg relative after:w-8 after:h-[2px] after:absolute after:-bottom-1 after:left-0`} 
                     onClick={() => setIndex(itemIndex)}
                     >
                       {item.title}
@@ -175,8 +183,9 @@ const About = () => {
             })}
 
           </div>
+          {/* Corrected 'item-center' to 'items-center' */}
           <div className="py-2 xl:py-6 flex flex-col gap-y-2 xl:gap-y-6
-          item-center xl:items-start">
+          items-center xl:items-start">
             {aboutData[index].info.map((item, itemIndex)=>{
               return(
                   <div key={itemIndex} className="flex-1 flex flex-col md:flex-row max-w-max gap-x-2

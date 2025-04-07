@@ -9,14 +9,17 @@ import {fadeIn} from '../../variants'
 
 const Work = () => {
   return (
-    <div className='h-full bg-primary/30 py-36 flex item-center'>
+    // Corrected item-center, adjusted padding py-20 default, py-36 on md+, used min-h-full
+    <div className='min-h-full bg-primary/30 py-20 md:py-36 flex items-center'> 
       <Circles/>
       <div className='container mx-auto'>
         <div className='flex flex-col xl:flex-row gap-x-8'>
           {/* text */}
-          <div className='text-center flex xl:w-[30vm] flex-col lg:text-left mb-2 xl:mb-0'>
+          {/* Corrected xl:w-[30vm] to xl:w-[30vw] assuming viewport width was intended */}
+          <div className='text-center flex xl:w-[30vw] flex-col lg:text-left mb-2 xl:mb-0'>
+            {/* Re-Ensuring typo "Prodect" is "Product" */}
             <motion.h2 variants={fadeIn('up',0.2)} initial="hidden"
-            animate='show' exit='hidden'  className='h2 xl:mt-6'> My Prodect <span className='text-accent'>.</span></motion.h2>
+            animate='show' exit='hidden'  className='h2 xl:mt-6'> My Product <span className='text-accent'>.</span></motion.h2>
             <motion.p variants={fadeIn('up',0.2)} initial="hidden"
             animate='show' exit='hidden' className='mb-4 max-w-[400px] mx-auto lg:mx-0'>
             Some of our products are produced with the highest quality in 

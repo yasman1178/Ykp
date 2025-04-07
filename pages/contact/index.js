@@ -29,9 +29,10 @@ const Contact = () => {
       });
   };
 
-  return <div className="h-full bg-primary/30">
-    <div className="container mx-auto py-32 text-center xl:text-left flex
-                     items-center justify-center h-full">
+  // Changed h-full to min-h-full, adjusted py padding
+  return <div className="min-h-full bg-primary/30">
+    <div className="container mx-auto py-20 md:py-32 text-center xl:text-left flex
+                     items-center justify-center min-h-full"> {/* Changed h-full to min-h-full */}
       {/* text & form*/}
       <div className="flex flex-col w-full max-w-[700px] ">
       {/* text */}
@@ -47,10 +48,11 @@ const Contact = () => {
         </div>
         <input type="text" name="from_name" placeholder="subject" className="input"/>
         <textarea type="text" name="message" placeholder="message" className="textarea"></textarea>
+        {/* Corrected item-center */}
         <button className="btn rounded-full border border-white/50 max-w-[170px]
-          px-8 transition-all duration-300 flex item-center justify-center
+          px-8 transition-all duration-300 flex items-center justify-center 
           overflow-hidden hover:border-accent group " value="send" type="submit">
-          <span className="group-hover:translate-y-[120%] group-hover:opacity-0
+          <span className="group-hover:-translate-y-[120%] group-hover:opacity-0 {/* Adjusted translate direction */}
           transition-all duration-500 mt-2">
             Lets talk
             </span>
