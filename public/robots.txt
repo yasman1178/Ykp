@@ -1,0 +1,47 @@
+# Robots.txt for Pharaonic Pillows - Egyptian Travel Pillows Website
+# Optimized for search engine crawling and SEO
+
+User-agent: *
+Allow: /
+
+# Allow crawling of all main pages
+Allow: /products/
+Allow: /blog/
+Allow: /about
+Allow: /contact
+Allow: /wholesale
+Allow: /partnership
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /private/
+
+# Allow crawling of product images and assets
+Allow: /public/prodect/
+Allow: /images/
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.webp$
+Allow: /*.svg$
+
+# Sitemap location
+Sitemap: https://pharaonicpillows.com/sitemap.xml
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
+
+# Special instructions for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 2

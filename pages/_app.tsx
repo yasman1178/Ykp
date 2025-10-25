@@ -1,0 +1,35 @@
+import type { AppProps } from 'next/app';
+import { AnimatePresence } from 'framer-motion';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Layout from '@/components/layout/Layout';
+import CookieConsentBanner from '@/components/CookieConsentBanner';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
+import { useCookieConsent } from '@/hooks/useCookieConsent';
+import { usePageTracking } from '@/hooks/usePageTracking';
+import '@/styles/globals.css';
+
+export default function App({ Component, pageProps, router }: AppProps) {
+  const { preferences } = useCookieConsent();
+  
+  // Automatically track page views
+  usePageTracking();
+
+  const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
+  return (
+    <>
+      {/* Google Analytics - only load if user consented and ID is available */}
+      {GA_MEASUREMENT_ID && preferences.analytics && (
+        <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
+      )}
+      
+      <Layout>
+        <AnimatePresence mode="wait" initial={false}>
+          <Component {...pageProps} key={router.asPath} />
+        </AnimatePresence>
+        <CookieConsentBanner />
+      </Layout>
+    </>
+  );
+}
