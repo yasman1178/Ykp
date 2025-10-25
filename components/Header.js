@@ -18,7 +18,6 @@ const Header = () => {
           {/* socials */}
           <Socials />
         </div>
-
       </div>
     </header>
   );
