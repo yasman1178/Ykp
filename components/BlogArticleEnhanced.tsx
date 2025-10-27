@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { BlogArticle } from '@/data/blog-articles';
+import { BlogArticleEnhanced as BlogArticleEnhancedType } from '@/types/blog-enhanced';
 import { Product } from '@/types/product';
 import { 
   generateBlogCTA, 

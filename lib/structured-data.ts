@@ -427,7 +427,7 @@ export const generateLocalBusinessSchema = () => {
   };
 };
 
-export default {
+const structuredDataGenerators = {
   generateOrganizationSchema,
   generateWebsiteSchema,
   generateProductSchema,
@@ -437,3 +437,5 @@ export default {
   generateFAQSchema,
   generateLocalBusinessSchema
 };
+
+export default structuredDataGenerators;
