@@ -36,5 +36,7 @@ yarn-error.log*
 next-env.d.ts
 
 # local database files
-/data/
-*.json
+/data/*.json
+/data/visitors.json
+/data/activities.json
+/data/consents.json
