@@ -187,9 +187,20 @@ export default async function handler(
 
   } catch (error) {
     console.error('Contact form error:', error);
+    
+    // Check if email credentials are configured
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Email service not configured. Please contact us directly at ykp.supplies@gmail.com or call +20 100 240 6013',
+        error: 'Missing EMAIL_USER or EMAIL_PASS environment variables'
+      });
+    }
+    
     res.status(500).json({ 
       success: false, 
-      message: 'Failed to send message. Please try again or contact us directly.' 
+      message: 'Failed to send message. Please try again or contact us directly at ykp.supplies@gmail.com',
+      error: error instanceof Error ? error.message : 'Unknown error'
     });
   }
 }
