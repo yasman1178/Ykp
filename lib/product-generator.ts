@@ -11,6 +11,35 @@ import {
 import { PHARAONIC_SYMBOLS, generateProductStory } from '@/data/pharaonic-stories';
 import type { Product, ProductCollection, ProductSpecs, WholesaleInfo } from '@/types/product';
 
+// Product Barcode (GTIN/UPC) Mapping
+const PRODUCT_BARCODES: Record<string, string> = {
+  'B001': '0762497599008',
+  'B002': '0762497599015',
+  'B003': '0762497599022',
+  'B004': '0762497599039',
+  'B005': '0762497599046',
+  'B006': '0762497599053',
+  'T001': '0762497599060',
+  'T002': '0762497599077',
+  'T003': '0762497599084',
+  'T004': '0762497599091',
+  'T005': '0762497599107',
+  'T006': '0762497599114'
+};
+
+// Helper function to get barcode for a product
+const getProductBarcode = (productId: string): string | undefined => {
+  // Extract the product code (e.g., "B001" from "b123-001")
+  const match = productId.match(/([a-z]+)-(\d+)/i);
+  if (!match) return undefined;
+  
+  const collection = match[1].toUpperCase();
+  const number = match[2];
+  const code = `${collection === 'B123' ? 'B' : collection}${number.padStart(3, '0')}`;
+  
+  return PRODUCT_BARCODES[code];
+};
+
 // Convert ProductAnalysis to full Product object
 const convertToProduct = (analysis: ProductAnalysis): Product => {
   // Extract symbol key from the first Egyptian symbol
@@ -221,6 +250,7 @@ const convertToProduct = (analysis: ProductAnalysis): Product => {
         brand: 'Pharaonic Pillows',
         category: 'Travel Accessories',
         sku: `PH-${analysis.collection.toUpperCase()}-${analysis.id.split('-')[1]}`,
+        gtin: getProductBarcode(analysis.id),
         image: [analysis.imagePath],
         offers: {
           '@type': 'Offer',

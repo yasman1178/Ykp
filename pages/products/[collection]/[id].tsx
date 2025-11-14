@@ -23,6 +23,7 @@ interface Product {
     weight: string;
     care: string;
     warranty: string;
+    barcode?: string;
   };
   gallery: string[];
 }
@@ -404,6 +405,28 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { collection, id } = params!;
   
+  // Product Barcode Mapping
+  const PRODUCT_BARCODES: Record<string, string> = {
+    'B001': '0762497599008',
+    'B002': '0762497599015',
+    'B003': '0762497599022',
+    'B004': '0762497599039',
+    'B005': '0762497599046',
+    'B006': '0762497599053',
+    'T001': '0762497599060',
+    'T002': '0762497599077',
+    'T003': '0762497599084',
+    'T004': '0762497599091',
+    'T005': '0762497599107',
+    'T006': '0762497599114'
+  };
+
+  const getBarcode = (collection: string, productNum: string): string | undefined => {
+    const collectionPrefix = collection === 'premium' ? 'B' : collection === 'classic' ? 'T' : 'TB';
+    const code = `${collectionPrefix}${productNum.padStart(3, '0')}`;
+    return PRODUCT_BARCODES[code];
+  };
+  
   // Mock product data - in a real app, this would come from a database
   const getProductData = (collection: string, id: string) => {
     const collections = {
@@ -452,7 +475,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         dimensions: '30cm x 28cm x 10cm',
         weight: '400g',
         care: 'Machine Washable',
-        warranty: '2 Years'
+        warranty: '2 Years',
+        barcode: getBarcode(collection, productNumber)
       },
       gallery: [
         `/prodect/${collection === 'premium' ? 'b123' : collection === 'classic' ? 't' : 'tb'}/${parseInt(productNumber)}.png`,

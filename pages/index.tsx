@@ -8,7 +8,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       <Head>
-        <title>Pharaonic Travel Pillows - Authentic Egyptian Comfort | B2B</title>
+        <title>YKP Supplies - New Cairo | Authentic Egyptian Travel Pillows</title>
         <meta 
           name="description" 
           content="Premium travel pillows inspired by Egyptian Pharaonic heritage. Modern memory foam technology with authentic Egyptian designs. Wholesale opportunities for international distributors." 
@@ -70,7 +70,7 @@ const HomePage: React.FC = () => {
               animate={{ scale: 1 }}
               transition={{ duration: 1.2, ease: "easeOut" }}
             >
-              Pharaonic Travel
+              YKP Supplies
               <br />
               <motion.span 
                 className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent"
@@ -80,7 +80,7 @@ const HomePage: React.FC = () => {
                 transition={{ duration: 3, repeat: Infinity }}
                 style={{ backgroundSize: '200% 200%' }}
               >
-                Pillows
+                New Cairo
               </motion.span>
             </motion.h1>
             <motion.p 

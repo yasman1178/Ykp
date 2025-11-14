@@ -100,7 +100,7 @@ const Header: React.FC = () => {
       
       <div className="flex flex-col">
         <span className="font-pharaonic font-bold text-xl text-gradient-gold leading-tight">
-          Pharaonic Pillows
+          YKP Supplies - New Cairo
         </span>
         <span className="text-xs text-hieroglyph-light font-medium tracking-wide">
           Egyptian Heritage Travel Comfort

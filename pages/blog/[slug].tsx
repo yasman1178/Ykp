@@ -84,162 +84,264 @@ export default function BlogArticlePage({ article, relatedArticles }: BlogArticl
         canonical={`https://pharaonicpillows.com/blog/${article.slug}`}
       />
 
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-blue-50 to-amber-100">
-        {/* Hero Section with Egyptian Styling */}
-        <section className="relative py-20 px-4 overflow-hidden">
-          {/* Egyptian Background Pattern */}
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-amber-50/30">
+        {/* Enhanced Hero Section */}
+        <section className="relative py-16 md:py-24 px-4 overflow-hidden bg-gradient-to-br from-blue-900 via-purple-900 to-amber-800">
+          {/* Animated Egyptian Background Pattern */}
           <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-10 left-10 text-6xl text-amber-600 animate-pulse">𓀀</div>
-            <div className="absolute top-20 right-20 text-4xl text-blue-600 animate-pulse delay-1000">𓂀</div>
-            <div className="absolute bottom-20 left-20 text-5xl text-amber-700 animate-pulse delay-2000">𓋹</div>
-            <div className="absolute bottom-10 right-10 text-3xl text-blue-700 animate-pulse delay-3000">𓆣</div>
+            <div className="absolute top-10 left-10 text-7xl text-amber-400 animate-float">𓀀</div>
+            <div className="absolute top-32 right-16 text-5xl text-blue-300 animate-float-delayed">𓂀</div>
+            <div className="absolute bottom-24 left-1/4 text-6xl text-amber-300 animate-float-slow">𓋹</div>
+            <div className="absolute bottom-16 right-1/4 text-4xl text-blue-400 animate-float">𓆣</div>
+            <div className="absolute top-1/2 left-1/2 text-8xl text-white/5 animate-float-slow">𓁹</div>
           </div>
           
-          <div className="relative max-w-4xl mx-auto">
+          <div className="relative max-w-5xl mx-auto">
             {/* Breadcrumb Navigation */}
-            <EgyptianBreadcrumb
-              items={[
-                { label: 'Home', arabicLabel: 'الرئيسية', href: '/' },
-                { label: 'Blog', arabicLabel: 'المدونة', href: '/blog' },
-                { label: article.symbol.name, arabicLabel: article.symbol.arabicName }
-              ]}
-              className="mb-8"
-            />
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <EgyptianBreadcrumb
+                items={[
+                  { label: 'Home', arabicLabel: 'الرئيسية', href: '/' },
+                  { label: 'Blog', arabicLabel: 'المدونة', href: '/blog' },
+                  { label: article.symbol.name, arabicLabel: article.symbol.arabicName }
+                ]}
+                className="mb-10"
+              />
+            </motion.div>
 
             {/* Article Header */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-center mb-12"
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-center"
             >
-              {/* Symbol Icon */}
-              <div className="mb-6">
-                <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-amber-400 to-blue-600 rounded-full text-white text-4xl shadow-2xl">
-                  {getSymbolIcon(article.symbol.name)}
+              {/* Symbol Icon with Glow Effect */}
+              <motion.div 
+                className="mb-8"
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ duration: 0.8, delay: 0.3, type: "spring" }}
+              >
+                <div className="inline-flex items-center justify-center w-28 h-28 bg-gradient-to-br from-amber-400 via-amber-500 to-blue-600 rounded-3xl text-white text-5xl shadow-2xl relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-amber-400 to-blue-600 rounded-3xl blur-xl opacity-50 animate-pulse"></div>
+                  <span className="relative z-10">{getSymbolIcon(article.symbol.name)}</span>
                 </div>
-              </div>
+              </motion.div>
 
-              {/* Arabic Title */}
-              <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-amber-600 via-blue-600 to-amber-600 bg-clip-text text-transparent mb-4 font-pharaonic leading-tight">
+              {/* Category Badge */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md border border-white/30 rounded-full px-5 py-2 mb-6"
+              >
+                <span className="text-white/90 text-sm font-semibold">رموز فرعونية | Egyptian Symbols</span>
+              </motion.div>
+
+              {/* Main Title */}
+              <motion.h1 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-3 leading-tight px-4" 
+                style={{ fontFamily: 'Playfair Display, serif' }}
+              >
                 {article.arabicTitle}
-              </h1>
+              </motion.h1>
 
-              {/* English Title */}
-              <h2 className="text-2xl md:text-3xl font-semibold text-blue-900 mb-6">
+              {/* Subtitle - English */}
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                className="text-lg md:text-xl text-white/80 mb-8 px-4 max-w-3xl mx-auto"
+              >
                 {article.title}
-              </h2>
+              </motion.p>
 
               {/* Article Meta */}
-              <div className="flex flex-wrap items-center justify-center gap-6 text-gray-600 mb-8">
-                <div className="flex items-center space-x-2 rtl:space-x-reverse">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.7 }}
+                className="flex flex-wrap items-center justify-center gap-6 text-white mb-8"
+              >
+                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
-                  <span>{article.author}</span>
+                  <span className="font-medium">{article.author}</span>
                 </div>
-                <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span>{article.readingTime} دقائق قراءة</span>
+                  <span className="font-medium">{article.readingTime} دقائق قراءة</span>
                 </div>
-                <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                  <span>{new Date(article.publishDate).toLocaleDateString('ar-EG')}</span>
+                  <span className="font-medium">{new Date(article.publishDate).toLocaleDateString('ar-EG')}</span>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Tags */}
-              <div className="flex justify-center mb-8">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+                className="flex justify-center mb-8"
+              >
                 <EgyptianTags 
                   tags={article.tags} 
                   maxTags={4} 
                   variant="gradient"
                 />
-              </div>
+              </motion.div>
 
               {/* Share Button */}
-              <button
+              <motion.button
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.9 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => setShowShareDialog(true)}
-                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-amber-500 to-blue-500 text-white font-semibold rounded-full hover:from-amber-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-white text-gray-900 font-semibold rounded-full hover:bg-amber-50 transition-all duration-300 shadow-2xl"
               >
-                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
                 </svg>
-                شارك المقال
-              </button>
+                <span>شارك المقال</span>
+              </motion.button>
             </motion.div>
           </div>
         </section>
 
         {/* Enhanced Article Content with SEO and Product Integration */}
-        <section className="py-16 px-4">
-          <BlogArticleEnhanced 
-            article={article}
-            showProductIntegration={true}
-            showInternalLinks={true}
-            showCTASections={true}
-          />
+        <section className="py-16 px-4 -mt-16 relative z-10">
+          <div className="max-w-4xl mx-auto">
+            {/* Content Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-gray-100"
+            >
+              <BlogArticleEnhanced 
+                article={article}
+                showProductIntegration={true}
+                showInternalLinks={true}
+                showCTASections={true}
+              />
+            </motion.div>
+          </div>
         </section>
 
 
 
         {/* Related Articles Section */}
         {relatedArticles.length > 0 && (
-          <section className="py-16 px-4">
+          <section className="py-20 px-4 bg-gradient-to-br from-white via-amber-50/20 to-blue-50/20">
             <div className="max-w-6xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.4 }}
-                className="text-center mb-12"
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="text-center mb-16"
               >
-                <h2 className="text-3xl font-bold text-blue-900 mb-4">
-                  مقالات ذات صلة | Related Articles
+                <span className="inline-block text-amber-600 font-semibold text-sm uppercase tracking-wider mb-3">
+                  📚 اقرأ المزيد
+                </span>
+                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
+                  مقالات ذات صلة
                 </h2>
-                <div className="w-24 h-1 bg-gradient-to-r from-amber-500 to-blue-500 mx-auto"></div>
+                <p className="text-xl text-gray-600 mb-6">Related Articles</p>
+                <div className="w-24 h-1.5 bg-gradient-to-r from-amber-500 via-blue-500 to-amber-500 mx-auto rounded-full"></div>
               </motion.div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
                 {relatedArticles.map((relatedArticle, index) => (
-                  <motion.article
+                  <motion.div
                     key={relatedArticle.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 1.6 + (index * 0.1) }}
-                    className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 group"
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.15 }}
                   >
-                    <div className="relative h-48 bg-gradient-to-br from-amber-400 to-blue-600 flex items-center justify-center">
-                      <div className="text-6xl text-white/80 group-hover:scale-110 transition-transform duration-300">
-                        {getSymbolIcon(relatedArticle.symbol.name)}
-                      </div>
-                    </div>
-                    
-                    <div className="p-6">
-                      <h3 className="text-lg font-bold text-blue-900 mb-2 group-hover:text-amber-600 transition-colors">
-                        {relatedArticle.arabicTitle}
-                      </h3>
-                      <h4 className="text-md font-semibold text-gray-700 mb-3">
-                        {relatedArticle.title}
-                      </h4>
-                      <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                        {relatedArticle.description}
-                      </p>
-                      
-                      <Link
-                        href={`/blog/${relatedArticle.slug}`}
-                        className="inline-flex items-center text-blue-600 hover:text-amber-600 font-medium transition-colors"
+                    <Link href={`/blog/${relatedArticle.slug}`}>
+                      <motion.article
+                        className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 group cursor-pointer h-full flex flex-col border border-gray-100"
+                        whileHover={{ y: -12, scale: 1.02 }}
+                        transition={{ duration: 0.3 }}
                       >
-                        اقرأ المزيد
-                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </Link>
-                    </div>
-                  </motion.article>
+                        {/* Image/Icon Section */}
+                        <div className="relative h-56 bg-gradient-to-br from-amber-400 via-amber-500 to-blue-600 flex items-center justify-center overflow-hidden">
+                          <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors duration-300"></div>
+                          <motion.div 
+                            className="text-7xl text-white/90 relative z-10"
+                            whileHover={{ scale: 1.15, rotate: 5 }}
+                            transition={{ duration: 0.3 }}
+                          >
+                            {getSymbolIcon(relatedArticle.symbol.name)}
+                          </motion.div>
+                          
+                          {/* Reading Time Badge */}
+                          <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg">
+                            <div className="flex items-center gap-2">
+                              <svg className="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              <span className="text-gray-700 text-sm font-semibold">{relatedArticle.readingTime} دقائق</span>
+                            </div>
+                          </div>
+
+                          {/* Decorative Corner */}
+                          <div className="absolute bottom-0 left-0 w-20 h-20 bg-white/10 rounded-tr-full"></div>
+                        </div>
+                        
+                        {/* Content Section */}
+                        <div className="p-6 flex-1 flex flex-col">
+                          <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-amber-600 transition-colors leading-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
+                            {relatedArticle.arabicTitle}
+                          </h3>
+                          <h4 className="text-lg font-semibold text-gray-600 mb-3 leading-snug">
+                            {relatedArticle.title}
+                          </h4>
+                          <p className="text-gray-600 mb-5 line-clamp-3 leading-relaxed flex-1">
+                            {relatedArticle.description}
+                          </p>
+                          
+                          {/* Footer */}
+                          <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                            <span className="text-xs bg-blue-50 text-blue-700 px-3 py-1.5 rounded-full font-medium">
+                              {relatedArticle.symbol.historicalPeriod}
+                            </span>
+                            <div className="inline-flex items-center text-amber-600 group-hover:text-blue-600 font-semibold transition-colors">
+                              <span className="text-sm">اقرأ المزيد</span>
+                              <motion.svg 
+                                className="w-5 h-5 ml-2" 
+                                fill="none" 
+                                stroke="currentColor" 
+                                viewBox="0 0 24 24"
+                                animate={{ x: [0, 5, 0] }}
+                                transition={{ duration: 1.5, repeat: Infinity }}
+                              >
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                              </motion.svg>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.article>
+                    </Link>
+                  </motion.div>
                 ))}
               </div>
             </div>

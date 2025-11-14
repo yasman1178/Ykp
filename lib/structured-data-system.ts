@@ -50,9 +50,8 @@ const DEFAULT_CONFIG: StructuredDataConfig = {
       email: 'info@egyptianpillows.com'
     },
     sameAs: [
-      'https://www.facebook.com/egyptianpillows',
-      'https://www.linkedin.com/company/egyptian-pillow-manufacturing',
-      'https://www.instagram.com/egyptianpillows'
+      'https://www.facebook.com/new.cairo.893792',
+      'https://www.linkedin.com/in/ykp-eg-483b8a398'
     ]
   },
   website: {

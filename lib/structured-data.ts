@@ -89,9 +89,8 @@ export const generateOrganizationSchema = () => {
       }
     ],
     sameAs: [
-      'https://linkedin.com/company/pharaonic-pillows',
-      'https://facebook.com/pharaonicpillows',
-      'https://instagram.com/pharaonicpillows',
+      'https://www.linkedin.com/in/ykp-eg-483b8a398',
+      'https://www.facebook.com/new.cairo.893792',
       'https://twitter.com/pharaonicpillows'
     ],
     makesOffer: {

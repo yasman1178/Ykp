@@ -1,6 +1,6 @@
-# YKP Supplies - Egyptian Heritage Travel Pillows
+# YKP Supplies - New Cairo
 
-A premium e-commerce website for YKP Supplies, showcasing Egyptian heritage travel pillows with wholesale and manufacturing capabilities.
+A premium e-commerce website for YKP Supplies - New Cairo, showcasing Egyptian heritage travel pillows with wholesale and manufacturing capabilities.
 
 ## Features
 

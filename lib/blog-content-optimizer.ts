@@ -182,8 +182,7 @@ export const generateEnhancedStructuredData = (article: BlogArticle) => {
         height: 60
       },
       sameAs: [
-        'https://www.facebook.com/PharaonicPillows',
-        'https://www.instagram.com/pharaonicpillows',
+        'https://www.facebook.com/new.cairo.893792',
         'https://twitter.com/PharaonicPillows'
       ]
     },
