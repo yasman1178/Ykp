@@ -34,12 +34,24 @@ export default async function handler(
       }
     }
 
-    // Create transporter (you'll need to configure this with your email service)
+    // Check if email credentials are configured
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      console.error('Email credentials missing:', {
+        EMAIL_USER: !!process.env.EMAIL_USER,
+        EMAIL_PASS: !!process.env.EMAIL_PASS
+      });
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Email service not configured. Please contact us directly at ykp.supplies@gmail.com or call +20 100 240 6013'
+      });
+    }
+
+    // Create transporter
     const transporter = nodemailer.createTransport({
-      service: 'gmail', // or your email service
+      service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER, // Your email
-        pass: process.env.EMAIL_PASS, // Your email password or app password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
@@ -181,18 +193,9 @@ export default async function handler(
   } catch (error) {
     console.error('Error sending wholesale inquiry:', error);
     
-    // Check if email credentials are configured
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-      return res.status(500).json({ 
-        success: false, 
-        message: 'Email service not configured. Please contact administrator.',
-        error: 'Missing EMAIL_USER or EMAIL_PASS environment variables'
-      });
-    }
-    
     res.status(500).json({ 
       success: false, 
-      message: 'Failed to send wholesale inquiry. Please try again or contact us directly.',
+      message: 'Failed to send wholesale inquiry. Please try again or contact us directly at ykp.supplies@gmail.com',
       error: error instanceof Error ? error.message : 'Unknown error'
     });
   }

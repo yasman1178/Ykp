@@ -28,12 +28,24 @@ export default async function handler(
       });
     }
 
-    // Create transporter (you'll need to configure this with your email service)
+    // Check if email credentials are configured
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      console.error('Email credentials missing:', {
+        EMAIL_USER: !!process.env.EMAIL_USER,
+        EMAIL_PASS: !!process.env.EMAIL_PASS
+      });
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Email service not configured. Please contact us directly at ykp.supplies@gmail.com or call +20 100 240 6013'
+      });
+    }
+
+    // Create transporter
     const transporter = nodemailer.createTransport({
-      service: 'gmail', // or your email service
+      service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER || 'ykp.supplies@gmail.com',
-        pass: process.env.EMAIL_PASS || 'tquw sjrx mgtb kuok', // Use app password for Gmail
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
@@ -103,7 +115,7 @@ export default async function handler(
 
     // Send email to company
     await transporter.sendMail({
-      from: `"YKP Supplies Website" <${process.env.EMAIL_USER || 'ykp.supplies@gmail.com'}>`,
+      from: `"YKP Supplies Website" <${process.env.EMAIL_USER}>`,
       to: 'ykp.supplies@gmail.com', // Company email
       subject: `🏭 New Manufacturing Inquiry: ${subject}`,
       html: emailContent,
@@ -174,7 +186,7 @@ export default async function handler(
     `;
 
     await transporter.sendMail({
-      from: `"YKP Supplies" <${process.env.EMAIL_USER || 'ykp.supplies@gmail.com'}>`,
+      from: `"YKP Supplies" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: '✅ Your Manufacturing Inquiry - YKP Supplies',
       html: confirmationEmail,
@@ -187,15 +199,6 @@ export default async function handler(
 
   } catch (error) {
     console.error('Contact form error:', error);
-    
-    // Check if email credentials are configured
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-      return res.status(500).json({ 
-        success: false, 
-        message: 'Email service not configured. Please contact us directly at ykp.supplies@gmail.com or call +20 100 240 6013',
-        error: 'Missing EMAIL_USER or EMAIL_PASS environment variables'
-      });
-    }
     
     res.status(500).json({ 
       success: false, 
