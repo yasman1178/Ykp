@@ -180,9 +180,20 @@ export default async function handler(
 
   } catch (error) {
     console.error('Error sending wholesale inquiry:', error);
+    
+    // Check if email credentials are configured
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Email service not configured. Please contact administrator.',
+        error: 'Missing EMAIL_USER or EMAIL_PASS environment variables'
+      });
+    }
+    
     res.status(500).json({ 
       success: false, 
-      message: 'Failed to send wholesale inquiry' 
+      message: 'Failed to send wholesale inquiry. Please try again or contact us directly.',
+      error: error instanceof Error ? error.message : 'Unknown error'
     });
   }
 }
