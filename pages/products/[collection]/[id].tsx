@@ -476,7 +476,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         weight: '400g',
         care: 'Machine Washable',
         warranty: '2 Years',
-        barcode: getBarcode(collection, productNumber)
+        ...(getBarcode(collection, productNumber) && { barcode: getBarcode(collection, productNumber) })
       },
       gallery: [
         `/prodect/${collection === 'premium' ? 'b123' : collection === 'classic' ? 't' : 'tb'}/${parseInt(productNumber)}.png`,

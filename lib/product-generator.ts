@@ -250,7 +250,7 @@ const convertToProduct = (analysis: ProductAnalysis): Product => {
         brand: 'Pharaonic Pillows',
         category: 'Travel Accessories',
         sku: `PH-${analysis.collection.toUpperCase()}-${analysis.id.split('-')[1]}`,
-        gtin: getProductBarcode(analysis.id),
+        ...(getProductBarcode(analysis.id) && { gtin: getProductBarcode(analysis.id) }),
         image: [analysis.imagePath],
         offers: {
           '@type': 'Offer',
