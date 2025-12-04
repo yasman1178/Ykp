@@ -34,7 +34,7 @@ export const B123_PRODUCTS: ProductAnalysis[] = [
   {
     id: 'b123-001',
     collection: 'b123',
-    imagePath: '/prodect/b123/1.png',
+    imagePath: '/prodect/b123/1.webp',
     name: 'Golden Pharaoh Memory Pillow',
     description: 'Luxurious travel pillow featuring intricate golden pharaonic patterns inspired by King Tutankhamun\'s treasures. Premium memory foam core provides exceptional comfort.',
     designElements: ['Golden accents', 'Royal patterns', 'Hieroglyphic borders', 'Premium fabric'],
@@ -57,7 +57,7 @@ export const B123_PRODUCTS: ProductAnalysis[] = [
   {
     id: 'b123-002',
     collection: 'b123',
-    imagePath: '/prodect/b123/2.png',
+    imagePath: '/prodect/b123/2.webp',
     name: 'Royal Nefertiti Comfort Pillow',
     description: 'Elegant travel pillow celebrating the beauty of Queen Nefertiti with sophisticated Egyptian motifs and premium comfort technology.',
     designElements: ['Queen silhouette', 'Elegant curves', 'Royal blue accents', 'Gold threading'],
@@ -80,7 +80,7 @@ export const B123_PRODUCTS: ProductAnalysis[] = [
   {
     id: 'b123-003',
     collection: 'b123',
-    imagePath: '/prodect/b123/3.png',
+    imagePath: '/prodect/b123/3.webp',
     name: 'Sacred Pyramid Energy Pillow',
     description: 'Premium travel pillow featuring pyramid geometry and sacred Egyptian symbols, designed to channel positive energy during travel.',
     designElements: ['Pyramid patterns', 'Sacred geometry', 'Energy lines', 'Mystical symbols'],
@@ -108,7 +108,7 @@ export const T_PRODUCTS: ProductAnalysis[] = [
   {
     id: 't-001',
     collection: 't',
-    imagePath: '/prodect/t/1.png',
+    imagePath: '/prodect/t/1.webp',
     name: 'Classic Ankh Travel Pillow',
     description: 'Traditional Egyptian travel pillow featuring the timeless Ankh symbol, offering reliable comfort with authentic Egyptian design.',
     designElements: ['Ankh symbol', 'Traditional patterns', 'Classic colors', 'Timeless design'],
@@ -131,7 +131,7 @@ export const T_PRODUCTS: ProductAnalysis[] = [
   {
     id: 't-002',
     collection: 't',
-    imagePath: '/prodect/t/2.png',
+    imagePath: '/prodect/t/2.webp',
     name: 'Traditional Scarab Comfort Pillow',
     description: 'Comfortable travel pillow adorned with the protective scarab beetle design, symbolizing renewal and protection during journeys.',
     designElements: ['Scarab beetle', 'Protection symbols', 'Traditional weaving', 'Classic comfort'],
@@ -159,7 +159,7 @@ export const TB_PRODUCTS: ProductAnalysis[] = [
   {
     id: 'tb-001',
     collection: 'tb',
-    imagePath: '/prodect/tb/1.png',
+    imagePath: '/prodect/tb/1.webp',
     name: 'Eye of Horus Protection Pillow',
     description: 'Heritage travel pillow featuring the powerful Eye of Horus symbol, offering protection and healing energy for travelers.',
     designElements: ['Eye of Horus', 'Protective patterns', 'Ancient symbols', 'Healing colors'],
@@ -182,7 +182,7 @@ export const TB_PRODUCTS: ProductAnalysis[] = [
   {
     id: 'tb-002',
     collection: 'tb',
-    imagePath: '/prodect/tb/2.png',
+    imagePath: '/prodect/tb/2.webp',
     name: 'Hieroglyphic Wisdom Pillow',
     description: 'Authentic heritage pillow decorated with ancient hieroglyphic inscriptions, bringing the wisdom of the pharaohs to modern travel.',
     designElements: ['Hieroglyphic text', 'Ancient script', 'Wisdom symbols', 'Scholar patterns'],
@@ -287,7 +287,7 @@ const ADDITIONAL_B123_PRODUCTS: ProductAnalysis[] = [
   {
     id: 'b123-004',
     collection: 'b123',
-    imagePath: '/prodect/b123/4.png',
+    imagePath: '/prodect/b123/4.webp',
     name: 'Cleopatra Royal Comfort Pillow',
     description: 'Luxurious pillow inspired by the legendary Queen Cleopatra, featuring serpent motifs and royal Egyptian elegance.',
     designElements: ['Serpent patterns', 'Royal crown', 'Golden asp', 'Regal fabrics'],
@@ -310,7 +310,7 @@ const ADDITIONAL_B123_PRODUCTS: ProductAnalysis[] = [
   {
     id: 'b123-005',
     collection: 'b123',
-    imagePath: '/prodect/b123/5.png',
+    imagePath: '/prodect/b123/5.webp',
     name: 'Anubis Guardian Travel Pillow',
     description: 'Premium travel pillow featuring Anubis, the guardian of the afterlife, providing protection and peaceful rest during journeys.',
     designElements: ['Anubis silhouette', 'Guardian patterns', 'Protective symbols', 'Afterlife motifs'],
@@ -337,7 +337,7 @@ const ADDITIONAL_T_PRODUCTS: ProductAnalysis[] = [
   {
     id: 't-003',
     collection: 't',
-    imagePath: '/prodect/t/3.png',
+    imagePath: '/prodect/t/3.webp',
     name: 'Lotus Flower Serenity Pillow',
     description: 'Classic travel pillow featuring the sacred lotus flower, symbol of rebirth and purity in ancient Egyptian culture.',
     designElements: ['Lotus petals', 'Water patterns', 'Serenity colors', 'Natural motifs'],
@@ -360,7 +360,7 @@ const ADDITIONAL_T_PRODUCTS: ProductAnalysis[] = [
   {
     id: 't-004',
     collection: 't',
-    imagePath: '/prodect/t/4.png',
+    imagePath: '/prodect/t/4.webp',
     name: 'Sphinx Wisdom Travel Pillow',
     description: 'Traditional pillow featuring the Great Sphinx, combining ancient wisdom with modern comfort for thoughtful travelers.',
     designElements: ['Sphinx profile', 'Wisdom symbols', 'Desert colors', 'Ancient mystery'],
@@ -387,7 +387,7 @@ const ADDITIONAL_TB_PRODUCTS: ProductAnalysis[] = [
   {
     id: 'tb-003',
     collection: 'tb',
-    imagePath: '/prodect/tb/3.png',
+    imagePath: '/prodect/tb/3.webp',
     name: 'Pharaoh\'s Cartouche Heritage Pillow',
     description: 'Authentic heritage pillow featuring royal cartouches and pharaonic names, connecting travelers to ancient Egyptian royalty.',
     designElements: ['Royal cartouches', 'Pharaoh names', 'Royal seals', 'Dynasty symbols'],
@@ -410,7 +410,7 @@ const ADDITIONAL_TB_PRODUCTS: ProductAnalysis[] = [
   {
     id: 'tb-004',
     collection: 'tb',
-    imagePath: '/prodect/tb/4.png',
+    imagePath: '/prodect/tb/4.webp',
     name: 'Sacred Ibis Wisdom Pillow',
     description: 'Heritage pillow honoring Thoth, the ibis-headed god of wisdom and writing, perfect for scholarly travelers and knowledge seekers.',
     designElements: ['Ibis bird', 'Wisdom scrolls', 'Writing tools', 'Knowledge symbols'],

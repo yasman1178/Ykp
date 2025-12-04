@@ -1,0 +1,103 @@
+{
+    "site": {
+        "title": "Egyptian Travel Pillows Manufacturing - YKP Supplies New Cairo",
+        "description": "Discover premium Egyptian travel pillows, expertly manufactured by YKP Supplies in New Cairo. Experience authentic Pharaonic heritage with modern memory foam comfort. We offer wholesale travel pillows and B2B opportunities for global distributors. Explore our unique designs and superior quality for your next journey!"
+    },
+    "nav": {
+        "home": "Home",
+        "products": "Products",
+        "about": "About",
+        "contact": "Contact",
+        "wholesale": "Wholesale",
+        "partnership": "Partnership",
+        "blog": "Blog"
+    },
+    "hero": {
+        "title1": "Egyptian Travel Pillows Manufacturing",
+        "title2": "YKP Supplies - New Cairo",
+        "subtitle": "Crafting premium travel pillows inspired by Egyptian Pharaonic heritage. Where ancient craftsmanship meets modern memory foam technology.",
+        "subtitle2": "Experience the comfort of Egyptian heritage on every journey with our expertly manufactured pillows.",
+        "exploreBtn": "Explore Products",
+        "wholesaleBtn": "Wholesale Inquiry",
+        "stats": {
+            "countries": "Countries Served",
+            "travelers": "Happy Travelers",
+            "heritage": "Egyptian Heritage"
+        }
+    },
+    "collections": {
+        "title": "Our Authentic Egyptian Collections",
+        "subtitle": "Discover our meticulously crafted collections, each weaving a tale of ancient Egyptian civilization. Designed with unparalleled modern comfort technology and a commitment to quality for today's discerning travelers.",
+        "classic": {
+            "title": "Classic Collection",
+            "description": "Luxurious designs inspired by royal Egyptian artifacts",
+            "features": [
+                "Memory Foam Core",
+                "Royal Egyptian Patterns",
+                "Premium Materials"
+            ]
+        },
+        "premium": {
+            "title": "Premium Collection",
+            "description": "Timeless Egyptian motifs for everyday comfort",
+            "features": [
+                "Classic Comfort",
+                "Traditional Designs",
+                "Durable Construction"
+            ]
+        },
+        "heritage": {
+            "title": "Heritage Collection (TB)",
+            "description": "Ancient symbols reimagined for modern travelers",
+            "features": [
+                "Heritage Patterns",
+                "Cultural Authenticity",
+                "Modern Comfort"
+            ]
+        },
+        "exploreBtn": "Explore Collection"
+    },
+    "features": {
+        "title": "Why Choose Our Egyptian Travel Pillows?",
+        "subtitle": "We proudly combine the richness of traditional Egyptian craftsmanship with cutting-edge modern technology to deliver unparalleled quality and comfort.",
+        "authentic": {
+            "title": "Authentic Egyptian Heritage",
+            "description": "Our designs are directly inspired by genuine Pharaonic symbols and the rich tapestry of ancient Egyptian civilization, ensuring a truly authentic experience."
+        },
+        "comfort": {
+            "title": "Unrivaled Superior Comfort",
+            "description": "Each pillow is crafted from the highest quality, responsive memory foam, engineered to provide optimal support and comfort for every journey."
+        },
+        "global": {
+            "title": "Trusted Global Distribution",
+            "description": "We proudly partner with international distributors worldwide, sharing authentic Egyptian comfort across the globe. Explore our wholesale opportunities!"
+        }
+    },
+    "cta": {
+        "title": "Ready for Partnership?",
+        "subtitle": "Join our global network of distributors and bring Egyptian heritage travel comfort to your market",
+        "subtitle2": "Wholesale opportunities available worldwide",
+        "quoteBtn": "Get Wholesale Quote",
+        "partnerBtn": "Partnership Program"
+    },
+    "about": {
+        "title": "Authentic Egyptian Craftsmanship",
+        "subtitle": "We are an Egyptian company specialized in manufacturing luxury travel pillows inspired by ancient Pharaonic heritage",
+        "features": [
+            "Local manufacturing with global quality",
+            "High-quality raw materials",
+            "Authentic Pharaonic designs",
+            "Exceptional customer service"
+        ],
+        "learnBtn": "Learn More About Us"
+    },
+    "keywords": "Egyptian travel pillows manufacturing, wholesale travel pillows, B2B travel pillows, memory foam travel pillows, Pharaonic design pillows, Egyptian heritage pillows, comfort travel accessories, luxury travel pillows, Egyptian exports, unique travel pillows, customized travel pillows",
+    "testimonials": {
+        "title": "What Our Travelers Say",
+        "subtitle": "Hear from our happy customers who experienced the comfort and heritage of YKP Supplies travel pillows."
+    },
+    "trust": {
+        "title": "Trusted Quality & Authentic Heritage",
+        "subtitle": "Our commitment to excellence is backed by industry certifications and genuine Egyptian craftsmanship."
+    }
+}

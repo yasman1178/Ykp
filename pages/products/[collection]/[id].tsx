@@ -380,15 +380,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
   // Generate paths for all products
   const paths: { params: { collection: string; id: string } }[] = [];
   
-  // Add paths for all collections and their products
-  const collections = ['premium', 'classic', 'heritage'];
-  const productCounts = { premium: 15, classic: 12, heritage: 36 };
+  // Add paths for all collections and their products - Updated counts
+  const collections = ['premium', 'classic', 'heritage', 'print'];
+  const productCounts = { premium: 23, classic: 21, heritage: 36, print: 5 };
   
   collections.forEach(collection => {
     const count = productCounts[collection as keyof typeof productCounts];
     for (let i = 1; i <= count; i++) {
       const id = collection === 'premium' ? `b123-${i.toString().padStart(3, '0')}` :
                  collection === 'classic' ? `t-${i.toString().padStart(3, '0')}` :
+                 collection === 'print' ? `print-${i.toString().padStart(3, '0')}` :
                  `tb-${i.toString().padStart(3, '0')}`;
       paths.push({
         params: { collection, id }
@@ -447,6 +448,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         badge: 'Heritage',
         color: 'from-green-600 to-teal-600',
         bgGradient: 'from-green-900 via-teal-900 to-cyan-900'
+      },
+      print: {
+        name: 'Print Collection',
+        badge: 'Custom',
+        color: 'from-red-600 to-pink-600',
+        bgGradient: 'from-red-900 via-pink-900 to-rose-900'
       }
     };
 
@@ -455,7 +462,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     
     return {
       id: id as string,
-      image: `/prodect/${collection === 'premium' ? 'b123' : collection === 'classic' ? 't' : 'tb'}/${parseInt(productNumber)}.png`,
+      image: `/prodect/${collection === 'premium' ? 'b123' : collection === 'classic' ? 't' : collection === 'print' ? 'Print' : 'tb'}/${parseInt(productNumber)}.webp`,
       name: `Egyptian Travel Pillow ${productNumber}`,
       price: collection === 'premium' ? `$${10 + Math.floor(Math.random() * 16)}` : collection === 'classic' ? '$35' : '$55',
       description: `Premium Egyptian travel pillow with authentic ${collectionData.name.toLowerCase()} design and modern comfort technology.`,
@@ -479,10 +486,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         ...(getBarcode(collection, productNumber) && { barcode: getBarcode(collection, productNumber) })
       },
       gallery: [
-        `/prodect/${collection === 'premium' ? 'b123' : collection === 'classic' ? 't' : 'tb'}/${parseInt(productNumber)}.png`,
-        `/prodect/${collection === 'premium' ? 'b123' : collection === 'classic' ? 't' : 'tb'}/${parseInt(productNumber) + 1 <= (collection === 'premium' ? 15 : collection === 'classic' ? 12 : 36) ? parseInt(productNumber) + 1 : 1}.png`,
-        `/prodect/${collection === 'premium' ? 'b123' : collection === 'classic' ? 't' : 'tb'}/${parseInt(productNumber) + 2 <= (collection === 'premium' ? 15 : collection === 'classic' ? 12 : 36) ? parseInt(productNumber) + 2 : 2}.png`,
-        `/prodect/${collection === 'premium' ? 'b123' : collection === 'classic' ? 't' : 'tb'}/${parseInt(productNumber) + 3 <= (collection === 'premium' ? 15 : collection === 'classic' ? 12 : 36) ? parseInt(productNumber) + 3 : 3}.png`,
+        `/prodect/${collection === 'premium' ? 'b123' : collection === 'classic' ? 't' : collection === 'print' ? 'Print' : 'tb'}/${parseInt(productNumber)}.webp`,
+        `/prodect/${collection === 'premium' ? 'b123' : collection === 'classic' ? 't' : collection === 'print' ? 'Print' : 'tb'}/${parseInt(productNumber) + 1 <= (collection === 'premium' ? 23 : collection === 'classic' ? 21 : collection === 'print' ? 5 : 36) ? parseInt(productNumber) + 1 : 1}.webp`,
+        `/prodect/${collection === 'premium' ? 'b123' : collection === 'classic' ? 't' : collection === 'print' ? 'Print' : 'tb'}/${parseInt(productNumber) + 2 <= (collection === 'premium' ? 23 : collection === 'classic' ? 21 : collection === 'print' ? 5 : 36) ? parseInt(productNumber) + 2 : 2}.webp`,
+        `/prodect/${collection === 'premium' ? 'b123' : collection === 'classic' ? 't' : collection === 'print' ? 'Print' : 'tb'}/${parseInt(productNumber) + 3 <= (collection === 'premium' ? 23 : collection === 'classic' ? 21 : collection === 'print' ? 5 : 36) ? parseInt(productNumber) + 3 : 3}.webp`,
       ]
     };
   };
@@ -491,7 +498,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   
   // Get related products (4 random products from the same collection)
   const relatedProducts = [];
-  const maxProducts = collection === 'premium' ? 15 : collection === 'classic' ? 12 : 36;
+  const maxProducts = collection === 'premium' ? 23 : collection === 'classic' ? 21 : collection === 'print' ? 5 : 36;
   const currentProductNum = parseInt((id as string).split('-')[1]);
   
   for (let i = 1; i <= 4; i++) {
@@ -500,6 +507,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     
     const relatedId = collection === 'premium' ? `b123-${relatedNum.toString().padStart(3, '0')}` :
                      collection === 'classic' ? `t-${relatedNum.toString().padStart(3, '0')}` :
+                     collection === 'print' ? `print-${relatedNum.toString().padStart(3, '0')}` :
                      `tb-${relatedNum.toString().padStart(3, '0')}`;
     
     relatedProducts.push(getProductData(collection as string, relatedId));

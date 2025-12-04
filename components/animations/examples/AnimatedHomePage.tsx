@@ -22,7 +22,7 @@ const sampleProducts = [
     id: '1',
     name: 'مخدة سفر أنوبيس',
     category: 'Premium Collection',
-    image: '/prodect/b123/1.png',
+    image: '/prodect/b123/1.webp',
     description: 'مخدة سفر فاخرة مستوحاة من   الموت المصري أنوبيس',
     pharaonicSymbols: ['أنوبيس', 'الجعران']
   },
@@ -30,7 +30,7 @@ const sampleProducts = [
     id: '2',
     name: 'مخدة عين حورس',
     category: 'Classic Collection',
-    image: '/prodect/t/1.png',
+    image: '/prodect/t/1.webp',
     description: 'مخدة مريحة برمز عين حورس للحماية والقوة',
     pharaonicSymbols: ['عين حورس']
   },
@@ -38,7 +38,7 @@ const sampleProducts = [
     id: '3',
     name: 'مخدة الهرم الذهبي',
     category: 'Heritage Collection',
-    image: '/prodect/tb/1.png',
+    image: '/prodect/tb/1.webp',
     description: 'تصميم هرمي كلاسيكي يرمز للخلود والعظمة',
     pharaonicSymbols: ['الهرم', 'الذهب']
   }

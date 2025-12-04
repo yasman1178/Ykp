@@ -1,15 +1,43 @@
 /**
- * Next.js Middleware for protecting admin routes
- * Adds additional security layer for admin pages
+ * Next.js Middleware for SEO optimization and security
+ * Handles canonical URL enforcement, redirects, and security headers
  */
 
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { needsCanonicalRedirect, getRedirectForPattern } from '@/lib/canonical-url';
 
 export function middleware(request: NextRequest) {
-  // Check if the request is for admin routes
-  if (request.nextUrl.pathname.startsWith('/admin')) {
-    // Add security headers
+  const { pathname, searchParams } = request.nextUrl;
+  
+  // 1. Handle canonical URL enforcement (except for API routes and static files)
+  if (!pathname.startsWith('/api') && 
+      !pathname.startsWith('/_next') && 
+      !pathname.match(/\.(jpg|jpeg|png|gif|svg|ico|css|js|woff|woff2|ttf|eot)$/)) {
+    
+    // Check if URL needs canonical redirect
+    const { needsRedirect, canonicalPath } = needsCanonicalRedirect(
+      pathname,
+      searchParams
+    );
+    
+    if (needsRedirect) {
+      const url = request.nextUrl.clone();
+      url.pathname = canonicalPath;
+      return NextResponse.redirect(url, 301);
+    }
+    
+    // Check for pattern-based redirects
+    const patternRedirect = getRedirectForPattern(pathname);
+    if (patternRedirect && patternRedirect !== pathname) {
+      const url = request.nextUrl.clone();
+      url.pathname = patternRedirect;
+      return NextResponse.redirect(url, 301);
+    }
+  }
+  
+  // 2. Handle admin routes with enhanced security
+  if (pathname.startsWith('/admin')) {
     const response = NextResponse.next();
     
     // Prevent caching of admin pages
@@ -20,7 +48,9 @@ export function middleware(request: NextRequest) {
     // Add security headers
     response.headers.set('X-Frame-Options', 'DENY');
     response.headers.set('X-Content-Type-Options', 'nosniff');
+    response.headers.set('X-XSS-Protection', '1; mode=block');
     response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+    response.headers.set('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
     
     // Add CSP header for admin pages
     response.headers.set(
@@ -31,9 +61,37 @@ export function middleware(request: NextRequest) {
     return response;
   }
   
-  return NextResponse.next();
+  // 3. Add standard security headers for all other routes
+  const response = NextResponse.next();
+  
+  // Security headers
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('X-Frame-Options', 'SAMEORIGIN');
+  response.headers.set('X-XSS-Protection', '1; mode=block');
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  
+  // Add language headers based on path
+  const locale = pathname.startsWith('/ar') ? 'ar' : 'en';
+  response.headers.set('Content-Language', locale);
+  
+  // Add cache headers for static content
+  if (pathname.startsWith('/prodect') || 
+      pathname.startsWith('/public') ||
+      pathname.match(/\.(jpg|jpeg|png|gif|svg|webp)$/)) {
+    response.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+  }
+  
+  return response;
 }
 
 export const config = {
-  matcher: '/admin/:path*',
+  matcher: [
+    /*
+     * Match all request paths except:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    '/((?!_next/static|_next/image|favicon.ico).*)',
+  ],
 };

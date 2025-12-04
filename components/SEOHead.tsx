@@ -1,5 +1,7 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { SEOConfig } from '@/lib/seo-config';
+import { generateCanonicalUrl, generateHreflangUrls } from '@/lib/canonical-url';
 
 interface SEOHeadProps {
   seoConfig: SEOConfig;
@@ -12,6 +14,14 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
   structuredData,
   canonical 
 }) => {
+  const router = useRouter();
+  
+  // Generate canonical URL if not provided
+  const canonicalUrl = canonical || generateCanonicalUrl(router.pathname);
+  
+  // Generate hreflang URLs for multilingual support
+  const hreflangUrls = generateHreflangUrls(router.pathname);
+  
   return (
     <Head>
       {/* Basic Meta Tags */}
@@ -25,11 +35,15 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       {/* Language and Locale */}
       <meta httpEquiv="Content-Language" content="en" />
       <meta name="language" content="English" />
-      <link rel="alternate" hrefLang="en" href={seoConfig.openGraph.url} />
-      <link rel="alternate" hrefLang="ar" href={`${seoConfig.openGraph.url}/ar`} />
       
-      {/* Canonical URL */}
-      {canonical && <link rel="canonical" href={canonical} />}
+      {/* Canonical URL - Always include */}
+      <link rel="canonical" href={canonicalUrl} />
+      
+      {/* Hreflang tags for multilingual support */}
+      {hreflangUrls.map(({ locale, url }) => (
+        <link key={locale} rel="alternate" hrefLang={locale} href={url} />
+      ))}
+      <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
       
       {/* Open Graph Meta Tags */}
       <meta property="og:title" content={seoConfig.openGraph.title} />

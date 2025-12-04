@@ -19,6 +19,7 @@ interface Product {
   id: string;
   name: string;
   category: string;
+  collection?: string;
   image: string;
   price?: string;
   description: string;
@@ -141,7 +142,7 @@ export const AnimatedProductCard: React.FC<AnimatedProductCardProps> = ({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.5 }}
           >
-            <Link href={`/products/${product.id}`} passHref>
+            <Link href={product.collection ? `/products/${product.collection}/${product.id}` : `/products`} passHref>
               <GoldenButton className="view-product-btn">
                 عرض التفاصيل
               </GoldenButton>

@@ -20,6 +20,12 @@ const nextConfig = {
   experimental: {
     // optimizeCss: true, // Disabled due to critters dependency issue
   },
+  // Internationalization support for Arabic and English
+  i18n: {
+    locales: ['en', 'ar'],
+    defaultLocale: 'en',
+    localeDetection: false,
+  },
 }
 
 module.exports = nextConfig

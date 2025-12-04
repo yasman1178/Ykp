@@ -1,47 +1,125 @@
 # Robots.txt for Pharaonic Pillows - Egyptian Travel Pillows Website
 # Optimized for search engine crawling and SEO
+# Last updated: 2024-12-03
 
+# Default rules for all crawlers
 User-agent: *
-Allow: /
 
-# Allow crawling of all main pages
+# Allow all public pages for crawling
+Allow: /
 Allow: /products/
+Allow: /products/b123/
+Allow: /products/t/
+Allow: /products/tb/
 Allow: /blog/
 Allow: /about
 Allow: /contact
 Allow: /wholesale
 Allow: /partnership
+Allow: /distributor
+Allow: /services
+Allow: /egyptian-culture
+Allow: /pharaonic-symbols
 
-# Disallow admin and private areas
+# Disallow admin and API routes
 Disallow: /admin/
+Disallow: /admin
 Disallow: /api/
-Disallow: /_next/
-Disallow: /private/
+Disallow: /data/
 
-# Allow crawling of product images and assets
-Allow: /public/prodect/
+# Disallow Next.js internal routes
+Disallow: /_next/
+Disallow: /_error
+Disallow: /_document
+Disallow: /_app
+
+# Disallow private and system directories
+Disallow: /private/
+Disallow: /.git/
+Disallow: /.kiro/
+Disallow: /node_modules/
+
+# Disallow duplicate content and query parameters
+Disallow: /*?*sort=
+Disallow: /*?*filter=
+Disallow: /*?*page=
+Disallow: /*?*utm_
+
+# Allow crawling of static assets and images
+Allow: /prodect/
+Allow: /public/
 Allow: /images/
 Allow: /*.jpg$
 Allow: /*.jpeg$
 Allow: /*.png$
 Allow: /*.webp$
 Allow: /*.svg$
+Allow: /*.gif$
+Allow: /*.css$
+Allow: /*.js$
 
 # Sitemap location
 Sitemap: https://pharaonicpillows.com/sitemap.xml
 
-# Crawl delay for respectful crawling
+# Crawl delay for respectful crawling (1 second between requests)
 Crawl-delay: 1
 
-# Special instructions for major search engines
+# Special instructions for Googlebot
 User-agent: Googlebot
 Allow: /
+Disallow: /admin/
+Disallow: /api/
 Crawl-delay: 0
 
+# Special instructions for Googlebot Image
+User-agent: Googlebot-Image
+Allow: /prodect/
+Allow: /public/
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.webp$
+
+# Special instructions for Bingbot
 User-agent: Bingbot
 Allow: /
+Disallow: /admin/
+Disallow: /api/
 Crawl-delay: 1
 
+# Special instructions for Yahoo Slurp
 User-agent: Slurp
 Allow: /
+Disallow: /admin/
+Disallow: /api/
 Crawl-delay: 2
+
+# Special instructions for Baidu (Chinese search engine)
+User-agent: Baiduspider
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Crawl-delay: 2
+
+# Special instructions for Yandex (Russian search engine)
+User-agent: Yandex
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Crawl-delay: 1
+
+# Block bad bots and scrapers
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Host directive (preferred domain)
+Host: https://pharaonicpillows.com

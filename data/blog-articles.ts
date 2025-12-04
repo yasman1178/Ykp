@@ -37,10 +37,10 @@ export interface BlogArticle {
 export const PHARAONIC_SYMBOLS_ARTICLES: BlogArticle[] = [
   {
     id: 'anubis-god-death',
-    title: 'Anubis - The Guardian of the Afterlife in Ancient Egyptian Culture',
-    arabicTitle: 'أنوبيس - حارس الآخرة في الثقافة المصرية القديمة',
-    slug: 'anubis-god-death-afterlife-egyptian-culture',
-    arabicSlug: 'انوبيس-اله-الموت-الثقافة-المصرية',
+    title: 'Anubis Travel Pillow Manufacturing | Egyptian Protection Symbol',
+    arabicTitle: 'تصنيع وسائد أنوبيس | رمز الحماية المصري القديم',
+    slug: 'anubis-travel-pillow-manufacturing-egyptian-protection',
+    arabicSlug: 'تصنيع-وسائد-انوبيس-رمز-الحماية-المصري',
     description: 'Discover the fascinating story of Anubis, the jackal-headed god who guided souls through the afterlife in ancient Egyptian mythology. Learn how this powerful symbol influences modern Egyptian travel pillow designs.',
     content: `Anubis, the jackal-headed deity of ancient Egypt, stands as one of the most recognizable and powerful symbols in Egyptian mythology. As the guardian of the afterlife and guide for souls transitioning from life to death, Anubis represents protection, guidance, and safe passage - qualities that make him an ideal symbol for Egyptian travel pillows.
 
@@ -213,10 +213,10 @@ Our Royal Scarab designs are created in consultation with Egyptian cultural expe
 
   {
     id: 'nefertiti-beauty-power',
-    title: 'Queen Nefertiti - Timeless Beauty and Royal Power in Egyptian Heritage',
-    arabicTitle: 'الملكة نفرتيتي - الجمال الخالد والقوة الملكية في التراث المصري',
-    slug: 'queen-nefertiti-beauty-royal-power-egyptian-heritage',
-    arabicSlug: 'الملكة-نفرتيتي-الجمال-القوة-الملكية-المصرية',
+    title: 'Nefertiti Travel Pillows | Luxury Egyptian Manufacturing B2B',
+    arabicTitle: 'وسائد نفرتيتي الفاخرة | تصنيع مصري فاخر للجملة',
+    slug: 'nefertiti-travel-pillows-luxury-egyptian-manufacturing-b2b',
+    arabicSlug: 'وسائد-نفرتيتي-الفاخرة-تصنيع-مصري-للجملة',
     description: 'Discover the legacy of Queen Nefertiti, ancient Egypt\'s icon of beauty and power. Learn how her timeless elegance inspires our luxury Egyptian travel pillow collection.',
     content: `Queen Nefertiti, whose name means "the beautiful one has come," remains one of ancient Egypt's most iconic figures. Her legacy of beauty, power, and elegance continues to inspire our premium Egyptian travel pillow designs, bringing royal comfort to modern travelers.
 
@@ -318,10 +318,10 @@ Just as Queen Nefertiti embodied the perfect balance of beauty and power, our Ne
 
   {
     id: 'pyramids-eternity-greatness',
-    title: 'The Great Pyramids - Eternal Monuments to Egyptian Greatness',
-    arabicTitle: 'الأهرامات العظيمة - نصب خالدة للعظمة المصرية',
-    slug: 'great-pyramids-eternity-greatness-egyptian-monuments',
-    arabicSlug: 'الاهرامات-العظيمة-الخلود-العظمة-المصرية',
+    title: 'Pyramid Travel Pillow Manufacturer | Egyptian Heritage Design',
+    arabicTitle: 'مصنع وسائد الأهرامات | تصميم التراث المصري الأصيل',
+    slug: 'pyramid-travel-pillow-manufacturer-egyptian-heritage-design',
+    arabicSlug: 'مصنع-وسائد-الاهرامات-تصميم-التراث-المصري',
     description: 'Explore the magnificent pyramids of ancient Egypt, symbols of eternity and architectural greatness. Discover how these timeless monuments inspire our premium Egyptian travel pillow designs.',
     content: `The Great Pyramids of Giza stand as humanity's most enduring symbols of eternity and architectural greatness. These magnificent monuments continue to inspire our Egyptian travel pillow designs, bringing the essence of eternal Egyptian grandeur to modern comfort.
 
@@ -416,10 +416,10 @@ Whether you're embarking on a pilgrimage to Egypt, a business journey across con
 
   {
     id: 'eye-of-horus-protection',
-    title: 'The Eye of Horus - Ancient Egyptian Symbol of Protection and Power',
-    arabicTitle: 'عين حورس - رمز الحماية والقوة في مصر القديمة',
-    slug: 'eye-of-horus-protection-power-ancient-egyptian-symbol',
-    arabicSlug: 'عين-حورس-الحماية-القوة-الرمز-المصري-القديم',
+    title: 'Eye of Horus Pillow Factory | Egyptian Protection Manufacturing',
+    arabicTitle: 'مصنع وسائد عين حورس | تصنيع الحماية المصرية',
+    slug: 'eye-of-horus-pillow-factory-egyptian-protection-manufacturing',
+    arabicSlug: 'مصنع-وسائد-عين-حورس-تصنيع-الحماية-المصرية',
     description: 'Discover the powerful symbolism of the Eye of Horus in ancient Egyptian culture. Learn how this protective symbol influences our premium Egyptian travel pillow designs for modern travelers.',
     content: `The Eye of Horus, known as "Wadjet" in ancient Egyptian, stands as one of the most powerful protective symbols in human history. This sacred eye continues to watch over modern travelers through our specially designed Egyptian travel pillows, offering the same protection that ancient Egyptians sought for their journeys.
 
@@ -626,10 +626,10 @@ Whether you're traveling for healing, spiritual growth, or simply seeking comfor
 
   {
     id: 'lotus-flower-purity-rebirth',
-    title: 'The Sacred Lotus - Symbol of Purity and Rebirth in Egyptian Culture',
-    arabicTitle: 'زهرة اللوتس المقدسة - رمز النقاء والولادة الجديدة في الثقافة المصرية',
-    slug: 'sacred-lotus-purity-rebirth-egyptian-culture-symbol',
-    arabicSlug: 'زهرة-اللوتس-المقدسة-النقاء-الولادة-الجديدة-المصرية',
+    title: 'Lotus Memory Foam Pillows | Egyptian Wellness Manufacturing',
+    arabicTitle: 'وسائد اللوتس الميموري فوم | تصنيع العافية المصرية',
+    slug: 'lotus-memory-foam-pillows-egyptian-wellness-manufacturing',
+    arabicSlug: 'وسائد-اللوتس-ميموري-فوم-تصنيع-العافية-المصرية',
     description: 'Discover the beautiful symbolism of the sacred lotus flower in ancient Egyptian culture. Learn how this symbol of purity and rebirth inspires our elegant Egyptian travel pillow designs.',
     content: `The sacred lotus flower holds a special place in ancient Egyptian symbolism, representing purity, rebirth, and the eternal cycle of renewal. This beautiful symbol continues to inspire our most elegant Egyptian travel pillow designs, bringing natural serenity and spiritual cleansing to modern travel comfort.
 

@@ -8,6 +8,21 @@ import {motion} from 'framer-motion'
 import {fadeIn} from '../../variants'
 
 const Services = () => {
+  const features = {
+    authentic: {
+      title: 'Authentic Egyptian Heritage',
+      description: 'All our products emphasize Egyptian identity with authentic pharaonic designs and cultural motifs.'
+    },
+    comfort: {
+      title: 'Superior Comfort',
+      description: 'High-quality materials combined with modern comfort technology for the perfect travel experience.'
+    },
+    global: {
+      title: 'Global Distribution',
+      description: 'Distinctive gifts and products suitable for tourists seeking premium Egyptian souvenirs.'
+    }
+  };
+
   return (
     // Corrected item-center, adjusted padding py-20 default, py-36 on md+, used min-h-full
     <div className='min-h-full bg-primary/30 py-20 md:py-36 flex items-center'> 
@@ -28,7 +43,7 @@ const Services = () => {
           </div>
           <div className='w-full xl:max-w-[65%]'>
             {/* Slider */}
-            <ServiceSlider/>
+            <ServiceSlider features={features}/>
           </div>
         </div>
       </div>
