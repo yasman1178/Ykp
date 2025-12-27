@@ -81,8 +81,8 @@ export default function ProductPage({ product, locale }) {
   );
   
   const breadcrumbs = [
-    { name: 'Home', nameAr: 'الرئيسية', url: 'https://pharaonicpillows.com' },
-    { name: 'Products', nameAr: 'المنتجات', url: 'https://pharaonicpillows.com/products' },
+    { name: 'Home', nameAr: 'الرئيسية', url: 'https://ykp-eg.com' },
+    { name: 'Products', nameAr: 'المنتجات', url: 'https://ykp-eg.com/products' },
     { name: product.name, nameAr: product.nameAr, url: seoConfig.canonical },
   ];
   

@@ -9,19 +9,19 @@ interface SEOHeadProps {
   canonical?: string;
 }
 
-export const SEOHead: React.FC<SEOHeadProps> = ({ 
-  seoConfig, 
+export const SEOHead: React.FC<SEOHeadProps> = ({
+  seoConfig,
   structuredData,
-  canonical 
+  canonical
 }) => {
   const router = useRouter();
-  
+
   // Generate canonical URL if not provided
   const canonicalUrl = canonical || generateCanonicalUrl(router.pathname);
-  
+
   // Generate hreflang URLs for multilingual support
   const hreflangUrls = generateHreflangUrls(router.pathname);
-  
+
   return (
     <Head>
       {/* Basic Meta Tags */}
@@ -31,20 +31,20 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       <meta name="robots" content={seoConfig.robots || 'index, follow'} />
       <meta name="author" content="Pharaonic Pillows" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      
+
       {/* Language and Locale */}
       <meta httpEquiv="Content-Language" content="en" />
       <meta name="language" content="English" />
-      
+
       {/* Canonical URL - Always include */}
       <link rel="canonical" href={canonicalUrl} />
-      
+
       {/* Hreflang tags for multilingual support */}
       {hreflangUrls.map(({ locale, url }) => (
         <link key={locale} rel="alternate" hrefLang={locale} href={url} />
       ))}
       <link rel="alternate" hrefLang="x-default" href={canonicalUrl} />
-      
+
       {/* Open Graph Meta Tags */}
       <meta property="og:title" content={seoConfig.openGraph.title} />
       <meta property="og:description" content={seoConfig.openGraph.description} />
@@ -54,7 +54,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       <meta property="og:site_name" content={seoConfig.openGraph.siteName} />
       <meta property="og:locale" content="en_US" />
       <meta property="og:locale:alternate" content="ar_EG" />
-      
+
       {/* Twitter Card Meta Tags */}
       <meta name="twitter:card" content={seoConfig.twitter.card} />
       <meta name="twitter:title" content={seoConfig.twitter.title} />
@@ -63,27 +63,27 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
       {seoConfig.twitter.creator && (
         <meta name="twitter:creator" content={seoConfig.twitter.creator} />
       )}
-      
+
       {/* Geographic Meta Tags */}
       <meta name="geo.region" content="EG" />
       <meta name="geo.placename" content="Egypt" />
       <meta name="geo.position" content="26.8206;30.8025" />
       <meta name="ICBM" content="26.8206, 30.8025" />
-      
+
       {/* Business Meta Tags */}
       <meta name="business:contact_data:street_address" content="Cairo, Egypt" />
       <meta name="business:contact_data:locality" content="Cairo" />
       <meta name="business:contact_data:region" content="Cairo Governorate" />
       <meta name="business:contact_data:postal_code" content="11511" />
       <meta name="business:contact_data:country_name" content="Egypt" />
-      
+
       {/* Favicon and Icons */}
       <link rel="icon" href="/favicon.ico" />
       <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
       <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
       <link rel="manifest" href="/site.webmanifest" />
-      
+
       {/* Structured Data */}
       {structuredData && (
         <script
@@ -93,7 +93,7 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
           }}
         />
       )}
-      
+
       {/* Default Organization Structured Data */}
       <script
         type="application/ld+json"
@@ -103,8 +103,8 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
             '@type': 'Organization',
             name: 'Pharaonic Pillows',
             description: 'Premium Egyptian travel pillows inspired by ancient Pharaonic designs',
-            url: 'https://pharaonicpillows.com',
-            logo: 'https://pharaonicpillows.com/logo.png',
+            url: 'https://ykp-eg.com',
+            logo: 'https://ykp-eg.com/logo.png',
             foundingDate: '2020',
             foundingLocation: {
               '@type': 'Place',

@@ -249,3 +249,73 @@ nhancements - Custom Animations */
 .egyptian-card:hover::before {
   opacity: 0.5;
 }
+/* Glassmorphism Classes */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-panel-dark {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Golden Shimmer Animation */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #D4AF37 0%, #FFF5DC 50%, #D4AF37 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+.shimmer-btn {
+  background: linear-gradient(90deg, var(--pharaonic-gold-dark) 0%, var(--pharaonic-gold-light) 50%, var(--pharaonic-gold-dark) 100%);
+  background-size: 200% auto;
+  animation: shimmer 5s ease-in-out infinite;
+}
+
+/* Premium Egyptian Border */
+.egyptian-border {
+  position: relative;
+  border: 2px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, var(--pharaonic-gold), var(--deep-blue)) border-box;
+}
+
+.egyptian-border-gold {
+  position: relative;
+  border: 1px solid var(--pharaonic-gold);
+  padding: 1rem;
+}
+
+.egyptian-border-gold::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 1px solid var(--pharaonic-gold-light);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Custom Utilities */
+.text-shadow-premium {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.bg-site-dark {
+  background: radial-gradient(circle at center, #1E3A8A 0%, #111827 100%);
+}

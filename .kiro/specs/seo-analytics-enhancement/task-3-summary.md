@@ -68,7 +68,7 @@ Successfully implemented comprehensive sitemap enhancements, robots.txt optimiza
    - Blocks private directories
 
 3. **Sitemap Reference**
-   - Added sitemap URL: https://pharaonicpillows.com/sitemap.xml
+   - Added sitemap URL: https://ykp-eg.com/sitemap.xml
    - Helps search engines discover all pages
 
 4. **Crawl-delay Directive**
@@ -173,7 +173,7 @@ Successfully implemented comprehensive sitemap enhancements, robots.txt optimiza
 ### 1. Sitemap Testing
 ```bash
 # Visit sitemap
-curl https://pharaonicpillows.com/sitemap.xml
+curl https://ykp-eg.com/sitemap.xml
 
 # Validate XML
 xmllint --noout sitemap.xml
@@ -185,7 +185,7 @@ xmllint --noout sitemap.xml
 ### 2. Robots.txt Testing
 ```bash
 # Visit robots.txt
-curl https://pharaonicpillows.com/robots.txt
+curl https://ykp-eg.com/robots.txt
 
 # Test with Google's robots.txt Tester
 # Use Search Console robots.txt testing tool
@@ -194,15 +194,15 @@ curl https://pharaonicpillows.com/robots.txt
 ### 3. Canonical URL Testing
 ```bash
 # Test uppercase redirect
-curl -I https://pharaonicpillows.com/Products/B123
+curl -I https://ykp-eg.com/Products/B123
 # Should return 301 redirect to /products/b123
 
 # Test trailing slash redirect
-curl -I https://pharaonicpillows.com/blog/article/
+curl -I https://ykp-eg.com/blog/article/
 # Should return 301 redirect to /blog/article
 
 # Test tracking parameter removal
-curl -I https://pharaonicpillows.com/page?utm_source=google
+curl -I https://ykp-eg.com/page?utm_source=google
 # Should return 301 redirect to /page
 ```
 

@@ -48,7 +48,7 @@ import { SEOHead } from '@/components/SEOHead';
 
 <SEOHead 
   seoConfig={seoConfig}
-  canonical="https://pharaonicpillows.com/products/b123"
+  canonical="https://ykp-eg.com/products/b123"
 />
 ```
 
@@ -59,7 +59,7 @@ Standalone component for adding canonical tags:
 import { CanonicalTag } from '@/components/CanonicalTag';
 
 <CanonicalTag 
-  canonicalUrl="https://pharaonicpillows.com/custom-page"
+  canonicalUrl="https://ykp-eg.com/custom-page"
   includeHreflang={true}
 />
 ```
@@ -73,7 +73,7 @@ Generate canonical URL for any path:
 import { generateCanonicalUrl } from '@/lib/canonical-url';
 
 const canonical = generateCanonicalUrl('/products/b123');
-// Returns: https://pharaonicpillows.com/products/b123
+// Returns: https://ykp-eg.com/products/b123
 ```
 
 #### needsCanonicalRedirect()
@@ -97,8 +97,8 @@ import { generateHreflangUrls } from '@/lib/canonical-url';
 
 const hreflangUrls = generateHreflangUrls('/products/b123');
 // Returns: [
-//   { locale: 'en-US', url: 'https://pharaonicpillows.com/products/b123' },
-//   { locale: 'ar-EG', url: 'https://pharaonicpillows.com/products/b123' }
+//   { locale: 'en-US', url: 'https://ykp-eg.com/products/b123' },
+//   { locale: 'ar-EG', url: 'https://ykp-eg.com/products/b123' }
 // ]
 ```
 
@@ -108,7 +108,7 @@ const hreflangUrls = generateHreflangUrls('/products/b123');
 
 ```typescript
 const DEFAULT_CONFIG = {
-  baseUrl: 'https://pharaonicpillows.com',
+  baseUrl: 'https://ykp-eg.com',
   enforceTrailingSlash: false,
   enforceLowercase: true,
   removeQueryParams: [

@@ -12,6 +12,8 @@ export interface LayoutProps {
   egyptianTheme?: 'gold' | 'blue' | 'terracotta';
   showBreadcrumbs?: boolean;
   className?: string;
+  translations?: any;
+  locale?: string;
 }
 
 const Layout: React.FC<LayoutProps> = ({
@@ -21,6 +23,8 @@ const Layout: React.FC<LayoutProps> = ({
   egyptianTheme = 'gold',
   showBreadcrumbs = false,
   className = '',
+  translations,
+  locale = 'en',
 }) => {
   const themeClasses = {
     gold: 'bg-gradient-to-br from-papyrus to-desert-sand',
@@ -35,25 +39,25 @@ const Layout: React.FC<LayoutProps> = ({
         <meta name="description" content={metaDescription} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-        
+
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={metaDescription} />
         <meta property="og:image" content="/og-image.jpg" />
-        
+
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:title" content={pageTitle} />
         <meta property="twitter:description" content={metaDescription} />
         <meta property="twitter:image" content="/og-image.jpg" />
-        
+
         {/* Additional SEO */}
         <meta name="keywords" content="Egyptian travel pillows, Pharaonic design, memory foam, wholesale, B2B, travel comfort, Egyptian heritage" />
         <meta name="author" content="Pharaonic Pillows" />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href={typeof window !== 'undefined' ? window.location.href : ''} />
-        
+
         {/* Structured Data */}
         <script
           type="application/ld+json"
@@ -81,8 +85,8 @@ const Layout: React.FC<LayoutProps> = ({
       </Head>
 
       <div className={`min-h-screen flex flex-col ${className}`}>
-        <Header />
-        
+        <Header translations={translations} locale={locale} />
+
         <main className="flex-1 relative">
           <AnimatePresence mode="wait">
             <motion.div
@@ -97,8 +101,8 @@ const Layout: React.FC<LayoutProps> = ({
             </motion.div>
           </AnimatePresence>
         </main>
-        
-        <Footer />
+
+        <Footer translations={translations} locale={locale} />
       </div>
 
       {/* Egyptian floating elements */}
@@ -118,7 +122,7 @@ const Layout: React.FC<LayoutProps> = ({
         >
           𓂀
         </motion.div>
-        
+
         <motion.div
           className="absolute top-3/4 right-10 text-pharaonic-gold opacity-10 font-hieroglyphic text-4xl"
           animate={{
@@ -134,7 +138,7 @@ const Layout: React.FC<LayoutProps> = ({
         >
           𓁹
         </motion.div>
-        
+
         <motion.div
           className="absolute top-1/2 left-1/4 text-pharaonic-gold opacity-5 font-hieroglyphic text-8xl"
           animate={{

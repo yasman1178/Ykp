@@ -11,7 +11,7 @@ export interface BilingualStructuredData {
  * Generate Organization schema with Arabic company information
  */
 export function generateOrganizationSchemaEnhanced(
-  baseUrl: string = 'https://pharaonicpillows.com'
+  baseUrl: string = 'https://ykp-eg.com'
 ): BilingualStructuredData {
   return {
     '@context': 'https://schema.org',
@@ -80,7 +80,7 @@ export function generateOrganizationSchemaEnhanced(
     sameAs: [
       'https://www.linkedin.com/in/ykp-eg-483b8a398',
       'https://www.facebook.com/new.cairo.893792',
-      'https://twitter.com/pharaonicpillows',
+      'https://twitter.com/ykp-eg',
     ],
     slogan: 'Premium Egyptian Travel Pillows - مخدات سفر مصرية فاخرة',
     keywords: [
@@ -188,7 +188,7 @@ export function generateProductSchemaEnhanced(
     };
     availability: boolean;
   },
-  baseUrl: string = 'https://pharaonicpillows.com'
+  baseUrl: string = 'https://ykp-eg.com'
 ): BilingualStructuredData {
   return {
     '@context': 'https://schema.org',
@@ -349,7 +349,7 @@ export function generateProductSchemaEnhanced(
  */
 export function generateBreadcrumbSchemaEnhanced(
   breadcrumbs: Array<{ name: string; nameAr?: string; url: string }>,
-  baseUrl: string = 'https://pharaonicpillows.com'
+  baseUrl: string = 'https://ykp-eg.com'
 ): BilingualStructuredData {
   return {
     '@context': 'https://schema.org',
@@ -402,7 +402,7 @@ export function generateArticleSchemaEnhanced(
       significance: string;
     };
   },
-  baseUrl: string = 'https://pharaonicpillows.com'
+  baseUrl: string = 'https://ykp-eg.com'
 ): BilingualStructuredData {
   return {
     '@context': 'https://schema.org',
@@ -479,7 +479,7 @@ export function generateArticleSchemaEnhanced(
  * Generate LocalBusiness schema with Egyptian location data
  */
 export function generateLocalBusinessSchemaEnhanced(
-  baseUrl: string = 'https://pharaonicpillows.com'
+  baseUrl: string = 'https://ykp-eg.com'
 ): BilingualStructuredData {
   return {
     '@context': 'https://schema.org',
@@ -558,7 +558,7 @@ export function generateLocalBusinessSchemaEnhanced(
  * Generate WebSite schema with search action
  */
 export function generateWebsiteSchemaEnhanced(
-  baseUrl: string = 'https://pharaonicpillows.com'
+  baseUrl: string = 'https://ykp-eg.com'
 ): BilingualStructuredData {
   return {
     '@context': 'https://schema.org',
@@ -596,7 +596,7 @@ export function generateCompleteStructuredData(
   pageType: 'homepage' | 'product' | 'article' | 'collection',
   data: any,
   breadcrumbs?: Array<{ name: string; nameAr?: string; url: string }>,
-  baseUrl: string = 'https://pharaonicpillows.com'
+  baseUrl: string = 'https://ykp-eg.com'
 ): BilingualStructuredData[] {
   const schemas: BilingualStructuredData[] = [];
 

@@ -3,44 +3,50 @@ import Link from 'next/link';
 import { Button } from '@/components/ui';
 import { GradientBackground } from '@/components/effects';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  translations?: any;
+  locale?: string;
+}
+
+const Footer: React.FC<FooterProps> = ({ translations: t, locale = 'en' }) => {
+  const isRTL = locale === 'ar';
   const currentYear = new Date().getFullYear();
 
   const footerSections = [
     {
-      title: 'Products',
+      title: t?.footer?.sections?.products?.title || 'Products',
       links: [
-        { label: 'Premium Collection (B123)', href: '/products/' },
-        { label: 'Classic Collection (T)', href: '/products/' },
-        { label: 'Heritage Collection (TB)', href: '/products/' },
-        { label: 'All Products', href: '/products' },
+        { label: t?.footer?.sections?.products?.premium || 'Premium Collection (B123)', href: '/products/' },
+        { label: t?.footer?.sections?.products?.classic || 'Classic Collection (T)', href: '/products/' },
+        { label: t?.footer?.sections?.products?.heritage || 'Heritage Collection (TB)', href: '/products/' },
+        { label: t?.footer?.sections?.products?.all || 'All Products', href: '/products' },
       ],
     },
     {
-      title: 'B2B Services',
+      title: t?.footer?.sections?.b2b?.title || 'B2B Services',
       links: [
-        { label: 'Wholesale Inquiry', href: '/wholesale' },
-        { label: 'Partnership Program', href: '/partnership' },
-        { label: 'Distributor Portal', href: '/distributor' },
-        { label: 'Bulk Pricing', href: '/wholesale#pricing' },
+        { label: t?.footer?.sections?.b2b?.wholesale || 'Wholesale Inquiry', href: '/wholesale' },
+        { label: t?.footer?.sections?.b2b?.partnership || 'Partnership Program', href: '/partnership' },
+        { label: t?.footer?.sections?.b2b?.distributor || 'Distributor Portal', href: '/distributor' },
+        { label: t?.footer?.sections?.b2b?.bulk || 'Bulk Pricing', href: '/wholesale#pricing' },
       ],
     },
     {
-      title: 'Egyptian Heritage',
+      title: t?.footer?.sections?.heritage?.title || 'Egyptian Heritage',
       links: [
-        { label: 'Pharaonic Symbols', href: '/blog/symbols' },
-        { label: 'Egyptian Culture', href: '/blog/culture' },
-        { label: 'Design Stories', href: '/blog/design' },
-        { label: 'All Articles', href: '/blog' },
+        { label: t?.footer?.sections?.heritage?.symbols || 'Pharaonic Symbols', href: '/blog/symbols' },
+        { label: t?.footer?.sections?.heritage?.culture || 'Egyptian Culture', href: '/blog/culture' },
+        { label: t?.footer?.sections?.heritage?.stories || 'Design Stories', href: '/blog/design' },
+        { label: t?.footer?.sections?.heritage?.articles || 'All Articles', href: '/blog' },
       ],
     },
     {
-      title: 'Company',
+      title: t?.footer?.sections?.company?.title || 'Company',
       links: [
-        { label: 'About Us', href: '/about' },
-        { label: 'Contact', href: '/contact' },
-        { label: 'Quality Standards', href: '/quality' },
-        { label: 'Certifications', href: '/certifications' },
+        { label: t?.footer?.sections?.company?.about || 'About Us', href: '/about' },
+        { label: t?.footer?.sections?.company?.contact || 'Contact', href: '/contact' },
+        { label: t?.footer?.sections?.company?.quality || 'Quality Standards', href: '/quality' },
+        { label: t?.footer?.sections?.company?.certifications || 'Certifications', href: '/certifications' },
       ],
     },
   ];
@@ -67,44 +73,44 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="relative">
+    <footer className="relative" dir={isRTL ? 'rtl' : 'ltr'}>
       <GradientBackground variant="subtle" className="pt-16 pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Main footer content */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
             {/* Company info */}
             <div className="lg:col-span-2">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-pharaonic-gold to-pharaonic-gold-dark rounded-xl flex items-center justify-center shadow-golden">
+              <div className={`flex items-center ${isRTL ? 'space-x-reverse' : ''} space-x-3 mb-6`}>
+                <div className="w-12 h-12 bg-gradient-to-br from-pharaonic-gold to-pharaonic-gold-dark rounded-xl flex items-center justify-center shadow-golden shrink-0">
                   <span className="text-white font-hieroglyphic text-2xl">𓂀</span>
                 </div>
                 <div>
                   <h3 className="font-pharaonic font-bold text-xl text-gradient-gold">
-                    YKP Supplies - New Cairo
+                    {isRTL ? 'واي كيه بي سابلايز - القاهرة الجديدة' : 'YKP Supplies - New Cairo'}
                   </h3>
                   <p className="text-sm text-hieroglyph-light">
-                    Egyptian Heritage Travel Comfort
+                    {t?.footer?.tagline || 'Egyptian Heritage Travel Comfort'}
                   </p>
                 </div>
               </div>
-              
+
               <p className="text-hieroglyph-black mb-6 leading-relaxed">
-                Premium Egyptian travel pillows inspired by ancient Pharaonic designs. 
-                Combining traditional Egyptian artistry with modern memory foam technology 
-                for the ultimate travel comfort experience.
+                {t?.footer?.aboutText || 'Premium Egyptian travel pillows inspired by ancient Pharaonic designs. Combining traditional Egyptian artistry with modern memory foam technology for the ultimate travel comfort experience.'}
               </p>
 
               <div className="mb-6">
                 <h4 className="font-semibold text-hieroglyph-black mb-3">
-                  Ready for Wholesale Partnership?
+                  {t?.footer?.partnershipTitle || 'Ready for Wholesale Partnership?'}
                 </h4>
-                <Button variant="primary" size="md" className="w-full sm:w-auto">
-                  Get Wholesale Quote
-                </Button>
+                <Link href="/wholesale">
+                  <Button variant="primary" size="md" className="w-full sm:w-auto">
+                    {t?.footer?.quoteBtn || 'Get Wholesale Quote'}
+                  </Button>
+                </Link>
               </div>
 
               {/* Social links */}
-              <div className="flex space-x-4">
+              <div className={`flex ${isRTL ? 'space-x-reverse' : ''} space-x-4`}>
                 {socialLinks.map((social) => (
                   <Link
                     key={social.name}
@@ -126,7 +132,7 @@ const Footer: React.FC = () => {
                 </h3>
                 <ul className="space-y-3">
                   {section.links.map((link) => (
-                    <li key={link.href}>
+                    <li key={link.label}>
                       <Link
                         href={link.href}
                         className="text-hieroglyph-light hover:text-pharaonic-gold transition-colors duration-200 text-sm"
@@ -145,21 +151,20 @@ const Footer: React.FC = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div>
                 <h3 className="font-pharaonic font-bold text-2xl text-gradient-gold mb-2">
-                  Stay Updated with Egyptian Heritage
+                  {t?.footer?.newsletter?.title || 'Stay Updated with Egyptian Heritage'}
                 </h3>
                 <p className="text-hieroglyph-black">
-                  Get the latest updates on new Pharaonic designs, wholesale opportunities, 
-                  and Egyptian cultural insights delivered to your inbox.
+                  {t?.footer?.newsletter?.subtitle || 'Get the latest updates on new Pharaonic designs, wholesale opportunities, and Egyptian cultural insights delivered to your inbox.'}
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className={`flex flex-col sm:flex-row ${isRTL ? 'sm:space-x-reverse' : ''} gap-3`}>
                 <input
                   type="email"
-                  placeholder="Enter your email address"
+                  placeholder={t?.footer?.newsletter?.placeholder || 'Enter your email address'}
                   className="flex-1 px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-pharaonic-gold focus:outline-none transition-colors duration-200"
                 />
                 <Button variant="primary" size="md" className="whitespace-nowrap">
-                  Subscribe
+                  {t?.footer?.newsletter?.subscribeBtn || 'Subscribe'}
                 </Button>
               </div>
             </div>
@@ -168,25 +173,25 @@ const Footer: React.FC = () => {
           {/* Bottom section */}
           <div className="border-t border-gray-200 pt-8">
             <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
-              <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6 text-sm text-hieroglyph-light">
-                <p>© {currentYear} YKP Supplies - New Cairo. All rights reserved.</p>
-                <div className="flex space-x-4">
+              <div className={`flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 ${isRTL ? 'sm:space-x-reverse' : ''} sm:space-x-6 text-sm text-hieroglyph-light`}>
+                <p>© {currentYear} {isRTL ? 'واي كيه بي سابلايز - القاهرة الجديدة. كل الحقوق محفوظة.' : 'YKP Supplies - New Cairo. All rights reserved.'}</p>
+                <div className={`flex ${isRTL ? 'space-x-reverse' : ''} space-x-4`}>
                   <Link href="/privacy" className="hover:text-pharaonic-gold transition-colors">
-                    Privacy Policy
+                    {t?.footer?.bottom?.privacy || 'Privacy Policy'}
                   </Link>
                   <Link href="/terms" className="hover:text-pharaonic-gold transition-colors">
-                    Terms of Service
+                    {t?.footer?.bottom?.terms || 'Terms of Service'}
                   </Link>
                   <Link href="/cookies" className="hover:text-pharaonic-gold transition-colors">
-                    Cookie Policy
+                    {t?.footer?.bottom?.cookies || 'Cookie Policy'}
                   </Link>
                 </div>
               </div>
 
               {/* Egyptian decorative elements */}
-              <div className="flex items-center space-x-2 text-pharaonic-gold opacity-60">
+              <div className={`flex items-center ${isRTL ? 'space-x-reverse' : ''} space-x-2 text-pharaonic-gold opacity-60`}>
                 <span className="font-hieroglyphic text-lg">𓂀</span>
-                <span className="text-xs font-medium">Made with Egyptian Pride</span>
+                <span className="text-xs font-medium">{t?.footer?.bottom?.pride || 'Made with Egyptian Pride'}</span>
                 <span className="font-hieroglyphic text-lg">𓁹</span>
               </div>
             </div>

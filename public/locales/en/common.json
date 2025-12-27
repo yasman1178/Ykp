@@ -28,17 +28,26 @@
     "collections": {
         "title": "Our Authentic Egyptian Collections",
         "subtitle": "Discover our meticulously crafted collections, each weaving a tale of ancient Egyptian civilization. Designed with unparalleled modern comfort technology and a commitment to quality for today's discerning travelers.",
-        "classic": {
-            "title": "Classic Collection",
-            "description": "Luxurious designs inspired by royal Egyptian artifacts",
+        "print": {
+            "title": "Print Collection",
+            "description": "Custom Pharaonic prints for personalized travel style",
             "features": [
-                "Memory Foam Core",
-                "Royal Egyptian Patterns",
-                "Premium Materials"
+                "Custom Prints",
+                "Pharaonic Designs",
+                "Handmade Quality"
             ]
         },
         "premium": {
             "title": "Premium Collection",
+            "description": "Luxurious designs inspired by royal Egyptian artifacts",
+            "features": [
+                "Memory Foam Core",
+                "Royal Egyptian Patterns",
+                "Gold Accents"
+            ]
+        },
+        "classic": {
+            "title": "Classic Collection",
             "description": "Timeless Egyptian motifs for everyday comfort",
             "features": [
                 "Classic Comfort",
@@ -47,7 +56,7 @@
             ]
         },
         "heritage": {
-            "title": "Heritage Collection (TB)",
+            "title": "Heritage Collection",
             "description": "Ancient symbols reimagined for modern travelers",
             "features": [
                 "Heritage Patterns",
@@ -99,5 +108,54 @@
     "trust": {
         "title": "Trusted Quality & Authentic Heritage",
         "subtitle": "Our commitment to excellence is backed by industry certifications and genuine Egyptian craftsmanship."
+    },
+    "footer": {
+        "tagline": "Egyptian Heritage Travel Comfort",
+        "aboutText": "Premium Egyptian travel pillows inspired by ancient Pharaonic designs. Combining traditional Egyptian artistry with modern memory foam technology for the ultimate travel comfort experience.",
+        "partnershipTitle": "Ready for Wholesale Partnership?",
+        "quoteBtn": "Get Wholesale Quote",
+        "sections": {
+            "products": {
+                "title": "Products",
+                "premium": "Premium Collection (B123)",
+                "classic": "Classic Collection (T)",
+                "heritage": "Heritage Collection (TB)",
+                "all": "All Products"
+            },
+            "b2b": {
+                "title": "B2B Services",
+                "wholesale": "Wholesale Inquiry",
+                "partnership": "Partnership Program",
+                "distributor": "Distributor Portal",
+                "bulk": "Bulk Pricing"
+            },
+            "heritage": {
+                "title": "Egyptian Heritage",
+                "symbols": "Pharaonic Symbols",
+                "culture": "Egyptian Culture",
+                "stories": "Design Stories",
+                "articles": "All Articles"
+            },
+            "company": {
+                "title": "Company",
+                "about": "About Us",
+                "contact": "Contact",
+                "quality": "Quality Standards",
+                "certifications": "Certifications"
+            }
+        },
+        "newsletter": {
+            "title": "Stay Updated with Egyptian Heritage",
+            "subtitle": "Get the latest updates on new Pharaonic designs, wholesale opportunities, and Egyptian cultural insights delivered to your inbox.",
+            "placeholder": "Enter your email address",
+            "subscribeBtn": "Subscribe"
+        },
+        "bottom": {
+            "rights": "All rights reserved.",
+            "privacy": "Privacy Policy",
+            "terms": "Terms of Service",
+            "cookies": "Cookie Policy",
+            "pride": "Made with Egyptian Pride"
+        }
     }
 }

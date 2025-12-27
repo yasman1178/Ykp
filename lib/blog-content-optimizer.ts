@@ -7,12 +7,12 @@ import { BLOG_SEO_KEYWORDS, SYMBOL_PRODUCT_MAPPING } from './blog-seo-integratio
 // Enhanced SEO keywords for each article
 export const enhanceArticleSEO = (article: BlogArticle): BlogArticle => {
   const symbolMapping = SYMBOL_PRODUCT_MAPPING[article.symbol.name as keyof typeof SYMBOL_PRODUCT_MAPPING];
-  
+
   // Enhanced SEO keywords
   const enhancedKeywords = {
     primary: [
       ...article.seoKeywords.primary,
-      ...BLOG_SEO_KEYWORDS.english.primary.filter(keyword => 
+      ...BLOG_SEO_KEYWORDS.english.primary.filter(keyword =>
         keyword.toLowerCase().includes(article.symbol.name.toLowerCase()) ||
         article.symbol.name.toLowerCase().includes(keyword.toLowerCase())
       ),
@@ -52,7 +52,7 @@ export const enhanceArticleSEO = (article: BlogArticle): BlogArticle => {
 // Add call-to-action content to articles
 export const addCTAContent = (content: string, symbolName: string): string => {
   const symbolMapping = SYMBOL_PRODUCT_MAPPING[symbolName as keyof typeof SYMBOL_PRODUCT_MAPPING];
-  
+
   if (!symbolMapping) {
     return content;
   }
@@ -92,7 +92,7 @@ ${symbolMapping.description}
 // Generate internal linking content
 export const addInternalLinks = (content: string, article: BlogArticle): string => {
   const symbolMapping = SYMBOL_PRODUCT_MAPPING[article.symbol.name as keyof typeof SYMBOL_PRODUCT_MAPPING];
-  
+
   if (!symbolMapping) {
     return content;
   }
@@ -104,7 +104,7 @@ export const addInternalLinks = (content: string, article: BlogArticle): string 
   symbolMapping.primaryProducts.forEach(productId => {
     const productMention = `وسادة ${article.symbol.arabicName}`;
     const productLink = `[${productMention}](/products/${productId})`;
-    
+
     // Replace first occurrence of product mention with link
     enhancedContent = enhancedContent.replace(productMention, productLink);
   });
@@ -127,29 +127,29 @@ export const addInternalLinks = (content: string, article: BlogArticle): string 
 // Optimize article meta description
 export const optimizeMetaDescription = (article: BlogArticle): string => {
   const symbolMapping = SYMBOL_PRODUCT_MAPPING[article.symbol.name as keyof typeof SYMBOL_PRODUCT_MAPPING];
-  
+
   let optimizedDescription = article.description;
-  
+
   // Add product integration mention
   if (symbolMapping) {
     optimizedDescription += ` اكتشف وسائد السفر المصرية المستوحاة من ${article.symbol.arabicName}.`;
   }
-  
+
   // Add wholesale mention for B2B SEO
   optimizedDescription += ' فرص الجملة متاحة للموزعين الدوليين.';
-  
+
   // Ensure it's within SEO limits (155 characters)
   if (optimizedDescription.length > 155) {
     optimizedDescription = optimizedDescription.substring(0, 152) + '...';
   }
-  
+
   return optimizedDescription;
 };
 
 // Generate structured data for enhanced SEO
 export const generateEnhancedStructuredData = (article: BlogArticle) => {
   const symbolMapping = SYMBOL_PRODUCT_MAPPING[article.symbol.name as keyof typeof SYMBOL_PRODUCT_MAPPING];
-  
+
   return {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -157,9 +157,9 @@ export const generateEnhancedStructuredData = (article: BlogArticle) => {
     alternativeHeadline: article.arabicTitle,
     description: optimizeMetaDescription(article),
     image: [
-      `https://pharaonicpillows.com/blog-images/${article.slug}-featured.jpg`,
-      `https://pharaonicpillows.com/blog-images/${article.slug}-og.jpg`,
-      `https://pharaonicpillows.com/blog-images/${article.slug}-twitter.jpg`
+      `https://ykp-eg.com/blog-images/${article.slug}-featured.jpg`,
+      `https://ykp-eg.com/blog-images/${article.slug}-og.jpg`,
+      `https://ykp-eg.com/blog-images/${article.slug}-twitter.jpg`
     ],
     datePublished: article.publishDate,
     dateModified: article.lastModified,
@@ -177,18 +177,18 @@ export const generateEnhancedStructuredData = (article: BlogArticle) => {
       name: 'Pharaonic Pillows Egypt',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://pharaonicpillows.com/logo.png',
+        url: 'https://ykp-eg.com/logo.png',
         width: 200,
         height: 60
       },
       sameAs: [
         'https://www.facebook.com/new.cairo.893792',
-        'https://twitter.com/PharaonicPillows'
+        'https://twitter.com/ykp-eg'
       ]
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://pharaonicpillows.com/blog/${article.slug}`
+      '@id': `https://ykp-eg.com/blog/${article.slug}`
     },
     keywords: enhanceArticleSEO(article).seoKeywords.primary.join(', '),
     articleSection: 'Egyptian Culture and Heritage',
@@ -205,7 +205,7 @@ export const generateEnhancedStructuredData = (article: BlogArticle) => {
       '@type': 'Product',
       name: `${article.symbol.name} Egyptian Travel Pillow`,
       description: `Premium Egyptian travel pillow featuring ${article.symbol.name} design`,
-      url: `https://pharaonicpillows.com/products/${productId}`,
+      url: `https://ykp-eg.com/products/${productId}`,
       brand: {
         '@type': 'Brand',
         name: 'Pharaonic Pillows Egypt'
@@ -218,7 +218,7 @@ export const generateEnhancedStructuredData = (article: BlogArticle) => {
       '@type': 'Blog',
       name: 'Egyptian Pharaonic Symbols Blog',
       description: 'Comprehensive guide to ancient Egyptian symbols and their modern applications in travel accessories',
-      url: 'https://pharaonicpillows.com/blog'
+      url: 'https://ykp-eg.com/blog'
     }
   };
 };

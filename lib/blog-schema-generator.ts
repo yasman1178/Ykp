@@ -7,7 +7,7 @@
 import { BlogArticle } from '@/data/blog-articles';
 
 // Base URL for the website
-const SITE_URL = 'https://pharaonicpillows.com';
+const SITE_URL = 'https://ykp-eg.com';
 const SITE_NAME = 'Pharaonic Pillows';
 const LOGO_URL = `${SITE_URL}/logo.png`;
 
@@ -40,9 +40,9 @@ export function generateOrganizationSchema() {
       availableLanguage: ['English', 'Arabic']
     },
     sameAs: [
-      'https://facebook.com/pharaonicpillows',
-      'https://instagram.com/pharaonicpillows',
-      'https://linkedin.com/company/pharaonicpillows'
+      'https://facebook.com/ykp-eg',
+      'https://instagram.com/ykp-eg',
+      'https://linkedin.com/company/ykp-eg'
     ]
   };
 }

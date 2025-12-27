@@ -2,7 +2,7 @@
 ## Pharaonic Pillows Website - Complete Implementation Summary
 
 **Project Duration**: Completed
-**Website**: pharaonicpillows.com
+**Website**: ykp-eg.com
 **Focus**: Egyptian Travel Pillow Manufacturing B2B
 
 ---

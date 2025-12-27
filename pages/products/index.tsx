@@ -4,8 +4,39 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FloatingHieroglyphs, CrystalReveal, PolygonHover } from '../../components/animations/EgyptianAnimations';
+import SEO from '@/components/SEO';
+import { getStaticPropsWithTranslations } from '@/lib/translations';
+import { GetStaticProps } from 'next';
 
-const ProductsPage: React.FC = () => {
+interface Product {
+  id: string;
+  image: string;
+  name: string;
+  price: string;
+  description: string;
+}
+
+interface Collection {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  heroImage: string;
+  productCount: number;
+  priceRange: string;
+  features: string[];
+  badge: string;
+  color: string;
+  bgGradient: string;
+  products: Product[];
+}
+
+interface ProductsPageProps {
+  translations: any;
+  locale: string;
+}
+
+const ProductsPage: React.FC<ProductsPageProps> = ({ translations: t, locale }) => {
   const [selectedCollection, setSelectedCollection] = useState('premium');
   const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
 
@@ -109,13 +140,13 @@ const ProductsPage: React.FC = () => {
   const collections = [
     {
       id: 'print',
-      title: 'Print Collection',
-      subtitle: 'Custom Pharaonic Prints | مطبوعات فرعونية مخصصة',
-      description: 'Handmade Egyptian travel pillows with custom pharaonic prints. Best souvenir travel pillow from Egypt featuring unique ancient Egypt inspired designs. Perfect Egyptian gifts handmade for tourists. Buy travel pillow online with authentic pharaoh motif patterns. مخدة سفر فرعونية بتصميم فريد - هدايا سياحية مصرية أصلية.',
+      title: t.collections.print.title,
+      subtitle: t.collections.print.description,
+      description: t.collections.print.description,
       heroImage: '/prodect/Print/master.jpg',
       productCount: 5,
       priceRange: '$28 - $35',
-      features: ['Custom Prints', 'Pharaonic Designs', 'Handmade Quality', 'Tourist Souvenirs'],
+      features: t.collections.print.features,
       badge: 'Custom',
       color: 'from-red-600 to-pink-600',
       bgGradient: 'from-red-900 via-pink-900 to-rose-900',
@@ -123,13 +154,13 @@ const ProductsPage: React.FC = () => {
     },
     {
       id: 'premium',
-      title: 'Premium Collection',
-      subtitle: 'Royal Egyptian Heritage | التراث الملكي المصري',
-      description: 'Luxurious Egyptian travel neck pillows inspired by royal pharaonic artifacts and ancient treasures. Each piece features authentic gold accents, premium memory foam technology, and museum-quality Egyptian designs for ultimate comfort on flights, road trips, and long journeys.',
+      title: t.collections.premium.title,
+      subtitle: t.collections.premium.description,
+      description: t.collections.premium.description,
       heroImage: '/prodect/b123/1.webp',
       productCount: 23,
       priceRange: '$14 - $26',
-      features: ['Memory Foam Core', 'Royal Egyptian Patterns', 'Premium Materials', 'Gold Accents'],
+      features: t.collections.premium.features,
       badge: 'Premium',
       color: 'from-purple-600 to-blue-600',
       bgGradient: 'from-purple-900 via-blue-900 to-indigo-900',
@@ -137,13 +168,13 @@ const ProductsPage: React.FC = () => {
     },
     {
       id: 'classic',
-      title: 'Classic Collection',
-      subtitle: 'Timeless Egyptian Motifs | الزخارف المصرية الخالدة',
-      description: 'Traditional Egyptian travel pillows with timeless designs reimagined for modern comfort. Perfect balance of cultural authenticity and everyday usability with durable construction. Ideal for frequent travelers, daily commuters, and budget-conscious buyers seeking Egyptian heritage neck support.',
+      title: t.collections.classic.title,
+      subtitle: t.collections.classic.description,
+      description: t.collections.classic.description,
       heroImage: '/prodect/t/1.webp',
       productCount: 21,
       priceRange: '$35 - $45',
-      features: ['Classic Comfort', 'Traditional Designs', 'Durable Construction', 'Affordable Luxury'],
+      features: t.collections.classic.features,
       badge: 'Popular',
       color: 'from-amber-600 to-orange-600',
       bgGradient: 'from-amber-900 via-orange-900 to-red-900',
@@ -151,13 +182,13 @@ const ProductsPage: React.FC = () => {
     },
     {
       id: 'heritage',
-      title: 'Heritage Collection',
-      subtitle: 'Ancient Symbols Reimagined | الرموز القديمة المعاد تصورها',
-      description: 'Ancient Egyptian symbols, hieroglyphs, and sacred motifs brought to life with modern comfort technology. Museum-quality cultural authenticity meets contemporary design excellence. Perfect for history enthusiasts, spiritual travelers, and collectors seeking authentic Egyptian heritage travel pillows with deep cultural significance.',
+      title: t.collections.heritage.title,
+      subtitle: t.collections.heritage.description,
+      description: t.collections.heritage.description,
       heroImage: '/prodect/tb/2.webp',
       productCount: 36,
       priceRange: '$50 - $65',
-      features: ['Heritage Patterns', 'Cultural Authenticity', 'Modern Comfort', 'Symbolic Designs'],
+      features: t.collections.heritage.features,
       badge: 'Heritage',
       color: 'from-green-600 to-teal-600',
       bgGradient: 'from-green-900 via-teal-900 to-cyan-900',
@@ -169,21 +200,15 @@ const ProductsPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Head>
-        <title>مخدة سفر فرعونية | Egyptian Travel Neck Pillow | Best Airplane Pillow | YKP Supplies</title>
-        <meta 
-          name="description" 
-          content="Buy travel pillow online - Handmade Egyptian souvenirs. Best neck pillow for airplane with pharaoh motif. Memory foam U-shape ergonomic travel pillow. مخدة سفر فرعونية للرقبة - مخدات طيران سفر مريحة - هدايا سياحية فرعونية أصلية. Egyptian gifts handmade, travel pillow made in Egypt, wholesale available." 
-        />
-        <meta name="keywords" content="مخدة سفر فرعوني, مخدة رقبة سفر فرعونية, مخدة سفر للرقبة, مخدات طيران سفر, مخدات سفر مريحة, وسادة رقبة للسفر, هدايا صناعة مصرية, هدايا تراث فرعوني, هدايا سياحية فرعونية, وسادة طيران مريحة, وسادة دعم الرقبة سفر, أفضل مخدة سفر في مصر, travel neck pillow, memory foam travel pillow, U-shape travel pillow, ergonomic travel pillow, Egyptian travel pillow, pharaonic travel pillow, Egyptian style neck pillow, ancient Egypt inspired, Egyptian souvenirs, Egyptian gifts handmade, pharaoh motif pillow, buy travel pillow online, best neck pillow for airplane, comfortable neck pillow for travel, unique travel gifts, handmade travel accessories, travel pillow made in Egypt, Egyptian souvenirs wholesale" />
-        <meta property="og:title" content="مخدة سفر فرعونية | Egyptian Travel Neck Pillow | Handmade Souvenirs" />
-        <meta property="og:description" content="Best souvenir travel pillow from Egypt. Handmade pharaonic design with memory foam comfort. مخدة سفر فرعونية بتصميم فريد للطائرات والقطارات." />
-        <meta property="og:type" content="product.group" />
-      </Head>
+      <SEO
+        translations={t}
+        locale={locale}
+        ogType="product"
+      />
 
       {/* Dynamic Hero Section */}
       <AnimatePresence mode="wait">
-        <motion.section 
+        <motion.section
           key={selectedCollection}
           className={`relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br ${currentCollection.bgGradient}`}
           initial={{ opacity: 0 }}
@@ -192,7 +217,7 @@ const ProductsPage: React.FC = () => {
           transition={{ duration: 0.8 }}
         >
           <div className="absolute inset-0 bg-black/30"></div>
-          
+
           {/* Animated Background Elements */}
           <div className="absolute inset-0">
             {[...Array(15)].map((_, i) => (
@@ -251,7 +276,7 @@ const ProductsPage: React.FC = () => {
                   {currentCollection.badge}
                 </motion.div>
 
-                <motion.h1 
+                <motion.h1
                   className="text-5xl md:text-7xl font-bold mb-6"
                   style={{ fontFamily: 'Playfair Display, serif' }}
                   initial={{ opacity: 0, y: 30 }}
@@ -261,7 +286,7 @@ const ProductsPage: React.FC = () => {
                   {currentCollection.title}
                 </motion.h1>
 
-                <motion.p 
+                <motion.p
                   className="text-2xl text-white/80 mb-4"
                   style={{ fontFamily: 'Inter, sans-serif' }}
                   initial={{ opacity: 0, y: 20 }}
@@ -271,7 +296,7 @@ const ProductsPage: React.FC = () => {
                   {currentCollection.subtitle}
                 </motion.p>
 
-                <motion.p 
+                <motion.p
                   className="text-lg text-white/70 mb-8 leading-relaxed"
                   style={{ fontFamily: 'Inter, sans-serif' }}
                   initial={{ opacity: 0, y: 20 }}
@@ -287,8 +312,8 @@ const ProductsPage: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.6 }}
                 >
-                  {currentCollection.features.map((feature, index) => (
-                    <span 
+                  {currentCollection.features.map((feature: string, index: number) => (
+                    <span
                       key={index}
                       className="bg-white/10 backdrop-blur-md px-4 py-2 rounded-full text-sm font-medium border border-white/20"
                     >
@@ -391,17 +416,16 @@ const ProductsPage: React.FC = () => {
             <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8" style={{ fontFamily: 'Inter, sans-serif' }}>
               Switch between our premium collections to explore different styles and price ranges
             </p>
-            
+
             <div className="flex flex-wrap justify-center gap-4">
-              {collections.map((collection) => (
+              {collections.map((collection: Collection) => (
                 <motion.button
                   key={collection.id}
                   onClick={() => setSelectedCollection(collection.id)}
-                  className={`relative px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 overflow-hidden ${
-                    selectedCollection === collection.id
-                      ? `bg-gradient-to-r ${collection.color} text-white shadow-2xl`
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-2 border-transparent hover:border-gray-300'
-                  }`}
+                  className={`relative px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-300 overflow-hidden ${selectedCollection === collection.id
+                    ? `bg-gradient-to-r ${collection.color} text-white shadow-2xl`
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border-2 border-transparent hover:border-gray-300'
+                    }`}
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   style={{ fontFamily: 'Inter, sans-serif' }}
@@ -444,7 +468,7 @@ const ProductsPage: React.FC = () => {
               transition={{ duration: 0.6 }}
             >
               <div className="text-center mb-12">
-                <motion.h2 
+                <motion.h2
                   className={`text-4xl md:text-5xl font-bold bg-gradient-to-r ${currentCollection.color} bg-clip-text text-transparent mb-4`}
                   style={{ fontFamily: 'Playfair Display, serif' }}
                   initial={{ opacity: 0, y: 20 }}
@@ -453,7 +477,7 @@ const ProductsPage: React.FC = () => {
                 >
                   {currentCollection.title} Products
                 </motion.h2>
-                <motion.p 
+                <motion.p
                   className="text-lg text-gray-600 max-w-2xl mx-auto"
                   style={{ fontFamily: 'Inter, sans-serif' }}
                   initial={{ opacity: 0, y: 20 }}
@@ -466,7 +490,7 @@ const ProductsPage: React.FC = () => {
 
               {/* Product Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                {currentCollection.products.map((product, index) => (
+                {currentCollection.products.map((product: Product, index: number) => (
                   <motion.div
                     key={`${selectedCollection}-${product.id}`}
                     initial={{ opacity: 0, y: 50, scale: 0.9 }}
@@ -498,7 +522,7 @@ const ProductsPage: React.FC = () => {
                               </motion.div>
                             </PolygonHover>
                           </CrystalReveal>
-                          
+
                           {/* Hover Overlay with Egyptian Symbols */}
                           <motion.div
                             className={`absolute inset-0 bg-gradient-to-t ${currentCollection.color} opacity-0 group-hover:opacity-85 transition-opacity duration-300 flex items-center justify-center`}
@@ -511,7 +535,7 @@ const ProductsPage: React.FC = () => {
                               transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
                               className="text-white text-center"
                             >
-                              <motion.div 
+                              <motion.div
                                 className="text-5xl mb-3"
                                 animate={{ rotate: [0, 5, -5, 0] }}
                                 transition={{ duration: 2, repeat: Infinity }}
@@ -520,7 +544,7 @@ const ProductsPage: React.FC = () => {
                               </motion.div>
                               <div className="font-semibold text-lg mb-2">Product Details</div>
                               <div className="text-sm opacity-90">View Specifications</div>
-                              
+
                               {/* Floating mini hieroglyphs */}
                               <div className="absolute inset-0 pointer-events-none">
                                 {['𓂀', '𓊽', '𓇳'].map((symbol, i) => (
@@ -566,8 +590,8 @@ const ProductsPage: React.FC = () => {
 
                         {/* Product Info */}
                         <div className="p-6 bg-gradient-to-b from-white to-gray-50">
-                          <motion.h3 
-                            className="font-bold text-gray-900 text-lg mb-2" 
+                          <motion.h3
+                            className="font-bold text-gray-900 text-lg mb-2"
                             style={{ fontFamily: 'Playfair Display, serif' }}
                             whileHover={{ scale: 1.02 }}
                           >
@@ -576,17 +600,17 @@ const ProductsPage: React.FC = () => {
                           <p className="text-gray-600 text-sm leading-relaxed mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>
                             {product.description}
                           </p>
-                          
+
                           {/* Egyptian decorative line */}
-                          <motion.div 
+                          <motion.div
                             className={`h-0.5 bg-gradient-to-r ${currentCollection.color} mb-4 rounded-full`}
                             initial={{ width: 0 }}
                             animate={{ width: '100%' }}
                             transition={{ duration: 0.8, delay: index * 0.1 }}
                           />
-                          
+
                           <div className="flex items-center justify-between">
-                            <motion.span 
+                            <motion.span
                               className={`text-xl font-bold bg-gradient-to-r ${currentCollection.color} bg-clip-text text-transparent`}
                               whileHover={{ scale: 1.1 }}
                             >
@@ -627,8 +651,8 @@ const ProductsPage: React.FC = () => {
                   Showing all {currentCollection.productCount} products in this collection. Each pillow is crafted with premium materials and authentic Egyptian designs, preserving ancient heritage through modern comfort.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
-                  {currentCollection.features.map((feature, index) => (
-                    <span 
+                  {currentCollection.features.map((feature: string, index: number) => (
+                    <span
                       key={index}
                       className={`bg-gradient-to-r ${currentCollection.color} text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg`}
                     >
@@ -645,7 +669,7 @@ const ProductsPage: React.FC = () => {
       {/* B2B CTA Section */}
       <section className="py-20 bg-gradient-to-br from-gray-900 to-blue-900 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
-        
+
         {/* Animated Background */}
         <div className="absolute inset-0">
           {[...Array(10)].map((_, i) => (
@@ -683,7 +707,7 @@ const ProductsPage: React.FC = () => {
             <p className="text-xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
               Join YKP&apos;s global network of distributors and retailers. Special pricing available for bulk orders and international partnerships.
             </p>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
               {[
                 { icon: '📦', title: 'Bulk Orders', desc: 'Special pricing for large quantities' },
@@ -756,6 +780,10 @@ const ProductsPage: React.FC = () => {
       </section>
     </div>
   );
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  return getStaticPropsWithTranslations(context);
 };
 
 export default ProductsPage;

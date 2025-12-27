@@ -2,11 +2,11 @@
 
 ## Introduction
 
-This document outlines the requirements for a comprehensive SEO and content optimization project for the Egyptian Pharaonic Travel Pillows website (pharaonicpillows.com). The project aims to improve search engine visibility, enhance user experience, optimize content quality, and increase conversion rates through systematic analysis and implementation of SEO best practices across all website sections including homepage, blog, product pages, and technical infrastructure.
+This document outlines the requirements for a comprehensive SEO and content optimization project for the Egyptian Pharaonic Travel Pillows website (ykp-eg.com). The project aims to improve search engine visibility, enhance user experience, optimize content quality, and increase conversion rates through systematic analysis and implementation of SEO best practices across all website sections including homepage, blog, product pages, and technical infrastructure.
 
 ## Glossary
 
-- **Website System**: The complete pharaonicpillows.com Next.js web application including all pages, components, and content
+- **Website System**: The complete ykp-eg.com Next.js web application including all pages, components, and content
 - **SEO Analyzer**: Automated and manual analysis tools that evaluate website structure, content, and technical SEO factors
 - **Content Optimizer**: System that rewrites and enhances website content for improved SEO performance and user engagement
 - **Technical Auditor**: Component that evaluates Core Web Vitals, performance metrics, and technical SEO factors

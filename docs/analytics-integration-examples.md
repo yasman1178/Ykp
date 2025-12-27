@@ -226,10 +226,10 @@ export default function ContactInfo() {
       </a>
       
       <a 
-        href="mailto:info@pharaonicpillows.com"
-        onClick={() => trackEmailClick('info@pharaonicpillows.com')}
+        href="mailto:info@ykp-eg.com"
+        onClick={() => trackEmailClick('info@ykp-eg.com')}
       >
-        ✉️ info@pharaonicpillows.com
+        ✉️ info@ykp-eg.com
       </a>
     </div>
   );

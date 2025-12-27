@@ -90,7 +90,7 @@ export const DEFAULT_SEO: SEOConfig = {
     title: 'YKP Supplies - Premium Egyptian Travel Pillows',
     description: 'Premium Egyptian travel pillows inspired by ancient Pharaonic designs. Memory foam comfort meets Egyptian heritage.',
     image: '/og-image-pharaonic-pillows.jpg',
-    url: 'https://pharaonicpillows.com',
+    url: 'https://ykp-eg.com',
     type: 'website',
     siteName: 'Pharaonic Pillows'
   },
@@ -99,7 +99,7 @@ export const DEFAULT_SEO: SEOConfig = {
     title: 'Pharaonic Pillows - Premium Egyptian Travel Pillows',
     description: 'Premium Egyptian travel pillows inspired by ancient Pharaonic designs. Memory foam comfort meets Egyptian heritage.',
     image: '/twitter-card-pharaonic-pillows.jpg',
-    creator: '@pharaonicpillows'
+    creator: '@ykp-eg'
   },
   robots: 'index, follow',
   structuredData: {
@@ -107,8 +107,8 @@ export const DEFAULT_SEO: SEOConfig = {
     '@type': 'Organization',
     name: 'YKP Supplies',
     description: 'Premium Egyptian travel pillows inspired by ancient Pharaonic designs',
-    url: 'https://pharaonicpillows.com',
-    logo: 'https://pharaonicpillows.com/logo.png',
+    url: 'https://ykp-eg.com',
+    logo: 'https://ykp-eg.com/logo.png',
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: '+20-100-240-6013',
@@ -138,7 +138,7 @@ export const PAGE_SEO_CONFIGS = {
       'international wholesale'
     ]
   },
-  
+
   products: {
     title: 'Egyptian Travel Pillows Collections | Premium Pharaonic Designs',
     description: 'Explore our complete collection of Egyptian travel pillows. Premium, Classic, and Heritage collections featuring authentic Pharaonic designs and modern comfort technology.',
@@ -151,7 +151,7 @@ export const PAGE_SEO_CONFIGS = {
       'wholesale pillow collections'
     ]
   },
-  
+
   about: {
     title: 'About Pharaonic Pillows - Egyptian Heritage Travel Comfort Company',
     description: 'Learn about Pharaonic Pillows mission to bring Egyptian heritage to modern travel comfort. Discover our story, values, and commitment to authentic Egyptian design.',
@@ -164,7 +164,7 @@ export const PAGE_SEO_CONFIGS = {
       'B2B travel products'
     ]
   },
-  
+
   contact: {
     title: 'Contact Pharaonic Pillows - Wholesale Inquiries & Partnership',
     description: 'Contact Pharaonic Pillows for wholesale inquiries, partnership opportunities, or questions about our Egyptian travel pillows. Global shipping available.',
@@ -177,7 +177,7 @@ export const PAGE_SEO_CONFIGS = {
       'international shipping'
     ]
   },
-  
+
   wholesale: {
     title: 'Wholesale Egyptian Travel Pillows | B2B Partnership Program',
     description: 'Join our global network of distributors. Wholesale Egyptian travel pillows with authentic Pharaonic designs. Competitive pricing, global shipping, dedicated B2B support.',
@@ -190,7 +190,7 @@ export const PAGE_SEO_CONFIGS = {
       'travel pillow supplier'
     ]
   },
-  
+
   blog: {
     title: 'Egyptian Heritage Blog | Pharaonic Symbols & Cultural Stories',
     description: 'Discover the fascinating world of ancient Egyptian symbols and their meanings. Learn about Pharaonic culture, mythology, and how it inspires our travel pillow designs.',
@@ -220,7 +220,7 @@ export const COLLECTION_SEO_CONFIGS = {
       'luxury wholesale pillows'
     ]
   },
-  
+
   t: {
     title: 'Classic Collection (T) - Traditional Egyptian Travel Pillows',
     description: 'Traditional Egyptian travel pillows featuring timeless symbols like Ankh, Scarab, and Eye of Horus. Affordable comfort with authentic Egyptian design.',
@@ -233,7 +233,7 @@ export const COLLECTION_SEO_CONFIGS = {
       'affordable Egyptian pillows'
     ]
   },
-  
+
   tb: {
     title: 'Heritage Collection (TB) - Ancient Egyptian Symbol Pillows',
     description: 'Heritage Egyptian travel pillows featuring authentic hieroglyphs and sacred symbols. Perfect for cultural enthusiasts and educational purposes.',
@@ -251,7 +251,7 @@ export const COLLECTION_SEO_CONFIGS = {
 // Generate SEO meta tags
 export const generateSEOTags = (config: Partial<SEOConfig> = {}): SEOConfig => {
   const mergedConfig = { ...DEFAULT_SEO, ...config };
-  
+
   return {
     ...mergedConfig,
     openGraph: {
@@ -306,7 +306,7 @@ export const generateCollectionStructuredData = (collection: any) => {
     '@type': 'CollectionPage',
     name: collection.name,
     description: collection.description,
-    url: `https://pharaonicpillows.com/products/${collection.id}`,
+    url: `https://ykp-eg.com/products/${collection.id}`,
     mainEntity: {
       '@type': 'ItemList',
       numberOfItems: collection.totalProducts,
@@ -316,7 +316,7 @@ export const generateCollectionStructuredData = (collection: any) => {
         item: {
           '@type': 'Product',
           name: product.name,
-          url: `https://pharaonicpillows.com/products/${collection.id}/${product.id}`
+          url: `https://ykp-eg.com/products/${collection.id}/${product.id}`
         }
       })) || []
     }
@@ -329,7 +329,7 @@ export const createMetaTags = (seoConfig: SEOConfig) => {
     { name: 'description', content: seoConfig.description },
     { name: 'keywords', content: seoConfig.keywords.join(', ') },
     { name: 'robots', content: seoConfig.robots || 'index, follow' },
-    
+
     // Open Graph
     { property: 'og:title', content: seoConfig.openGraph.title },
     { property: 'og:description', content: seoConfig.openGraph.description },
@@ -337,14 +337,14 @@ export const createMetaTags = (seoConfig: SEOConfig) => {
     { property: 'og:url', content: seoConfig.openGraph.url },
     { property: 'og:type', content: seoConfig.openGraph.type },
     { property: 'og:site_name', content: seoConfig.openGraph.siteName },
-    
+
     // Twitter
     { name: 'twitter:card', content: seoConfig.twitter.card },
     { name: 'twitter:title', content: seoConfig.twitter.title },
     { name: 'twitter:description', content: seoConfig.twitter.description },
     { name: 'twitter:image', content: seoConfig.twitter.image },
     ...(seoConfig.twitter.creator ? [{ name: 'twitter:creator', content: seoConfig.twitter.creator }] : []),
-    
+
     // Additional SEO
     { name: 'author', content: 'Pharaonic Pillows' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -361,7 +361,7 @@ export const generateEnhancedMetaTags = (seoConfig: SEOConfig, additionalTags: a
     { name: 'description', content: seoConfig.description },
     { name: 'keywords', content: seoConfig.keywords.join(', ') },
     { name: 'robots', content: seoConfig.robots || 'index, follow' },
-    
+
     // Enhanced SEO
     { name: 'author', content: 'Pharaonic Pillows' },
     { name: 'publisher', content: 'Pharaonic Pillows' },
@@ -370,20 +370,20 @@ export const generateEnhancedMetaTags = (seoConfig: SEOConfig, additionalTags: a
     { name: 'revisit-after', content: '7 days' },
     { name: 'distribution', content: 'global' },
     { name: 'rating', content: 'general' },
-    
+
     // Geographic SEO
     { name: 'geo.region', content: 'EG' },
     { name: 'geo.placename', content: 'Egypt' },
     { name: 'geo.position', content: '26.8206;30.8025' },
     { name: 'ICBM', content: '26.8206, 30.8025' },
-    
+
     // Business SEO
     { name: 'business:contact_data:street_address', content: 'Cairo, Egypt' },
     { name: 'business:contact_data:locality', content: 'Cairo' },
     { name: 'business:contact_data:region', content: 'Cairo Governorate' },
     { name: 'business:contact_data:postal_code', content: '11511' },
     { name: 'business:contact_data:country_name', content: 'Egypt' },
-    
+
     // Open Graph
     { property: 'og:title', content: seoConfig.openGraph.title },
     { property: 'og:description', content: seoConfig.openGraph.description },
@@ -396,7 +396,7 @@ export const generateEnhancedMetaTags = (seoConfig: SEOConfig, additionalTags: a
     { property: 'og:site_name', content: seoConfig.openGraph.siteName },
     { property: 'og:locale', content: 'en_US' },
     { property: 'og:locale:alternate', content: 'ar_EG' },
-    
+
     // Twitter
     { name: 'twitter:card', content: seoConfig.twitter.card },
     { name: 'twitter:title', content: seoConfig.twitter.title },
@@ -404,8 +404,8 @@ export const generateEnhancedMetaTags = (seoConfig: SEOConfig, additionalTags: a
     { name: 'twitter:image', content: seoConfig.twitter.image },
     { name: 'twitter:image:alt', content: 'Egyptian Pharaonic Travel Pillows' },
     ...(seoConfig.twitter.creator ? [{ name: 'twitter:creator', content: seoConfig.twitter.creator }] : []),
-    { name: 'twitter:site', content: '@pharaonicpillows' },
-    
+    { name: 'twitter:site', content: '@ykp-eg' },
+
     // Additional tags
     ...Object.entries(additionalTags).map(([key, value]) => ({ name: key, content: value }))
   ];
@@ -413,9 +413,9 @@ export const generateEnhancedMetaTags = (seoConfig: SEOConfig, additionalTags: a
 
 // Generate sitemap data with enhanced structure
 export const generateSitemapData = () => {
-  const baseUrl = 'https://pharaonicpillows.com';
+  const baseUrl = 'https://ykp-eg.com';
   const currentDate = new Date().toISOString();
-  
+
   return {
     pages: [
       { url: `${baseUrl}/`, changefreq: 'weekly', priority: 1.0, lastmod: currentDate },

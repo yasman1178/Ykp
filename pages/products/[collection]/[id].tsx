@@ -4,6 +4,9 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { GetStaticProps, GetStaticPaths } from 'next';
+import SEO from '@/components/SEO';
+import ProductSchema from '@/components/ProductSchema';
+import { getTranslations } from '@/lib/translations';
 
 interface Product {
   id: string;
@@ -31,21 +34,45 @@ interface Product {
 interface ProductPageProps {
   product: Product;
   relatedProducts: Product[];
+  translations: any;
+  locale: string;
 }
 
-const ProductPage: React.FC<ProductPageProps> = ({ product, relatedProducts }) => {
+const ProductPage: React.FC<ProductPageProps> = ({
+  product,
+  relatedProducts,
+  translations: t,
+  locale
+}) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
   return (
     <div className="min-h-screen bg-white">
-      <Head>
-        <title>{product.name} - {product.collectionName} | YKP Supplies</title>
-        <meta 
-          name="description" 
-          content={`${product.description} Premium Egyptian travel pillow from YKP Supplies. ${product.price} with authentic design and modern comfort.`}
-        />
-      </Head>
+      <SEO
+        title={`${product.name} - ${product.collectionName} | YKP Supplies`}
+        description={`${product.description} Premium Egyptian travel pillow from YKP Supplies. ${product.price} with authentic design and modern comfort.`}
+        translations={t}
+        locale={locale}
+        ogType="product"
+        ogImage={product.gallery[0]}
+      />
+      <ProductSchema
+        product={{
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          collection: product.collection as any,
+          images: product.gallery.map(url => ({ url, alt: product.name, id: url, isPrimary: false, order: 0, dimensions: { width: 0, height: 0 } })),
+          pricing: {
+            retail: {
+              min: parseFloat(product.price.replace('$', '')),
+              max: parseFloat(product.price.replace('$', '')),
+              currency: 'USD'
+            }
+          }
+        } as any}
+      />
 
       {/* Breadcrumb */}
       <section className="py-6 bg-gray-50">
@@ -105,11 +132,10 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, relatedProducts }) =
                   <motion.button
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`relative rounded-2xl overflow-hidden aspect-square ${
-                      selectedImage === index 
-                        ? `ring-4 ring-offset-2 ring-amber-500` 
-                        : 'hover:opacity-80'
-                    }`}
+                    className={`relative rounded-2xl overflow-hidden aspect-square ${selectedImage === index
+                      ? `ring-4 ring-offset-2 ring-amber-500`
+                      : 'hover:opacity-80'
+                      }`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -134,7 +160,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, relatedProducts }) =
             >
               {/* Header */}
               <div>
-                <motion.h1 
+                <motion.h1
                   className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
                   style={{ fontFamily: 'Playfair Display, serif' }}
                   initial={{ opacity: 0, y: 20 }}
@@ -143,7 +169,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, relatedProducts }) =
                 >
                   {product.name}
                 </motion.h1>
-                <motion.p 
+                <motion.p
                   className="text-xl text-gray-600 mb-6"
                   style={{ fontFamily: 'Inter, sans-serif' }}
                   initial={{ opacity: 0, y: 20 }}
@@ -152,7 +178,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, relatedProducts }) =
                 >
                   {product.description}
                 </motion.p>
-                <motion.div 
+                <motion.div
                   className={`text-4xl font-bold bg-gradient-to-r ${product.color} bg-clip-text text-transparent`}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -379,18 +405,18 @@ const ProductPage: React.FC<ProductPageProps> = ({ product, relatedProducts }) =
 export const getStaticPaths: GetStaticPaths = async () => {
   // Generate paths for all products
   const paths: { params: { collection: string; id: string } }[] = [];
-  
+
   // Add paths for all collections and their products - Updated counts
   const collections = ['premium', 'classic', 'heritage', 'print'];
   const productCounts = { premium: 23, classic: 21, heritage: 36, print: 5 };
-  
+
   collections.forEach(collection => {
     const count = productCounts[collection as keyof typeof productCounts];
     for (let i = 1; i <= count; i++) {
       const id = collection === 'premium' ? `b123-${i.toString().padStart(3, '0')}` :
-                 collection === 'classic' ? `t-${i.toString().padStart(3, '0')}` :
-                 collection === 'print' ? `print-${i.toString().padStart(3, '0')}` :
-                 `tb-${i.toString().padStart(3, '0')}`;
+        collection === 'classic' ? `t-${i.toString().padStart(3, '0')}` :
+          collection === 'print' ? `print-${i.toString().padStart(3, '0')}` :
+            `tb-${i.toString().padStart(3, '0')}`;
       paths.push({
         params: { collection, id }
       });
@@ -403,9 +429,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { params } = context;
   const { collection, id } = params!;
-  
+
   // Product Barcode Mapping
   const PRODUCT_BARCODES: Record<string, string> = {
     'B001': '0762497599008',
@@ -427,7 +454,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const code = `${collectionPrefix}${productNum.padStart(3, '0')}`;
     return PRODUCT_BARCODES[code];
   };
-  
+
   // Mock product data - in a real app, this would come from a database
   const getProductData = (collection: string, id: string) => {
     const collections = {
@@ -459,7 +486,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     const collectionData = collections[collection as keyof typeof collections];
     const productNumber = id?.split('-')[1] || '001';
-    
+
     return {
       id: id as string,
       image: `/prodect/${collection === 'premium' ? 'b123' : collection === 'classic' ? 't' : collection === 'print' ? 'Print' : 'tb'}/${parseInt(productNumber)}.webp`,
@@ -495,30 +522,34 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 
   const product = getProductData(collection as string, id as string);
-  
+
   // Get related products (4 random products from the same collection)
   const relatedProducts = [];
   const maxProducts = collection === 'premium' ? 23 : collection === 'classic' ? 21 : collection === 'print' ? 5 : 36;
   const currentProductNum = parseInt((id as string).split('-')[1]);
-  
+
   for (let i = 1; i <= 4; i++) {
     let relatedNum = currentProductNum + i;
     if (relatedNum > maxProducts) relatedNum = relatedNum - maxProducts;
-    
+
     const relatedId = collection === 'premium' ? `b123-${relatedNum.toString().padStart(3, '0')}` :
-                     collection === 'classic' ? `t-${relatedNum.toString().padStart(3, '0')}` :
-                     collection === 'print' ? `print-${relatedNum.toString().padStart(3, '0')}` :
-                     `tb-${relatedNum.toString().padStart(3, '0')}`;
-    
+      collection === 'classic' ? `t-${relatedNum.toString().padStart(3, '0')}` :
+        collection === 'print' ? `print-${relatedNum.toString().padStart(3, '0')}` :
+          `tb-${relatedNum.toString().padStart(3, '0')}`;
+
     relatedProducts.push(getProductData(collection as string, relatedId));
   }
+
+  const translations = getTranslations(context.locale || 'en');
 
   return {
     props: {
       product,
-      relatedProducts
+      relatedProducts,
+      translations,
+      locale: context.locale || 'en'
     }
   };
-};
+}
 
 export default ProductPage;

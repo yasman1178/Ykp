@@ -8,17 +8,23 @@ import { CrystalImage, FloatingCard, GradientBackground } from '@/components/eff
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import { productService } from '@/lib/product-service';
 import type { Product, ProductCollection } from '@/types/product';
+import SEO from '@/components/SEO';
+import { getTranslations } from '@/lib/translations';
 
 interface CollectionPageProps {
   collection: ProductCollection;
   products: Product[];
   collectionId: string;
+  translations: any;
+  locale: string;
 }
 
-const CollectionPage: React.FC<CollectionPageProps> = ({ 
-  collection, 
-  products: initialProducts, 
-  collectionId 
+const CollectionPage: React.FC<CollectionPageProps> = ({
+  collection,
+  products: initialProducts,
+  collectionId,
+  translations: t,
+  locale
 }) => {
   const [products, setProducts] = useState(initialProducts);
   const [filteredProducts, setFilteredProducts] = useState(initialProducts);
@@ -87,13 +93,13 @@ const CollectionPage: React.FC<CollectionPageProps> = ({
 
   return (
     <>
-      <Head>
-        <title>{collection.name} - Egyptian Travel Pillows | Pharaonic Pillows</title>
-        <meta 
-          name="description" 
-          content={`${collection.description} Browse our complete ${collection.name} featuring ${collection.totalProducts} unique Egyptian travel pillows.`}
-        />
-      </Head>
+      <SEO
+        title={`${collection.name} - Egyptian Travel Pillows | Pharaonic Pillows`}
+        description={`${collection.description} Browse our complete ${collection.name} featuring ${collection.totalProducts} unique Egyptian travel pillows.`}
+        translations={t}
+        locale={locale}
+        ogType="product"
+      />
 
       <div className="min-h-screen bg-gradient-to-br from-papyrus to-desert-sand">
         {/* Hero Section */}
@@ -101,7 +107,7 @@ const CollectionPage: React.FC<CollectionPageProps> = ({
           <GradientBackground variant={collectionId === 'b123' ? 'hero' : collectionId === 't' ? 'subtle' : 'royal'} className="absolute inset-0" />
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <Breadcrumbs items={breadcrumbItems} className="mb-8 text-white" />
-            
+
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -114,7 +120,7 @@ const CollectionPage: React.FC<CollectionPageProps> = ({
               <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed opacity-90 mb-8">
                 {collection.longDescription}
               </p>
-              
+
               {/* Collection Stats */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
                 <div className="text-center">
@@ -208,8 +214,8 @@ const CollectionPage: React.FC<CollectionPageProps> = ({
                 <p className="text-hieroglyph-black mb-8">
                   Try adjusting your search or filter criteria
                 </p>
-                <Button 
-                  variant="primary" 
+                <Button
+                  variant="primary"
                   onClick={() => {
                     setSearchQuery('');
                     setPriceFilter('all');
@@ -239,7 +245,7 @@ const CollectionPage: React.FC<CollectionPageProps> = ({
                             variant="crystal"
                             className="w-full h-48 group-hover:scale-105 transition-transform duration-300"
                           />
-                          
+
                           {/* Badges */}
                           <div className="absolute top-3 left-3 flex flex-col gap-2">
                             {product.featured && (
@@ -257,7 +263,7 @@ const CollectionPage: React.FC<CollectionPageProps> = ({
                           <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1">
                             <span className="font-bold text-pharaonic-gold">
                               ${product.pricing.retail.min}
-                              {product.pricing.retail.max > product.pricing.retail.min && 
+                              {product.pricing.retail.max > product.pricing.retail.min &&
                                 ` - $${product.pricing.retail.max}`
                               }
                             </span>
@@ -332,7 +338,7 @@ const CollectionPage: React.FC<CollectionPageProps> = ({
                   Interested in Wholesale?
                 </h2>
                 <p className="text-xl text-hieroglyph-black mb-8 max-w-2xl mx-auto">
-                  Get special pricing for bulk orders of {collection.name}. 
+                  Get special pricing for bulk orders of {collection.name}.
                   Perfect for retailers, hotels, and travel companies.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -354,7 +360,7 @@ const CollectionPage: React.FC<CollectionPageProps> = ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const collections = ['b123', 't', 'tb'];
-  
+
   const paths = collections.map((collection) => ({
     params: { collection }
   }));
@@ -365,9 +371,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { params } = context;
   const collectionId = params?.collection as string;
-  
+
   if (!['b123', 't', 'tb'].includes(collectionId)) {
     return {
       notFound: true
@@ -383,13 +390,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
   }
 
+  const translations = getTranslations(context.locale || 'en');
+
   return {
     props: {
       collection,
       products,
-      collectionId
+      collectionId,
+      translations,
+      locale: context.locale || 'en'
     }
   };
-};
+}
 
 export default CollectionPage;

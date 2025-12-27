@@ -13,10 +13,10 @@ interface AnimationWrapperProps extends HTMLMotionProps<"div"> {
 }
 
 // Crystal/Polygonal reveal animation wrapper
-export const CrystalReveal: React.FC<AnimationWrapperProps> = ({ 
-  children, 
-  className = "", 
-  ...props 
+export const CrystalReveal: React.FC<AnimationWrapperProps> = ({
+  children,
+  className = "",
+  ...props
 }) => {
   return (
     <motion.div
@@ -32,10 +32,10 @@ export const CrystalReveal: React.FC<AnimationWrapperProps> = ({
 };
 
 // Polygonal hover effect for product images
-export const PolygonHover: React.FC<AnimationWrapperProps> = ({ 
-  children, 
-  className = "", 
-  ...props 
+export const PolygonHover: React.FC<AnimationWrapperProps> = ({
+  children,
+  className = "",
+  ...props
 }) => {
   return (
     <motion.div
@@ -51,10 +51,10 @@ export const PolygonHover: React.FC<AnimationWrapperProps> = ({
 };
 
 // Gradient background animation
-export const GradientBackground: React.FC<AnimationWrapperProps> = ({ 
-  children, 
-  className = "", 
-  ...props 
+export const GradientBackground: React.FC<AnimationWrapperProps> = ({
+  children,
+  className = "",
+  ...props
 }) => {
   return (
     <motion.div
@@ -74,10 +74,10 @@ export const GradientBackground: React.FC<AnimationWrapperProps> = ({
 };
 
 // Staggered content reveal container
-export const StaggerContainer: React.FC<AnimationWrapperProps> = ({ 
-  children, 
-  className = "", 
-  ...props 
+export const StaggerContainer: React.FC<AnimationWrapperProps> = ({
+  children,
+  className = "",
+  ...props
 }) => {
   return (
     <motion.div
@@ -93,10 +93,10 @@ export const StaggerContainer: React.FC<AnimationWrapperProps> = ({
 };
 
 // Individual stagger item
-export const StaggerItem: React.FC<AnimationWrapperProps> = ({ 
-  children, 
-  className = "", 
-  ...props 
+export const StaggerItem: React.FC<AnimationWrapperProps> = ({
+  children,
+  className = "",
+  ...props
 }) => {
   return (
     <motion.div
@@ -110,10 +110,10 @@ export const StaggerItem: React.FC<AnimationWrapperProps> = ({
 };
 
 // Interactive hover element
-export const InteractiveHover: React.FC<AnimationWrapperProps> = ({ 
-  children, 
-  className = "", 
-  ...props 
+export const InteractiveHover: React.FC<AnimationWrapperProps> = ({
+  children,
+  className = "",
+  ...props
 }) => {
   return (
     <motion.div
@@ -135,32 +135,32 @@ export const GoldenButton: React.FC<{
   className?: string;
   onClick?: () => void;
   disabled?: boolean;
-}> = ({ 
-  children, 
-  className = "", 
+}> = ({
+  children,
+  className = "",
   onClick,
   disabled = false
 }) => {
-  return (
-    <motion.button
-      className={`golden-button ${className} ${disabled ? 'disabled' : ''}`}
-      initial={EGYPTIAN_ANIMATIONS.goldenButton.initial}
-      whileHover={!disabled ? EGYPTIAN_ANIMATIONS.goldenButton.hover : {}}
-      whileTap={!disabled ? EGYPTIAN_ANIMATIONS.goldenButton.tap : {}}
-      transition={{ duration: 0.2 }}
-      onClick={onClick}
-      disabled={disabled}
-    >
-      {children}
-    </motion.button>
-  );
-};
+    return (
+      <motion.button
+        className={`golden-button ${className} ${disabled ? 'disabled' : ''}`}
+        initial={EGYPTIAN_ANIMATIONS.goldenButton.initial}
+        whileHover={!disabled ? EGYPTIAN_ANIMATIONS.goldenButton.hover : {}}
+        whileTap={!disabled ? EGYPTIAN_ANIMATIONS.goldenButton.tap : {}}
+        transition={{ duration: 0.2 }}
+        onClick={onClick}
+        disabled={disabled}
+      >
+        {children}
+      </motion.button>
+    );
+  };
 
 // Floating card animation
-export const FloatingCard: React.FC<AnimationWrapperProps> = ({ 
-  children, 
-  className = "", 
-  ...props 
+export const FloatingCard: React.FC<AnimationWrapperProps> = ({
+  children,
+  className = "",
+  ...props
 }) => {
   return (
     <motion.div
@@ -176,10 +176,10 @@ export const FloatingCard: React.FC<AnimationWrapperProps> = ({
 };
 
 // Floating hieroglyphs decoration
-export const FloatingHieroglyphs: React.FC<AnimationWrapperProps> = ({ 
-  children, 
-  className = "", 
-  ...props 
+export const FloatingHieroglyphs: React.FC<Partial<AnimationWrapperProps>> = ({
+  children,
+  className = "",
+  ...props
 }) => {
   return (
     <motion.div
@@ -188,16 +188,16 @@ export const FloatingHieroglyphs: React.FC<AnimationWrapperProps> = ({
       transition={{ duration: 4, repeat: Infinity }}
       {...props}
     >
-      {children}
+      {children || '𓂀'}
     </motion.div>
   );
 };
 
 // Card entrance animation
-export const CardEntrance: React.FC<AnimationWrapperProps> = ({ 
-  children, 
-  className = "", 
-  ...props 
+export const CardEntrance: React.FC<AnimationWrapperProps> = ({
+  children,
+  className = "",
+  ...props
 }) => {
   return (
     <motion.div
@@ -213,10 +213,10 @@ export const CardEntrance: React.FC<AnimationWrapperProps> = ({
 };
 
 // Egyptian pulse animation
-export const EgyptianPulse: React.FC<AnimationWrapperProps> = ({ 
-  children, 
-  className = "", 
-  ...props 
+export const EgyptianPulse: React.FC<AnimationWrapperProps> = ({
+  children,
+  className = "",
+  ...props
 }) => {
   return (
     <motion.div
@@ -231,10 +231,10 @@ export const EgyptianPulse: React.FC<AnimationWrapperProps> = ({
 };
 
 // Page transition wrapper
-export const PageTransition: React.FC<AnimationWrapperProps> = ({ 
-  children, 
-  className = "", 
-  ...props 
+export const PageTransition: React.FC<AnimationWrapperProps> = ({
+  children,
+  className = "",
+  ...props
 }) => {
   return (
     <motion.div

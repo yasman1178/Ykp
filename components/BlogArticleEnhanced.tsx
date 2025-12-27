@@ -7,11 +7,11 @@ import { motion } from 'framer-motion';
 import { BlogArticle } from '@/data/blog-articles';
 import { BlogArticleEnhanced as BlogArticleEnhancedType } from '@/types/blog-enhanced';
 import { Product } from '@/types/product';
-import { 
-  generateBlogCTA, 
-  generateBlogInternalLinks, 
+import {
+  generateBlogCTA,
+  generateBlogInternalLinks,
   generateRelatedProducts,
-  SYMBOL_PRODUCT_MAPPING 
+  SYMBOL_PRODUCT_MAPPING
 } from '@/lib/blog-seo-integration';
 import EgyptianTags from './EgyptianTags';
 import EgyptianCTA from './EgyptianCTA';
@@ -25,14 +25,14 @@ interface BlogArticleEnhancedProps {
   showCTASections?: boolean;
 }
 
-export default function BlogArticleEnhanced({ 
-  article, 
+export default function BlogArticleEnhanced({
+  article,
   showProductIntegration = true,
   showInternalLinks = true,
   showCTASections = true
 }: BlogArticleEnhancedProps) {
   const [showShareDialog, setShowShareDialog] = useState(false);
-  
+
   const relatedProducts = generateRelatedProducts(article);
   const internalLinks = generateBlogInternalLinks(article);
   const ctaData = generateBlogCTA(article);
@@ -85,7 +85,7 @@ export default function BlogArticleEnhanced({
               <strong className="text-amber-700">الأهمية الثقافية:</strong> {article.symbol.culturalSignificance}
             </div>
           </div>
-          
+
           {/* Product Integration in Symbol Box */}
           {showProductIntegration && symbolMapping && (
             <div className="border-t border-amber-200 pt-4">
@@ -110,7 +110,7 @@ export default function BlogArticleEnhanced({
 
         {/* Internal Links Section */}
         {showInternalLinks && internalLinks.length > 0 && (
-          <BlogInternalLinks 
+          <BlogInternalLinks
             links={internalLinks}
             title="Related Links"
             arabicTitle="روابط ذات صلة"
@@ -152,7 +152,7 @@ export default function BlogArticleEnhanced({
                     <span className="text-white text-xs font-medium">{product.collection.toUpperCase()}</span>
                   </div>
                 </div>
-                
+
                 <div className="p-6">
                   <h3 className="text-lg font-bold text-blue-900 mb-2 group-hover:text-amber-600 transition-colors">
                     {product.name}
@@ -160,18 +160,18 @@ export default function BlogArticleEnhanced({
                   <p className="text-gray-600 text-sm mb-4 line-clamp-3">
                     {product.description}
                   </p>
-                  
+
                   <div className="flex items-center justify-between mb-4">
                     <div className="text-amber-600 font-bold">
                       ${product.pricing.retail.min} - ${product.pricing.retail.max}
                     </div>
-                    <EgyptianTags 
-                      tags={product.tags.slice(0, 2)} 
-                      maxTags={2} 
+                    <EgyptianTags
+                      tags={product.tags.slice(0, 2)}
+                      maxTags={2}
                       variant="default"
                     />
                   </div>
-                  
+
                   <Link
                     href={`/products/${product.collection}/${product.id}`}
                     className="w-full inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-amber-500 to-blue-500 text-white font-medium rounded-lg hover:from-amber-600 hover:to-blue-600 transition-all duration-300"
@@ -273,7 +273,7 @@ export default function BlogArticleEnhanced({
       {showShareDialog && (
         <BlogShareDialog
           isOpen={showShareDialog}
-          url={`https://pharaonicpillows.com/blog/${article.slug}`}
+          url={`https://ykp-eg.com/blog/${article.slug}`}
           title={article.title}
           description={article.description}
           onClose={() => setShowShareDialog(false)}
@@ -312,9 +312,9 @@ function getLinkIcon(type: string): string {
 
 function formatEnhancedContent(content: string, article: BlogArticle): string {
   const symbolMapping = SYMBOL_PRODUCT_MAPPING[article.symbol.name as keyof typeof SYMBOL_PRODUCT_MAPPING];
-  
+
   let enhancedContent = content;
-  
+
   // Add product integration section after the first major heading
   if (symbolMapping) {
     const productSection = `
@@ -337,14 +337,14 @@ function formatEnhancedContent(content: string, article: BlogArticle): string {
         </a>
       </div>
     `;
-    
+
     // Insert after the first paragraph
     const firstParagraphEnd = enhancedContent.indexOf('\n\n');
     if (firstParagraphEnd > -1) {
       enhancedContent = enhancedContent.slice(0, firstParagraphEnd) + productSection + enhancedContent.slice(firstParagraphEnd);
     }
   }
-  
+
   // Convert markdown-style content to HTML with Egyptian styling
   return enhancedContent
     .replace(/## (.*)/g, '<h2 class="text-2xl font-bold text-blue-900 mt-8 mb-4 flex items-center"><span class="text-amber-600 ml-3">𓋹</span>$1</h2>')

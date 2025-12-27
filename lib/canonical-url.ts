@@ -12,7 +12,7 @@ export interface CanonicalConfig {
 }
 
 const DEFAULT_CONFIG: CanonicalConfig = {
-  baseUrl: 'https://pharaonicpillows.com',
+  baseUrl: 'https://www.ykp-eg.com',
   enforceTrailingSlash: false,
   enforceLowercase: true,
   removeQueryParams: ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid', 'ref', 'source']
@@ -51,8 +51,8 @@ export function generateCanonicalUrl(
   }
 
   // Construct full canonical URL
-  const fullUrl = canonicalPath === '' 
-    ? mergedConfig.baseUrl 
+  const fullUrl = canonicalPath === ''
+    ? mergedConfig.baseUrl
     : `${mergedConfig.baseUrl}/${canonicalPath}`;
 
   return fullUrl;
@@ -190,22 +190,22 @@ export const REDIRECT_PATTERNS: Array<{
   pattern: RegExp;
   redirect: (match: RegExpMatchArray) => string;
 }> = [
-  // Redirect /products/collection/product/ to /products/collection/product
-  {
-    pattern: /^\/products\/([^\/]+)\/([^\/]+)\/$/,
-    redirect: (match) => `/products/${match[1]}/${match[2]}`
-  },
-  // Redirect /blog/article/ to /blog/article
-  {
-    pattern: /^\/blog\/([^\/]+)\/$/,
-    redirect: (match) => `/blog/${match[1]}`
-  },
-  // Redirect uppercase paths to lowercase
-  {
-    pattern: /^\/[A-Z]/,
-    redirect: (match) => match[0].toLowerCase()
-  }
-];
+    // Redirect /products/collection/product/ to /products/collection/product
+    {
+      pattern: /^\/products\/([^\/]+)\/([^\/]+)\/$/,
+      redirect: (match) => `/products/${match[1]}/${match[2]}`
+    },
+    // Redirect /blog/article/ to /blog/article
+    {
+      pattern: /^\/blog\/([^\/]+)\/$/,
+      redirect: (match) => `/blog/${match[1]}`
+    },
+    // Redirect uppercase paths to lowercase
+    {
+      pattern: /^\/[A-Z]/,
+      redirect: (match) => match[0].toLowerCase()
+    }
+  ];
 
 /**
  * Check if path matches any redirect pattern

@@ -46,7 +46,7 @@ React components for easy schema integration:
 {
   "@type": "Organization",
   "name": "Pharaonic Pillows",
-  "url": "https://pharaonicpillows.com",
+  "url": "https://ykp-eg.com",
   "logo": {...},
   "description": "...",
   "address": {...},
@@ -67,7 +67,7 @@ React components for easy schema integration:
   "@type": "Blog",
   "name": "Egyptian Pharaonic Symbols Blog",
   "description": "...",
-  "url": "https://pharaonicpillows.com/blog",
+  "url": "https://ykp-eg.com/blog",
   "publisher": {...},
   "inLanguage": ["en", "ar"],
   "blogPost": [...]
@@ -149,13 +149,13 @@ React components for easy schema integration:
       "@type": "ListItem",
       "position": 1,
       "name": "Home",
-      "item": "https://pharaonicpillows.com"
+      "item": "https://ykp-eg.com"
     },
     {
       "@type": "ListItem",
       "position": 2,
       "name": "Blog",
-      "item": "https://pharaonicpillows.com/blog"
+      "item": "https://ykp-eg.com/blog"
     }
   ]
 }
@@ -172,12 +172,12 @@ React components for easy schema integration:
 {
   "@type": "WebSite",
   "name": "Pharaonic Pillows",
-  "url": "https://pharaonicpillows.com",
+  "url": "https://ykp-eg.com",
   "potentialAction": {
     "@type": "SearchAction",
     "target": {
       "@type": "EntryPoint",
-      "urlTemplate": "https://pharaonicpillows.com/blog?search={search_term_string}"
+      "urlTemplate": "https://ykp-eg.com/blog?search={search_term_string}"
     },
     "query-input": "required name=search_term_string"
   }
@@ -290,9 +290,9 @@ import { getBlogArticleBySlug } from '@/data/blog-articles';
 
 export default function ArticlePage({ article, faqItems }) {
   const breadcrumbs = [
-    { name: 'Home', url: 'https://pharaonicpillows.com' },
-    { name: 'Blog', url: 'https://pharaonicpillows.com/blog' },
-    { name: article.title, url: `https://pharaonicpillows.com/blog/${article.slug}` }
+    { name: 'Home', url: 'https://ykp-eg.com' },
+    { name: 'Blog', url: 'https://ykp-eg.com/blog' },
+    { name: article.title, url: `https://ykp-eg.com/blog/${article.slug}` }
   ];
 
   return (

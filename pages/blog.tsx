@@ -37,12 +37,12 @@ export default function BlogIndex({ articles, featuredArticles, categories }: Bl
     '@type': 'Blog',
     name: 'Egyptian Pharaonic Symbols Blog - Ancient Wisdom & Travel Pillows',
     description: 'Explore the fascinating world of ancient Egyptian symbols and their meanings. Discover how Pharaonic heritage inspires our premium Egyptian travel pillow designs.',
-    url: 'https://pharaonicpillows.com/blog',
+    url: 'https://ykp-eg.com/blog',
     blogPost: featuredArticles.map(article => ({
       '@type': 'BlogPosting',
       headline: article.title,
       description: article.description,
-      url: `https://pharaonicpillows.com/blog/${article.slug}`,
+      url: `https://ykp-eg.com/blog/${article.slug}`,
       datePublished: article.publishDate,
       author: {
         '@type': 'Person',
@@ -70,8 +70,8 @@ export default function BlogIndex({ articles, featuredArticles, categories }: Bl
           openGraph: {
             title: "Egyptian Pharaonic Symbols Blog | Ancient Wisdom & Travel Pillows",
             description: "Explore fascinating articles about ancient Egyptian symbols and discover how they inspire our premium Egyptian travel pillow designs.",
-            image: "https://pharaonicpillows.com/blog-og-image.jpg",
-            url: "https://pharaonicpillows.com/blog",
+            image: "https://ykp-eg.com/blog-og-image.jpg",
+            url: "https://ykp-eg.com/blog",
             type: "website",
             siteName: "Pharaonic Pillows"
           },
@@ -79,11 +79,11 @@ export default function BlogIndex({ articles, featuredArticles, categories }: Bl
             card: "summary_large_image",
             title: "Egyptian Pharaonic Symbols Blog | Ancient Wisdom & Travel Pillows",
             description: "Explore fascinating articles about ancient Egyptian symbols and discover how they inspire our premium Egyptian travel pillow designs.",
-            image: "https://pharaonicpillows.com/blog-twitter-image.jpg"
+            image: "https://ykp-eg.com/blog-twitter-image.jpg"
           }
         }}
         structuredData={structuredData}
-        canonical="https://pharaonicpillows.com/blog"
+        canonical="https://ykp-eg.com/blog"
       />
 
       <div className="min-h-screen bg-white">
@@ -105,8 +105,8 @@ export default function BlogIndex({ articles, featuredArticles, categories }: Bl
               </div>
 
               {/* Main Masthead */}
-              <h1 
-                className="text-6xl md:text-8xl font-bold text-black mb-2 tracking-tight" 
+              <h1
+                className="text-6xl md:text-8xl font-bold text-black mb-2 tracking-tight"
                 style={{ fontFamily: 'Playfair Display, serif', fontWeight: 900 }}
               >
                 THE PHARAONIC TIMES
@@ -114,7 +114,7 @@ export default function BlogIndex({ articles, featuredArticles, categories }: Bl
               <div className="text-xl md:text-2xl text-black mb-3" style={{ fontFamily: 'Playfair Display, serif', fontStyle: 'italic' }}>
                 جريدة الأزمنة الفرعونية
               </div>
-              
+
               {/* Tagline */}
               <div className="flex items-center justify-center gap-4 text-xs uppercase tracking-widest text-gray-700">
                 <span className="border-t border-black w-16"></span>
@@ -190,8 +190,8 @@ export default function BlogIndex({ articles, featuredArticles, categories }: Bl
                       <div className="text-xs uppercase tracking-widest text-gray-600 mb-3 font-semibold">
                         {featuredArticles[0].symbol.name} • {featuredArticles[0].readingTime} MIN READ
                       </div>
-                      <h3 
-                        className="text-5xl font-bold text-black mb-4 leading-tight group-hover:text-amber-700 transition-colors" 
+                      <h3
+                        className="text-5xl font-bold text-black mb-4 leading-tight group-hover:text-amber-700 transition-colors"
                         style={{ fontFamily: 'Playfair Display, serif' }}
                       >
                         {featuredArticles[0].arabicTitle}
@@ -236,8 +236,8 @@ export default function BlogIndex({ articles, featuredArticles, categories }: Bl
                     <div className="text-xs uppercase tracking-widest text-gray-600 mb-2 font-semibold">
                       {article.symbol.name}
                     </div>
-                    <h3 
-                      className="text-2xl font-bold text-black mb-2 leading-tight group-hover:text-amber-700 transition-colors line-clamp-2" 
+                    <h3
+                      className="text-2xl font-bold text-black mb-2 leading-tight group-hover:text-amber-700 transition-colors line-clamp-2"
                       style={{ fontFamily: 'Playfair Display, serif' }}
                     >
                       {article.arabicTitle}
@@ -293,8 +293,8 @@ export default function BlogIndex({ articles, featuredArticles, categories }: Bl
                     <div className="text-xs uppercase tracking-wider text-gray-500 mb-2 font-semibold">
                       {article.symbol.name}
                     </div>
-                    <h3 
-                      className="text-lg font-bold text-black mb-2 leading-tight group-hover:text-amber-700 transition-colors line-clamp-3" 
+                    <h3
+                      className="text-lg font-bold text-black mb-2 leading-tight group-hover:text-amber-700 transition-colors line-clamp-3"
                       style={{ fontFamily: 'Playfair Display, serif' }}
                     >
                       {article.arabicTitle}

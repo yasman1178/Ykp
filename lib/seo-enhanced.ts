@@ -35,7 +35,7 @@ export interface EnhancedSEOConfig {
     secondary: string[];
     longTail: string[];
   };
-  
+
   // Structured data
   structuredData: {
     organization?: any;
@@ -44,11 +44,11 @@ export interface EnhancedSEOConfig {
     breadcrumb?: any;
     localBusiness?: any;
   };
-  
+
   // Language and localization
   hreflang: HreflangTag[];
   canonical: string;
-  
+
   // Open Graph and Twitter
   openGraph: {
     title: BilingualText;
@@ -61,7 +61,7 @@ export interface EnhancedSEOConfig {
     locale: string;
     localeAlternate: string[];
   };
-  
+
   twitter: {
     card: string;
     title: BilingualText;
@@ -70,20 +70,20 @@ export interface EnhancedSEOConfig {
     imageAlt: BilingualText;
     creator?: string;
   };
-  
+
   // RTL support
   rtl: {
     enabled: boolean;
     direction: 'ltr' | 'rtl';
     lang: string;
   };
-  
+
   // Search Console
   verification?: {
     google?: string;
     bing?: string;
   };
-  
+
   // Robots
   robots?: string;
 }
@@ -147,7 +147,7 @@ export const DEFAULT_ARABIC_KEYWORD_STRATEGY: ArabicKeywordStrategy = {
  */
 export function generateHreflangTags(
   basePath: string,
-  baseUrl: string = 'https://pharaonicpillows.com'
+  baseUrl: string = 'https://ykp-eg.com'
 ): HreflangTag[] {
   return [
     {
@@ -174,7 +174,7 @@ export function generateRTLMetaTags(locale: string): {
   htmlAttributes: Record<string, string>;
 } {
   const isArabic = locale === 'ar' || locale.startsWith('ar-');
-  
+
   return {
     direction: isArabic ? 'rtl' : 'ltr',
     lang: locale,
@@ -190,21 +190,21 @@ export function generateRTLMetaTags(locale: string): {
  */
 export function calculateKeywordDensity(text: string, keyword: string): number {
   if (!text || !keyword) return 0;
-  
+
   const textLower = text.toLowerCase();
   const keywordLower = keyword.toLowerCase();
-  
+
   // Count keyword occurrences
   const regex = new RegExp(keywordLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
   const matches = textLower.match(regex);
   const keywordCount = matches ? matches.length : 0;
-  
+
   // Count total words
   const words = text.trim().split(/\s+/);
   const totalWords = words.length;
-  
+
   if (totalWords === 0) return 0;
-  
+
   // Calculate density as percentage
   return (keywordCount / totalWords) * 100;
 }
@@ -224,7 +224,7 @@ export function optimizeKeywordDensity(
 } {
   const currentDensity = calculateKeywordDensity(text, keyword);
   const isOptimal = currentDensity >= targetDensity * 0.8 && currentDensity <= targetDensity * 1.2;
-  
+
   let suggestion = '';
   if (currentDensity < targetDensity * 0.8) {
     suggestion = `Keyword density is too low (${currentDensity.toFixed(2)}%). Consider adding "${keyword}" ${Math.ceil((targetDensity - currentDensity) * text.split(/\s+/).length / 100)} more times.`;
@@ -233,7 +233,7 @@ export function optimizeKeywordDensity(
   } else {
     suggestion = `Keyword density is optimal (${currentDensity.toFixed(2)}%).`;
   }
-  
+
   return {
     currentDensity,
     targetDensity,
@@ -251,21 +251,21 @@ export function generateBilingualMetaTags(
 ): Array<{ name?: string; property?: string; content: string; httpEquiv?: string }> {
   const isArabic = locale === 'ar' || locale.startsWith('ar-');
   const rtl = generateRTLMetaTags(locale);
-  
+
   const title = isArabic ? config.title.ar : config.title.en;
   const description = isArabic ? config.description.ar : config.description.en;
   const keywords = isArabic ? config.keywords.ar : config.keywords.en;
-  
+
   return [
     // Basic meta tags
     { name: 'description', content: description },
     { name: 'keywords', content: keywords.join(', ') },
     { name: 'robots', content: config.robots || 'index, follow, max-image-preview:large' },
-    
+
     // Language and direction
     { httpEquiv: 'Content-Language', content: locale },
     { name: 'language', content: locale },
-    
+
     // Open Graph
     { property: 'og:title', content: isArabic ? config.openGraph.title.ar : config.openGraph.title.en },
     { property: 'og:description', content: isArabic ? config.openGraph.description.ar : config.openGraph.description.en },
@@ -276,7 +276,7 @@ export function generateBilingualMetaTags(
     { property: 'og:site_name', content: config.openGraph.siteName },
     { property: 'og:locale', content: config.openGraph.locale },
     ...config.openGraph.localeAlternate.map(alt => ({ property: 'og:locale:alternate', content: alt })),
-    
+
     // Twitter
     { name: 'twitter:card', content: config.twitter.card },
     { name: 'twitter:title', content: isArabic ? config.twitter.title.ar : config.twitter.title.en },
@@ -284,12 +284,12 @@ export function generateBilingualMetaTags(
     { name: 'twitter:image', content: config.twitter.image },
     { name: 'twitter:image:alt', content: isArabic ? config.twitter.imageAlt.ar : config.twitter.imageAlt.en },
     ...(config.twitter.creator ? [{ name: 'twitter:creator', content: config.twitter.creator }] : []),
-    
+
     // Geographic
     { name: 'geo.region', content: 'EG' },
     { name: 'geo.placename', content: 'Egypt' },
     { name: 'geo.position', content: '30.0444;31.2357' },
-    
+
     // Additional SEO
     { name: 'author', content: 'YKP Supplies' },
     { name: 'publisher', content: 'YKP Supplies' },
@@ -300,7 +300,7 @@ export function generateBilingualMetaTags(
 /**
  * Generate enhanced SEO configuration for homepage
  */
-export function generateHomepageEnhancedSEO(baseUrl: string = 'https://pharaonicpillows.com'): EnhancedSEOConfig {
+export function generateHomepageEnhancedSEO(baseUrl: string = 'https://ykp-eg.com'): EnhancedSEOConfig {
   return {
     title: {
       en: 'Egyptian Travel Pillows Manufacturing | مخدات سفر تصنيع | Wholesale B2B',
@@ -361,7 +361,7 @@ export function generateHomepageEnhancedSEO(baseUrl: string = 'https://pharaonic
         en: 'Egyptian Pharaonic Travel Pillows',
         ar: 'مخدات سفر فرعونية مصرية',
       },
-      creator: '@pharaonicpillows',
+      creator: '@ykp-eg',
     },
     rtl: {
       enabled: true,
@@ -381,7 +381,7 @@ export function generateProductEnhancedSEO(
   productNameAr: string,
   productDescriptionAr: string,
   productPath: string,
-  baseUrl: string = 'https://pharaonicpillows.com'
+  baseUrl: string = 'https://ykp-eg.com'
 ): EnhancedSEOConfig {
   return {
     title: {
@@ -449,7 +449,7 @@ export function generateProductEnhancedSEO(
         en: productName,
         ar: productNameAr,
       },
-      creator: '@pharaonicpillows',
+      creator: '@ykp-eg',
     },
     rtl: {
       enabled: true,

@@ -17,11 +17,11 @@ export interface SitemapEntry {
 
 // Generate sitemap entries for all blog articles
 export const generateBlogSitemapEntries = (): SitemapEntry[] => {
-  const baseUrl = 'https://pharaonicpillows.com';
-  
+  const baseUrl = 'https://ykp-eg.com';
+
   return PHARAONIC_SYMBOLS_ARTICLES.map(article => {
     const seoUrls = generateBlogSEOUrl(article);
-    
+
     return {
       url: `${baseUrl}/blog/${article.slug}`,
       lastModified: article.lastModified,
@@ -43,8 +43,8 @@ export const generateBlogSitemapEntries = (): SitemapEntry[] => {
 
 // Generate blog index sitemap entry
 export const generateBlogIndexSitemapEntry = (): SitemapEntry => {
-  const baseUrl = 'https://pharaonicpillows.com';
-  
+  const baseUrl = 'https://ykp-eg.com';
+
   return {
     url: `${baseUrl}/blog`,
     lastModified: new Date().toISOString(),
@@ -68,12 +68,12 @@ export const generateBlogSitemapXML = (): string => {
   const blogEntries = generateBlogSitemapEntries();
   const blogIndexEntry = generateBlogIndexSitemapEntry();
   const allEntries = [blogIndexEntry, ...blogEntries];
-  
+
   const xmlEntries = allEntries.map(entry => {
-    const alternateLinks = entry.alternateUrls?.map(alt => 
+    const alternateLinks = entry.alternateUrls?.map(alt =>
       `    <xhtml:link rel="alternate" hreflang="${alt.hreflang}" href="${alt.href}" />`
     ).join('\n') || '';
-    
+
     return `  <url>
     <loc>${entry.url}</loc>
     <lastmod>${entry.lastModified}</lastmod>
@@ -82,7 +82,7 @@ export const generateBlogSitemapXML = (): string => {
 ${alternateLinks}
   </url>`;
   }).join('\n');
-  
+
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -93,7 +93,7 @@ ${xmlEntries}
 // Generate robots.txt entries for blog
 export const generateBlogRobotsTxt = (): string[] => {
   return [
-    'Sitemap: https://pharaonicpillows.com/sitemap-blog.xml',
+    'Sitemap: https://ykp-eg.com/sitemap-blog.xml',
     '',
     '# Blog specific rules',
     'Allow: /blog/',

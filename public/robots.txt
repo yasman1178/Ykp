@@ -59,7 +59,7 @@ Allow: /*.css$
 Allow: /*.js$
 
 # Sitemap location
-Sitemap: https://pharaonicpillows.com/sitemap.xml
+Sitemap: https://www.ykp-eg.com/sitemap.xml
 
 # Crawl delay for respectful crawling (1 second between requests)
 Crawl-delay: 1
@@ -122,4 +122,4 @@ User-agent: DotBot
 Disallow: /
 
 # Host directive (preferred domain)
-Host: https://pharaonicpillows.com
+Host: https://www.ykp-eg.com

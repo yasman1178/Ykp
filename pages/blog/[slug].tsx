@@ -12,10 +12,10 @@ import EgyptianTags from '@/components/EgyptianTags';
 import EgyptianCTA from '@/components/EgyptianCTA';
 import BlogArticleEnhanced from '@/components/BlogArticleEnhanced';
 import { generateOGImageUrl, generateTwitterImageUrl } from '@/lib/og-image-generator';
-import { 
-  generateBlogSEOMeta, 
+import {
+  generateBlogSEOMeta,
   generateBlogStructuredData,
-  generateRelatedProducts 
+  generateRelatedProducts
 } from '@/lib/blog-seo-integration';
 import { useState } from 'react';
 
@@ -31,9 +31,9 @@ export default function BlogArticlePage({ article, relatedArticles }: BlogArticl
   if (router.isFallback) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-amber-50 via-blue-50 to-amber-100 flex items-center justify-center">
-        <EgyptianLoader 
-          type="hieroglyph" 
-          size="lg" 
+        <EgyptianLoader
+          type="hieroglyph"
+          size="lg"
           message="جاري تحميل المقال... Loading Article..."
         />
       </div>
@@ -73,15 +73,15 @@ export default function BlogArticlePage({ article, relatedArticles }: BlogArticl
           keywords: seoMeta.keywords,
           openGraph: {
             ...seoMeta.openGraph,
-            image: `https://pharaonicpillows.com${ogImageUrl}`,
+            image: `https://ykp-eg.com${ogImageUrl}`,
           },
           twitter: {
             ...seoMeta.twitter,
-            image: `https://pharaonicpillows.com${twitterImageUrl}`
+            image: `https://ykp-eg.com${twitterImageUrl}`
           }
         }}
         structuredData={structuredData}
-        canonical={`https://pharaonicpillows.com/blog/${article.slug}`}
+        canonical={`https://ykp-eg.com/blog/${article.slug}`}
       />
 
       <div className="min-h-screen bg-white">
@@ -96,8 +96,8 @@ export default function BlogArticlePage({ article, relatedArticles }: BlogArticl
               className="text-center border-b-2 border-black pb-4 mb-6"
             >
               <Link href="/blog">
-                <h1 
-                  className="text-5xl md:text-6xl font-bold text-black mb-1 tracking-tight cursor-pointer hover:text-amber-700 transition-colors" 
+                <h1
+                  className="text-5xl md:text-6xl font-bold text-black mb-1 tracking-tight cursor-pointer hover:text-amber-700 transition-colors"
                   style={{ fontFamily: 'Playfair Display, serif', fontWeight: 900 }}
                 >
                   THE PHARAONIC TIMES
@@ -138,8 +138,8 @@ export default function BlogArticlePage({ article, relatedArticles }: BlogArticl
               </div>
 
               {/* Main Headline */}
-              <h1 
-                className="text-5xl md:text-7xl font-bold text-black mb-4 leading-tight" 
+              <h1
+                className="text-5xl md:text-7xl font-bold text-black mb-4 leading-tight"
                 style={{ fontFamily: 'Playfair Display, serif' }}
               >
                 {article.arabicTitle}
@@ -198,7 +198,7 @@ export default function BlogArticlePage({ article, relatedArticles }: BlogArticl
               transition={{ duration: 0.6 }}
               className="prose prose-lg max-w-none newspaper-columns"
             >
-              <BlogArticleEnhanced 
+              <BlogArticleEnhanced
                 article={article}
                 showProductIntegration={true}
                 showInternalLinks={true}
@@ -259,8 +259,8 @@ export default function BlogArticlePage({ article, relatedArticles }: BlogArticl
                       <div className="text-xs uppercase tracking-widest text-gray-600 mb-2 font-semibold">
                         {relatedArticle.symbol.name}
                       </div>
-                      <h3 
-                        className="text-2xl font-bold text-black mb-2 leading-tight group-hover:text-amber-700 transition-colors line-clamp-2" 
+                      <h3
+                        className="text-2xl font-bold text-black mb-2 leading-tight group-hover:text-amber-700 transition-colors line-clamp-2"
                         style={{ fontFamily: 'Playfair Display, serif' }}
                       >
                         {relatedArticle.arabicTitle}
@@ -292,7 +292,7 @@ export default function BlogArticlePage({ article, relatedArticles }: BlogArticl
       {showShareDialog && (
         <BlogShareDialog
           isOpen={showShareDialog}
-          url={`https://pharaonicpillows.com/blog/${article.slug}`}
+          url={`https://ykp-eg.com/blog/${article.slug}`}
           title={article.title}
           description={article.description}
           onClose={() => setShowShareDialog(false)}

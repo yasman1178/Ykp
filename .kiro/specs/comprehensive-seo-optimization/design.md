@@ -2,7 +2,7 @@
 
 ## Overview
 
-This design document outlines the comprehensive SEO and content optimization strategy for pharaonicpillows.com. The solution implements a systematic approach to analyze, optimize, and enhance all aspects of the website including content quality, technical SEO, user experience, and search engine visibility. The design focuses on bilingual optimization (English/Arabic), manufacturing-focused keywords, and conversion optimization for B2B wholesale opportunities.
+This design document outlines the comprehensive SEO and content optimization strategy for ykp-eg.com. The solution implements a systematic approach to analyze, optimize, and enhance all aspects of the website including content quality, technical SEO, user experience, and search engine visibility. The design focuses on bilingual optimization (English/Arabic), manufacturing-focused keywords, and conversion optimization for B2B wholesale opportunities.
 
 ### Design Principles
 

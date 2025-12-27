@@ -43,18 +43,18 @@ export const generateOrganizationSchema = () => {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    '@id': 'https://pharaonicpillows.com/#organization',
+    '@id': 'https://ykp-eg.com/#organization',
     name: 'YKP Supplies',
     alternateName: 'Egyptian Pharaonic Travel Pillows',
     description: 'Premium Egyptian travel pillows inspired by ancient Pharaonic designs. Wholesale B2B opportunities for international distributors.',
-    url: 'https://pharaonicpillows.com',
+    url: 'https://ykp-eg.com',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://pharaonicpillows.com/logo.png',
+      url: 'https://ykp-eg.com/logo.png',
       width: 300,
       height: 100
     },
-    image: 'https://pharaonicpillows.com/og-image-pharaonic-pillows.jpg',
+    image: 'https://ykp-eg.com/og-image-pharaonic-pillows.jpg',
     foundingDate: '2020',
     foundingLocation: {
       '@type': 'Place',
@@ -82,7 +82,7 @@ export const generateOrganizationSchema = () => {
       },
       {
         '@type': 'ContactPoint',
-        email: 'wholesale@pharaonicpillows.com',
+        email: 'wholesale@ykp-eg.com',
         contactType: 'sales',
         availableLanguage: ['English', 'Arabic'],
         areaServed: 'Worldwide'
@@ -91,7 +91,7 @@ export const generateOrganizationSchema = () => {
     sameAs: [
       'https://www.linkedin.com/in/ykp-eg-483b8a398',
       'https://www.facebook.com/new.cairo.893792',
-      'https://twitter.com/pharaonicpillows'
+      'https://twitter.com/ykp-eg'
     ],
     makesOffer: {
       '@type': 'Offer',
@@ -127,19 +127,19 @@ export const generateWebsiteSchema = () => {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    '@id': 'https://pharaonicpillows.com/#website',
-    url: 'https://pharaonicpillows.com',
+    '@id': 'https://ykp-eg.com/#website',
+    url: 'https://ykp-eg.com',
     name: 'Pharaonic Pillows - Egyptian Travel Pillows',
     description: 'Premium Egyptian travel pillows with authentic Pharaonic designs. B2B wholesale opportunities for international distributors.',
     publisher: {
-      '@id': 'https://pharaonicpillows.com/#organization'
+      '@id': 'https://ykp-eg.com/#organization'
     },
     potentialAction: [
       {
         '@type': 'SearchAction',
         target: {
           '@type': 'EntryPoint',
-          urlTemplate: 'https://pharaonicpillows.com/search?q={search_term_string}'
+          urlTemplate: 'https://ykp-eg.com/search?q={search_term_string}'
         },
         'query-input': 'required name=search_term_string'
       }
@@ -150,8 +150,8 @@ export const generateWebsiteSchema = () => {
 
 // Product Schema
 export const generateProductSchema = (product: Product) => {
-  const baseUrl = 'https://pharaonicpillows.com';
-  
+  const baseUrl = 'https://ykp-eg.com';
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -203,8 +203,8 @@ export const generateProductSchema = (product: Product) => {
         lowPrice: product.pricing.wholesale?.min || product.pricing.retail?.min || 0,
         highPrice: product.pricing.wholesale?.max || product.pricing.retail?.max || 0,
         offerCount: 1,
-        availability: product.availability?.inStock 
-          ? 'https://schema.org/InStock' 
+        availability: product.availability?.inStock
+          ? 'https://schema.org/InStock'
           : 'https://schema.org/OutOfStock',
         seller: {
           '@type': 'Organization',
@@ -246,16 +246,16 @@ export const generateProductSchema = (product: Product) => {
       'memory foam',
       'travel comfort',
       'Egyptian heritage',
-      product.collection === 'b123' ? 'premium collection' : 
-      product.collection === 't' ? 'classic collection' : 'heritage collection'
+      product.collection === 'b123' ? 'premium collection' :
+        product.collection === 't' ? 'classic collection' : 'heritage collection'
     ]
   };
 };
 
 // Collection Page Schema
 export const generateCollectionSchema = (collection: any) => {
-  const baseUrl = 'https://pharaonicpillows.com';
-  
+  const baseUrl = 'https://ykp-eg.com';
+
   return {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -306,8 +306,8 @@ export const generateCollectionSchema = (collection: any) => {
 
 // Blog Article Schema
 export const generateArticleSchema = (article: BlogArticle) => {
-  const baseUrl = 'https://pharaonicpillows.com';
-  
+  const baseUrl = 'https://ykp-eg.com';
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -321,7 +321,7 @@ export const generateArticleSchema = (article: BlogArticle) => {
       url: `${baseUrl}/about`
     },
     publisher: {
-      '@id': 'https://pharaonicpillows.com/#organization'
+      '@id': 'https://ykp-eg.com/#organization'
     },
     datePublished: article.publishDate,
     dateModified: article.lastModified,
@@ -352,7 +352,7 @@ export const generateArticleSchema = (article: BlogArticle) => {
 };
 
 // Breadcrumb Schema
-export const generateBreadcrumbSchema = (breadcrumbs: Array<{name: string, url: string}>) => {
+export const generateBreadcrumbSchema = (breadcrumbs: Array<{ name: string, url: string }>) => {
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -366,7 +366,7 @@ export const generateBreadcrumbSchema = (breadcrumbs: Array<{name: string, url: 
 };
 
 // FAQ Schema
-export const generateFAQSchema = (faqs: Array<{question: string, answer: string}>) => {
+export const generateFAQSchema = (faqs: Array<{ question: string, answer: string }>) => {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -386,9 +386,9 @@ export const generateLocalBusinessSchema = () => {
   return {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    '@id': 'https://pharaonicpillows.com/#localbusiness',
+    '@id': 'https://ykp-eg.com/#localbusiness',
     name: 'Pharaonic Pillows',
-    image: 'https://pharaonicpillows.com/business-photo.jpg',
+    image: 'https://ykp-eg.com/business-photo.jpg',
     telephone: '+20-100-240-6013',
     email: 'ykp.supplies@gmail.com',
     address: {
@@ -408,7 +408,7 @@ export const generateLocalBusinessSchema = () => {
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: [
         'Monday',
-        'Tuesday', 
+        'Tuesday',
         'Wednesday',
         'Thursday',
         'Sunday'

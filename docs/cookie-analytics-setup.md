@@ -187,7 +187,7 @@ Modify `lib/automated-reporting.ts` to add custom alert conditions:
   name: 'Custom Alert',
   condition: 'your_custom_condition',
   threshold: 100,
-  recipients: ['admin@pharaonicpillows.com'],
+  recipients: ['admin@ykp-eg.com'],
   enabled: true
 }
 ```

@@ -1,25 +1,39 @@
-/**
- * Wholesale Page
- * B2B wholesale opportunities and bulk orders
- */
-
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { SEOHead } from '@/components/SEOHead';
-import { 
-  FaTruck, 
-  FaHandshake, 
-  FaGlobe, 
+import Image from 'next/image';
+import { GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
+import { getStaticPropsWithTranslations } from '@/lib/translations';
+import {
+  FaTruck,
+  FaHandshake,
+  FaGlobe,
   FaPercent,
-  FaUsers,
   FaAward,
   FaEnvelope,
   FaPhone,
-  FaWhatsapp
+  FaWhatsapp,
+  FaChevronRight
 } from 'react-icons/fa';
+import SEO from '@/components/SEO';
+import {
+  StaggerContainer,
+  StaggerItem,
+  CrystalReveal,
+  FloatingHieroglyphs,
+  EgyptianPulse
+} from '@/components/animations/EgyptianAnimations';
 
-const WholesalePage: React.FC = () => {
+interface WholesalePageProps {
+  translations: any;
+  locale: string;
+}
+
+const WholesalePage: React.FC<WholesalePageProps> = ({ translations: t, locale }) => {
+  const isRTL = locale === 'ar';
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     companyName: '',
     contactName: '',
@@ -31,15 +45,15 @@ const WholesalePage: React.FC = () => {
     message: ''
   });
 
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [submitMessage, setSubmitMessage] = useState('');
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
   };
-
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [submitMessage, setSubmitMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,7 +72,9 @@ const WholesalePage: React.FC = () => {
 
       if (response.ok && result.success) {
         setSubmitStatus('success');
-        setSubmitMessage('تم إرسال طلبك بنجاح! سنتواصل معك خلال 24 ساعة بعرض سعر مخصص.');
+        setSubmitMessage(isRTL
+          ? 'تم إرسال طلبك بنجاح! سنتواصل معك خلال 24 ساعة بعرض سعر مخصص.'
+          : 'Your inquiry has been sent successfully! We will contact you within 24 hours with a custom quote.');
         setFormData({
           companyName: '',
           contactName: '',
@@ -69,508 +85,249 @@ const WholesalePage: React.FC = () => {
           estimatedQuantity: '',
           message: ''
         });
-        // Scroll to top to show success message
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
         throw new Error(result.message || 'Failed to send inquiry');
       }
     } catch (error) {
       setSubmitStatus('error');
-      setSubmitMessage('عذراً، حدث خطأ في إرسال طلبك. يرجى المحاولة مرة أخرى أو التواصل معنا مباشرة.');
-      console.error('Form submission error:', error);
+      setSubmitMessage(isRTL
+        ? 'عذراً، حدث خطأ في إرسال طلبك. يرجى المحاولة مرة أخرى أو التواصل معنا مباشرة.'
+        : 'Sorry, there was an error sending your inquiry. Please try again or contact us directly.');
     }
   };
 
+  const benefits = [
+    {
+      icon: <FaPercent />,
+      title: isRTL ? 'خصومات تنافسية' : 'Competitive Discounts',
+      description: isRTL ? 'خصومات تصل إلى 40% على الطلبات الكبيرة مع هوامش ربح ممتازة.' : 'Bulk discounts up to 40% with excellent profit margins for partners.',
+    },
+    {
+      icon: <FaTruck />,
+      title: isRTL ? 'شحن عالمي' : 'Global Shipping',
+      description: isRTL ? 'شحن سريع وآمن إلى جميع أنحاء العالم مع تتبع كامل للشحنات.' : 'Fast and secure worldwide shipping with full door-to-door tracking.',
+    },
+    {
+      icon: <FaAward />,
+      title: isRTL ? 'جودة فرعونية أصيلة' : 'Authentic Quality',
+      description: isRTL ? 'منتجات مصنوعة يدوياً في مصر بأعلى معايير الجودة العالمية.' : 'Handmade products in Egypt with the highest international quality standards.',
+    },
+  ];
+
   return (
-    <>
-      <SEOHead
-        seoConfig={{
-          title: "الجملة والتوزيع | Wholesale - Pharaonic Pillows",
-          description: "انضم إلى شبكة موزعي الوسائد الفرعونية. عروض خاصة للجملة، خصومات تنافسية، وشحن عالمي لتجار التجزئة والموزعين.",
-          keywords: [
-            'الجملة',
-            'التوزيع',
-            'وسائد السفر بالجملة',
-            'wholesale travel pillows',
-            'bulk orders',
-            'distributor opportunities'
-          ],
-          openGraph: {
-            title: "الجملة والتوزيع | Wholesale - Pharaonic Pillows",
-            description: "انضم إلى شبكة موزعي الوسائد الفرعونية. عروض خاصة للجملة وخصومات تنافسية",
-            image: "/wholesale-og.jpg",
-            url: "/wholesale",
-            type: "website",
-            siteName: "Pharaonic Pillows"
-          },
-          twitter: {
-            card: "summary_large_image",
-            title: "الجملة والتوزيع | Wholesale - Pharaonic Pillows",
-            description: "انضم إلى شبكة موزعي الوسائد الفرعونية. عروض خاصة للجملة وخصومات تنافسية",
-            image: "/wholesale-og.jpg"
-          }
-        }}
-        canonical="/wholesale"
+    <div dir={isRTL ? 'rtl' : 'ltr'} className="min-h-screen bg-papyrus-light">
+      <SEO
+        title={isRTL ? 'الجملة والتوزيع | الوسائد الفرعونية' : 'Wholesale & B2B | Pharaonic Pillows'}
+        description={t.site.description}
+        locale={locale}
       />
 
-      <div className="min-h-screen bg-gradient-to-br from-papyrus via-desert-sand to-pharaonic-gold">
-        {/* Hero Section */}
-        <section className="relative py-20 px-4">
-          <div className="max-w-6xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 className="text-4xl md:text-6xl font-bold text-hieroglyph-black mb-6 font-pharaonic">
-                🏺 الجملة والتوزيع
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 overflow-hidden bg-hieroglyph-black">
+        <div className="absolute inset-0 opacity-20">
+          <Image src="/hero.png" alt="Wholesale Hero" fill className="object-cover" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-hieroglyph-black/90" />
+
+        <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
+          <StaggerContainer>
+            <StaggerItem>
+              <h1 className="text-5xl md:text-8xl font-black text-white mb-6 shimmer-text italic" style={{ fontFamily: 'Playfair Display, serif' }}>
+                {isRTL ? 'الشراكة العالمية' : 'Global Partnership'}
               </h1>
-              <p className="text-xl text-gray-700 mb-8 max-w-3xl mx-auto">
-                انضم إلى شبكة موزعي الوسائد الفرعونية واستفد من عروض الجملة الحصرية والدعم التجاري المتميز
+            </StaggerItem>
+            <StaggerItem>
+              <p className="text-xl md:text-2xl text-white/70 max-w-3xl mx-auto font-light leading-relaxed">
+                {isRTL
+                  ? 'انضم إلى شبكة موزعينا العالمية واجلب سحر التراث المصري إلى سوقك مع أفضل شروط التوريد والجودة.'
+                  : 'Join our international distribution network and bring the magic of Egyptian heritage to your market with elite supply terms.'}
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="#wholesale-form"
-                  className="bg-gradient-to-r from-pharaonic-gold to-deep-blue text-white py-3 px-8 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105"
-                >
-                  طلب عرض سعر
-                </a>
-                <Link
-                  href="/products"
-                  className="border-2 border-pharaonic-gold text-pharaonic-gold py-3 px-8 rounded-xl font-semibold hover:bg-pharaonic-gold hover:text-white transition-all duration-300"
-                >
-                  تصفح المنتجات
-                </Link>
+            </StaggerItem>
+            <StaggerItem>
+              <div className="mt-12 flex justify-center gap-6">
+                <EgyptianPulse>
+                  <a href="#inquiry-form" className="shimmer-btn text-white px-10 py-5 rounded-full font-bold text-lg shadow-golden">
+                    {isRTL ? 'اطلب عرض سعر الآن' : 'Request Wholesale Quote'}
+                  </a>
+                </EgyptianPulse>
               </div>
-            </motion.div>
-          </div>
-        </section>
+            </StaggerItem>
+          </StaggerContainer>
+        </div>
+      </section>
 
-        {/* Benefits Section */}
-        <section className="py-16 px-4">
-          <div className="max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-12"
-            >
-              <h2 className="text-3xl font-bold text-hieroglyph-black mb-4">
-                لماذا تختار الوسائد الفرعونية للجملة؟
-              </h2>
-              <p className="text-gray-700 max-w-2xl mx-auto">
-                نقدم أفضل الشروط التجارية والدعم الكامل لشركائنا في جميع أنحاء العالم
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                {
-                  icon: <FaPercent className="text-3xl text-pharaonic-gold" />,
-                  title: "خصومات تنافسية",
-                  description: "خصومات تصل إلى 40% على الطلبات الكبيرة مع هوامش ربح ممتازة"
-                },
-                {
-                  icon: <FaTruck className="text-3xl text-pharaonic-gold" />,
-                  title: "شحن عالمي",
-                  description: "شحن سريع وآمن إلى جميع أنحاء العالم مع تتبع الشحنات"
-                },
-                {
-                  icon: <FaAward className="text-3xl text-pharaonic-gold" />,
-                  title: "جودة مضمونة",
-                  description: "منتجات عالية الجودة مع ضمان الاستبدال والإرجاع"
-                },
-                {
-                  icon: <FaUsers className="text-3xl text-pharaonic-gold" />,
-                  title: "دعم تسويقي",
-                  description: "مواد تسويقية مجانية وحملات ترويجية لدعم مبيعاتك"
-                },
-                {
-                  icon: <FaHandshake className="text-3xl text-pharaonic-gold" />,
-                  title: "شراكة طويلة الأمد",
-                  description: "علاقات تجارية مستدامة مع دعم مستمر لنمو أعمالك"
-                },
-                {
-                  icon: <FaGlobe className="text-3xl text-pharaonic-gold" />,
-                  title: "حصرية إقليمية",
-                  description: "إمكانية الحصول على حقوق التوزيع الحصرية في منطقتك"
-                }
-              ].map((benefit, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-white rounded-2xl p-6 shadow-lg text-center hover:shadow-xl transition-all duration-300"
-                >
-                  <div className="mb-4">{benefit.icon}</div>
-                  <h3 className="text-xl font-bold text-hieroglyph-black mb-3">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-gray-600">
-                    {benefit.description}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Pricing Tiers */}
-        <section className="py-16 px-4">
-          <div className="max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-12"
-            >
-              <h2 className="text-3xl font-bold text-hieroglyph-black mb-4">
-                مستويات الخصم حسب الكمية
-              </h2>
-              <p className="text-gray-700">
-                كلما زادت الكمية، زاد الخصم والربح
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  tier: "البرونزي",
-                  quantity: "50 - 199 قطعة",
-                  discount: "15%",
-                  color: "from-amber-600 to-amber-800"
-                },
-                {
-                  tier: "الفضي",
-                  quantity: "200 - 499 قطعة",
-                  discount: "25%",
-                  color: "from-gray-400 to-gray-600",
-                  popular: true
-                },
-                {
-                  tier: "الذهبي",
-                  quantity: "500+ قطعة",
-                  discount: "40%",
-                  color: "from-pharaonic-gold to-deep-blue"
-                }
-              ].map((tier, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className={`relative bg-white rounded-2xl p-6 shadow-lg text-center ${
-                    tier.popular ? 'ring-4 ring-pharaonic-gold' : ''
-                  }`}
-                >
-                  {tier.popular && (
-                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                      <span className="bg-pharaonic-gold text-white px-4 py-1 rounded-full text-sm font-bold">
-                        الأكثر شعبية
-                      </span>
-                    </div>
-                  )}
-                  
-                  <div className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r ${tier.color} flex items-center justify-center`}>
-                    <FaAward className="text-white text-2xl" />
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold text-hieroglyph-black mb-2">
-                    {tier.tier}
-                  </h3>
-                  <p className="text-gray-600 mb-4">{tier.quantity}</p>
-                  <div className="text-4xl font-bold text-pharaonic-gold mb-4">
-                    {tier.discount}
-                  </div>
-                  <p className="text-sm text-gray-500">خصم على السعر الأساسي</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Contact Form */}
-        <section id="wholesale-form" className="py-16 px-4">
-          <div className="max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="bg-white rounded-2xl p-8 shadow-lg"
-            >
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-hieroglyph-black mb-4">
-                  طلب عرض سعر للجملة
-                </h2>
-                <p className="text-gray-700">
-                  املأ النموذج وسنتواصل معك خلال 24 ساعة بعرض سعر مخصص
+      {/* Benefits Content */}
+      <section className="py-32 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            {benefits.map((benefit, index) => (
+              <CrystalReveal key={index} className="glass-panel p-10 rounded-[3rem] border-pharaonic-gold/20 transform hover:-translate-y-4 transition-all duration-500">
+                <div className="w-16 h-16 bg-gradient-gold rounded-2xl flex items-center justify-center text-white text-3xl mb-8 shadow-large">
+                  {benefit.icon}
+                </div>
+                <h3 className="text-2xl font-bold text-hieroglyph-black mb-4">
+                  {benefit.title}
+                </h3>
+                <p className="text-hieroglyph-light leading-relaxed">
+                  {benefit.description}
                 </p>
-              </div>
+              </CrystalReveal>
+            ))}
+          </div>
+        </div>
+      </section>
 
-              {/* Status Messages */}
-              <AnimatePresence>
-                {submitStatus === 'success' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -20, scale: 0.9 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -20, scale: 0.9 }}
-                    className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl"
-                  >
-                    <div className="flex items-center space-x-3 space-x-reverse">
-                      <span className="text-xl">✅</span>
-                      <div>
-                        <h4 className="font-semibold text-green-800">تم إرسال الطلب بنجاح!</h4>
-                        <p className="text-sm text-green-600">{submitMessage}</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
+      {/* Form & Info Section */}
+      <section id="inquiry-form" className="py-20 px-4 bg-white relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-pharaonic-gold to-transparent opacity-30" />
 
-                {submitStatus === 'error' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -20, scale: 0.9 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -20, scale: 0.9 }}
-                    className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl"
-                  >
-                    <div className="flex items-center space-x-3 space-x-reverse">
-                      <span className="text-xl">❌</span>
-                      <div>
-                        <h4 className="font-semibold text-red-800">خطأ في الإرسال</h4>
-                        <p className="text-sm text-red-600">{submitMessage}</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20">
+          {/* Form Side */}
+          <motion.div
+            initial={{ opacity: 0, x: isRTL ? 50 : -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="glass-panel p-10 md:p-16 rounded-[4rem] shadow-huge border-gray-100"
+          >
+            <h2 className="text-3xl md:text-5xl font-black text-hieroglyph-black mb-8" style={{ fontFamily: 'Playfair Display, serif' }}>
+              {isRTL ? 'نموذج الشراكة' : 'Partnership Form'}
+            </h2>
 
-              <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <AnimatePresence>
+              {submitStatus === 'success' && (
+                <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="mb-8 p-6 bg-green-50 rounded-3xl border border-green-100 flex items-center gap-4">
+                  <span className="text-2xl text-green-500">✓</span>
+                  <p className="text-green-800 font-medium">{submitMessage}</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    اسم الشركة *
-                  </label>
                   <input
                     type="text"
                     name="companyName"
+                    placeholder={isRTL ? 'اسم الشركة' : 'Company Name'}
                     value={formData.companyName}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
-                    placeholder="اسم شركتك"
+                    className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-pharaonic-gold outline-none transition-all"
                   />
                 </div>
-
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    اسم الشخص المسؤول *
-                  </label>
                   <input
                     type="text"
                     name="contactName"
+                    placeholder={isRTL ? 'اسم المسؤول' : 'Contact Person'}
                     value={formData.contactName}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
-                    placeholder="اسمك الكامل"
+                    className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-pharaonic-gold outline-none transition-all"
                   />
                 </div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder={isRTL ? 'البريد الإلكتروني' : 'Email Address'}
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-pharaonic-gold outline-none transition-all"
+                />
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder={isRTL ? 'رقم الهاتف' : 'Phone Number'}
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-pharaonic-gold outline-none transition-all"
+                />
+              </div>
+              <select
+                name="estimatedQuantity"
+                value={formData.estimatedQuantity}
+                onChange={handleInputChange}
+                required
+                className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-pharaonic-gold outline-none transition-all appearance-none"
+              >
+                <option value="">{isRTL ? 'الكمية المتوقعة شهرياً' : 'Monthly Estimated Quantity'}</option>
+                <option value="50-100">50 - 100 {isRTL ? 'قطعة' : 'Units'}</option>
+                <option value="100-500">100 - 500 {isRTL ? 'قطعة' : 'Units'}</option>
+                <option value="500+">500+ {isRTL ? 'قطعة' : 'Units'}</option>
+              </select>
+              <textarea
+                name="message"
+                placeholder={isRTL ? 'رسالتك...' : 'Your message...'}
+                value={formData.message}
+                onChange={handleInputChange}
+                rows={4}
+                className="w-full px-6 py-4 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-pharaonic-gold outline-none transition-all"
+              />
+              <motion.button
+                type="submit"
+                disabled={submitStatus === 'loading'}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className={`w-full py-5 rounded-2xl font-bold text-lg shadow-xl transition-all ${submitStatus === 'loading' ? 'bg-gray-400' : 'bg-gradient-to-r from-hieroglyph-black to-blue-900 text-white shadow-blue-900/20'
+                  }`}
+              >
+                {submitStatus === 'loading' ? (isRTL ? 'جاري الإرسال...' : 'Sending...') : (isRTL ? 'إرسال طلب الانضمام' : 'Send Partnership Request')}
+              </motion.button>
+            </form>
+          </motion.div>
 
+          {/* Info Side */}
+          <div className="flex flex-col justify-center">
+            <h3 className="text-3xl font-bold text-hieroglyph-black mb-10" style={{ fontFamily: 'Playfair Display, serif' }}>
+              {isRTL ? 'دعم المصنع المباشر' : 'Direct Factory Support'}
+            </h3>
+            <div className="space-y-8">
+              <div className="flex items-start gap-6 group">
+                <div className="w-14 h-14 bg-white rounded-2xl shadow-soft flex items-center justify-center text-pharaonic-gold text-2xl group-hover:bg-pharaonic-gold group-hover:text-white transition-all">
+                  <FaWhatsapp />
+                </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    البريد الإلكتروني *
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
-                    placeholder="email@company.com"
-                  />
+                  <h4 className="font-bold text-hieroglyph-black text-lg">{isRTL ? 'واتساب المصنع' : 'Factory WhatsApp'}</h4>
+                  <p className="text-pharaonic-gold font-bold text-xl">+20 100 240 6013</p>
                 </div>
-
+              </div>
+              <div className="flex items-start gap-6 group">
+                <div className="w-14 h-14 bg-white rounded-2xl shadow-soft flex items-center justify-center text-pharaonic-gold text-2xl group-hover:bg-pharaonic-gold group-hover:text-white transition-all">
+                  <FaEnvelope />
+                </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    رقم الهاتف *
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
-                    placeholder="+20 123 456 7890"
-                  />
+                  <h4 className="font-bold text-hieroglyph-black text-lg">{isRTL ? 'بريد المبيعات' : 'Sales Email'}</h4>
+                  <p className="text-pharaonic-gold font-bold text-xl">ykp.supplies@gmail.com</p>
                 </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    البلد *
-                  </label>
-                  <input
-                    type="text"
-                    name="country"
-                    value={formData.country}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
-                    placeholder="مصر"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    نوع النشاط التجاري
-                  </label>
-                  <select
-                    name="businessType"
-                    value={formData.businessType}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
-                  >
-                    <option value="">اختر نوع النشاط</option>
-                    <option value="retailer">تاجر تجزئة</option>
-                    <option value="distributor">موزع</option>
-                    <option value="online-store">متجر إلكتروني</option>
-                    <option value="hotel-chain">سلسلة فنادق</option>
-                    <option value="travel-agency">وكالة سفر</option>
-                    <option value="other">أخرى</option>
-                  </select>
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    الكمية المتوقعة شهرياً
-                  </label>
-                  <select
-                    name="estimatedQuantity"
-                    value={formData.estimatedQuantity}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
-                  >
-                    <option value="">اختر الكمية المتوقعة</option>
-                    <option value="50-100">50 - 100 قطعة</option>
-                    <option value="100-200">100 - 200 قطعة</option>
-                    <option value="200-500">200 - 500 قطعة</option>
-                    <option value="500-1000">500 - 1000 قطعة</option>
-                    <option value="1000+">أكثر من 1000 قطعة</option>
-                  </select>
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    رسالة إضافية
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
-                    placeholder="أخبرنا المزيد عن احتياجاتك..."
-                  />
-                </div>
-
-                <div className="md:col-span-2">
-                  <motion.button
-                    type="submit"
-                    disabled={submitStatus === 'loading'}
-                    className={`w-full py-4 px-8 rounded-xl font-semibold transition-all duration-300 ${
-                      submitStatus === 'loading'
-                        ? 'bg-gray-400 cursor-not-allowed'
-                        : 'bg-gradient-to-r from-pharaonic-gold to-deep-blue hover:shadow-lg transform hover:scale-105'
-                    } text-white`}
-                    whileHover={submitStatus !== 'loading' ? { scale: 1.02, y: -2 } : {}}
-                    whileTap={submitStatus !== 'loading' ? { scale: 0.98 } : {}}
-                  >
-                    {submitStatus === 'loading' ? (
-                      <div className="flex items-center justify-center space-x-2 space-x-reverse">
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                        <span>جاري الإرسال إلى المصنع...</span>
-                      </div>
-                    ) : (
-                      <div className="flex items-center justify-center space-x-2 space-x-reverse">
-                        <span>📧</span>
-                        <span>إرسال طلب العرض إلى المصنع</span>
-                      </div>
-                    )}
-                  </motion.button>
-                  
-                  <div className="text-center text-sm text-gray-500 mt-3">
-                    <p>سيتم إرسال طلبك مباشرة إلى: <strong>ykp.supplies@gmail.com</strong></p>
-                    <p>وقت الاستجابة: خلال 24 ساعة</p>
+              </div>
+              <div className="mt-12 p-10 glass-panel-dark rounded-[3rem] text-white bg-gradient-to-br from-blue-900 to-hieroglyph-black">
+                <h4 className="text-2xl font-black mb-4 shimmer-text italic">{isRTL ? 'مواعيد العمل' : 'Business Hours'}</h4>
+                <div className="space-y-4 opacity-70">
+                  <div className="flex justify-between">
+                    <span>{isRTL ? 'الاثنين - الجمعة' : 'Mon - Fri'}</span>
+                    <span className="font-bold text-pharaonic-gold">09:00 - 18:00</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>{isRTL ? 'السبت' : 'Saturday'}</span>
+                    <span className="font-bold text-pharaonic-gold">10:00 - 16:00</span>
                   </div>
                 </div>
-              </form>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Contact Information */}
-        <section className="py-16 px-4">
-          <div className="max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="bg-white rounded-2xl p-8 shadow-lg text-center"
-            >
-              <h2 className="text-2xl font-bold text-hieroglyph-black mb-6">
-                🏭 تواصل مع المصنع مباشرة
-              </h2>
-              <p className="text-gray-600 mb-6 text-center">
-                تواصل مباشرة مع فريق التصنيع في YKP Supplies للحصول على أسرع استجابة
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <motion.div 
-                  className="flex flex-col items-center p-4 bg-gradient-to-br from-pharaonic-gold/10 to-deep-blue/10 rounded-xl hover:shadow-lg transition-all duration-300"
-                  whileHover={{ scale: 1.05, y: -5 }}
-                >
-                  <FaEnvelope className="text-3xl text-pharaonic-gold mb-3" />
-                  <h3 className="font-semibold text-hieroglyph-black mb-2">إيميل المصنع</h3>
-                  <a href="mailto:ykp.supplies@gmail.com" className="text-pharaonic-gold hover:text-deep-blue transition-colors">
-                    ykp.supplies@gmail.com
-                  </a>
-                  <p className="text-xs text-gray-500 mt-1 text-center">للاستفسارات والطلبات</p>
-                </motion.div>
-                <motion.div 
-                  className="flex flex-col items-center p-4 bg-gradient-to-br from-pharaonic-gold/10 to-deep-blue/10 rounded-xl hover:shadow-lg transition-all duration-300"
-                  whileHover={{ scale: 1.05, y: -5 }}
-                >
-                  <FaPhone className="text-3xl text-pharaonic-gold mb-3" />
-                  <h3 className="font-semibold text-hieroglyph-black mb-2">هاتف المصنع</h3>
-                  <a href="tel:+201002406013" className="text-pharaonic-gold hover:text-deep-blue transition-colors">
-                    +20 100 240 6013
-                  </a>
-                  <p className="text-xs text-gray-500 mt-1 text-center">للتواصل المباشر</p>
-                </motion.div>
-                <motion.div 
-                  className="flex flex-col items-center p-4 bg-gradient-to-br from-pharaonic-gold/10 to-deep-blue/10 rounded-xl hover:shadow-lg transition-all duration-300"
-                  whileHover={{ scale: 1.05, y: -5 }}
-                >
-                  <FaWhatsapp className="text-3xl text-pharaonic-gold mb-3" />
-                  <h3 className="font-semibold text-hieroglyph-black mb-2">واتساب المصنع</h3>
-                  <a href="https://wa.me/201002406013" className="text-pharaonic-gold hover:text-deep-blue transition-colors" target="_blank" rel="noopener noreferrer">
-                    +20 100 240 6013
-                  </a>
-                  <p className="text-xs text-gray-500 mt-1 text-center">رسائل فورية</p>
-                </motion.div>
               </div>
-              
-              <div className="mt-6 p-4 bg-gradient-to-r from-pharaonic-gold/20 to-deep-blue/20 rounded-xl text-center">
-                <h4 className="font-semibold text-hieroglyph-black mb-2">🏭 YKP Supplies</h4>
-                <p className="text-sm text-gray-600">مصنع الوسائد الفرعونية - القاهرة، مصر</p>
-                <p className="text-sm text-gray-600">Egyptian Travel Pillows Manufacturing - Cairo, Egypt</p>
-              </div>
-            </motion.div>
+            </div>
           </div>
-        </section>
-      </div>
-    </>
+        </div>
+      </section>
+    </div>
   );
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  return getStaticPropsWithTranslations(context);
 };
 
 export default WholesalePage;

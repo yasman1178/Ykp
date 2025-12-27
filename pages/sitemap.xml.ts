@@ -44,25 +44,25 @@ const calculatePriority = (pageType: string, featured: boolean = false): string 
     services: 0.7,
     other: 0.6
   };
-  
+
   if (featured && pageType.startsWith('product')) return priorities.product_featured.toString();
   if (featured && pageType.startsWith('blog')) return priorities.blog_featured.toString();
-  
+
   return (priorities[pageType] || priorities.other).toString();
 };
 
 // Get accurate lastmod timestamps
 const getLastModified = (type: string, data?: any): string => {
   const now = new Date();
-  
+
   if (data?.lastModified) {
     return new Date(data.lastModified).toISOString();
   }
-  
+
   if (data?.publishDate) {
     return new Date(data.publishDate).toISOString();
   }
-  
+
   // Default lastmod based on content type
   const defaultDates: Record<string, Date> = {
     home: new Date(now.getFullYear(), now.getMonth(), 1), // First of current month
@@ -70,16 +70,16 @@ const getLastModified = (type: string, data?: any): string => {
     blog: new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7), // Week ago
     static: new Date(now.getFullYear(), now.getMonth() - 1, 1) // Month ago
   };
-  
+
   return (defaultDates[type] || now).toISOString();
 };
 
 const generateSitemap = (): string => {
-  const baseUrl = 'https://pharaonicpillows.com';
+  const baseUrl = 'https://www.ykp-eg.com';
   const currentDate = new Date().toISOString();
-  
+
   const allPages: SitemapEntry[] = [];
-  
+
   // Static pages with calculated priorities
   const staticPages: SitemapEntry[] = [
     {
@@ -149,9 +149,9 @@ const generateSitemap = (): string => {
       lastmod: getLastModified('static')
     }
   ];
-  
+
   allPages.push(...staticPages);
-  
+
   // Collection pages with images
   const collections = ['b123', 't', 'tb'];
   const collectionPages: SitemapEntry[] = collections.map(collection => ({
@@ -165,20 +165,20 @@ const generateSitemap = (): string => {
       caption: `Premium Egyptian travel pillows from the ${collection.toUpperCase()} collection with authentic Pharaonic designs`
     }]
   }));
-  
+
   allPages.push(...collectionPages);
-  
+
   // Product pages with dynamic data and images
   const productPages: SitemapEntry[] = ALL_PRODUCTS.map(product => {
     const images = [];
-    
+
     // Add primary product image
     images.push({
       loc: `${baseUrl}/prodect/${product.collection}/${product.id.split('-').pop()}.webp`,
       title: product.name,
       caption: product.description
     });
-    
+
     // Add additional product images if available
     if (product.images && product.images.length > 0) {
       product.images.slice(0, 3).forEach((img: any, index: number) => {
@@ -189,7 +189,7 @@ const generateSitemap = (): string => {
         });
       });
     }
-    
+
     return {
       url: `/products/${product.collection}/${product.id}`,
       changefreq: 'monthly',
@@ -198,24 +198,24 @@ const generateSitemap = (): string => {
       images
     };
   });
-  
+
   allPages.push(...productPages);
-  
+
   // Enhanced blog article pages with news sitemap and images
   const blogPages: SitemapEntry[] = ENHANCED_BLOG_ARTICLES.map(article => {
     const images = [];
-    
+
     // Add featured image
     if (article.featuredImage) {
       images.push({
-        loc: article.featuredImage.url.startsWith('http') 
-          ? article.featuredImage.url 
+        loc: article.featuredImage.url.startsWith('http')
+          ? article.featuredImage.url
           : `${baseUrl}${article.featuredImage.url}`,
         title: article.featuredImage.alt,
         caption: article.featuredImage.caption
       });
     }
-    
+
     // Add gallery images
     if (article.gallery && article.gallery.length > 0) {
       article.gallery.slice(0, 3).forEach(img => {
@@ -226,13 +226,13 @@ const generateSitemap = (): string => {
         });
       });
     }
-    
+
     // Check if article is recent (within 2 days) for news sitemap
     const publishDate = new Date(article.publishDate);
     const twoDaysAgo = new Date();
     twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
     const isRecent = publishDate >= twoDaysAgo;
-    
+
     return {
       url: `/blog/${article.slug}`,
       changefreq: 'monthly',
@@ -252,20 +252,20 @@ const generateSitemap = (): string => {
       })
     };
   });
-  
+
   allPages.push(...blogPages);
-  
+
   // Generate XML sitemap with enhanced metadata
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
           xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
           xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
     ${allPages.map(page => {
-      // Use canonical URL for sitemap entries
-      const canonicalUrl = getCanonicalForSitemap(page.url);
-      const escapedUrl = canonicalUrl.replace(/&/g, '&amp;');
-      
-      return `
+    // Use canonical URL for sitemap entries
+    const canonicalUrl = getCanonicalForSitemap(page.url);
+    const escapedUrl = canonicalUrl.replace(/&/g, '&amp;');
+
+    return `
   <url>
     <loc>${escapedUrl}</loc>
     <lastmod>${page.lastmod}</lastmod>
@@ -286,7 +286,7 @@ const generateSitemap = (): string => {
       <image:caption><![CDATA[${img.caption}]]></image:caption>` : ''}
     </image:image>`).join('') : ''}
   </url>`;
-    }).join('')}
+  }).join('')}
   </urlset>`;
 
   return sitemap;
