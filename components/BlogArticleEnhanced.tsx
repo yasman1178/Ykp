@@ -42,66 +42,91 @@ export default function BlogArticleEnhanced({
     <div className="max-w-4xl mx-auto">
       {/* Article Content with Enhanced SEO */}
       <motion.article
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}
-        className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 relative overflow-hidden mb-12"
+        className="bg-papyrus-light/95 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] p-8 md:p-16 relative overflow-hidden mb-12 border border-papyrus-dark/20 backdrop-blur-sm"
       >
         {/* Egyptian Decorative Elements */}
-        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-amber-500 via-blue-500 to-amber-500"></div>
-        <div className="absolute top-4 right-4 text-2xl text-amber-500/20">𓋹</div>
-        <div className="absolute bottom-4 left-4 text-2xl text-blue-500/20">𓂀</div>
+        <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-pharaonic-gold via-deep-blue to-pharaonic-gold opacity-80"></div>
+
+        {/* Subtle Watermark Hieroglyphs */}
+        <div className="absolute top-20 right-10 text-9xl text-pharaonic-gold/5 pointer-events-none select-none font-hieroglyphic rotate-12">
+          {getSymbolIcon(article.symbol.name)}
+        </div>
+        <div className="absolute bottom-40 left-10 text-9xl text-deep-blue/5 pointer-events-none select-none font-hieroglyphic -rotate-12">
+          𓋹
+        </div>
+
+        <div className="absolute top-10 right-10 text-3xl text-pharaonic-gold/30">𓋹</div>
+        <div className="absolute bottom-10 left-10 text-3xl text-deep-blue/30">𓂀</div>
 
         {/* Enhanced Article Content */}
-        <div className="prose prose-lg max-w-none egyptian-article-content">
-          <div dangerouslySetInnerHTML={{ __html: formatEnhancedContent(article.content, article) }} />
+        <div className="prose prose-lg max-w-none egyptian-article-content relative z-10">
+          <div
+            className="text-hieroglyph-gray leading-relaxed font-secondary"
+            dangerouslySetInnerHTML={{ __html: formatEnhancedContent(article.content, article) }}
+          />
         </div>
 
         {/* Symbol Information Box with Product Integration */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-12 p-6 bg-gradient-to-r from-amber-50 to-blue-50 rounded-2xl border border-amber-200"
+          className="mt-16 p-8 bg-white/40 backdrop-blur-md rounded-2xl border-2 border-pharaonic-gold/20 shadow-inner relative overflow-hidden group"
         >
-          <h3 className="text-xl font-bold text-blue-900 mb-4 flex items-center">
-            <span className="text-2xl ml-3">{getSymbolIcon(article.symbol.name)}</span>
-            معلومات الرمز | Symbol Information
+          {/* Decorative Corner Elements */}
+          <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-pharaonic-gold/40 rounded-tr-2xl"></div>
+          <div className="absolute bottom-0 left-0 w-12 h-12 border-b-2 border-l-2 border-pharaonic-gold/40 rounded-bl-2xl"></div>
+
+          <h3 className="text-2xl font-bold text-deep-blue mb-6 flex items-center relative z-10">
+            <span className="text-3xl ml-4 drop-shadow-md group-hover:scale-110 transition-transform duration-300">
+              {getSymbolIcon(article.symbol.name)}
+            </span>
+            <span className="border-b-2 border-pharaonic-gold/30">معلومات الرمز | Symbol Information</span>
           </h3>
-          <div className="grid md:grid-cols-2 gap-4 text-sm mb-6">
-            <div>
-              <strong className="text-amber-700">الاسم العربي:</strong> {article.symbol.arabicName}
+
+          <div className="grid md:grid-cols-2 gap-6 text-base mb-8 relative z-10">
+            <div className="flex flex-col">
+              <span className="text-pharaonic-gold-dark font-bold text-xs uppercase tracking-widest mb-1">الاسم العربي</span>
+              <span className="text-hieroglyph-gray font-semibold">{article.symbol.arabicName}</span>
             </div>
-            <div>
-              <strong className="text-amber-700">English Name:</strong> {article.symbol.name}
+            <div className="flex flex-col">
+              <span className="text-pharaonic-gold-dark font-bold text-xs uppercase tracking-widest mb-1">English Name</span>
+              <span className="text-hieroglyph-gray font-semibold">{article.symbol.name}</span>
             </div>
-            <div>
-              <strong className="text-amber-700">المعنى:</strong> {article.symbol.meaning}
+            <div className="flex flex-col">
+              <span className="text-pharaonic-gold-dark font-bold text-xs uppercase tracking-widest mb-1">المعنى الأساسي</span>
+              <span className="text-hieroglyph-gray">{article.symbol.meaning}</span>
             </div>
-            <div>
-              <strong className="text-amber-700">الفترة التاريخية:</strong> {article.symbol.historicalPeriod}
+            <div className="flex flex-col">
+              <span className="text-pharaonic-gold-dark font-bold text-xs uppercase tracking-widest mb-1">الفترة التاريخية</span>
+              <span className="text-hieroglyph-gray">{article.symbol.historicalPeriod}</span>
             </div>
-            <div className="md:col-span-2">
-              <strong className="text-amber-700">الأهمية الثقافية:</strong> {article.symbol.culturalSignificance}
+            <div className="md:col-span-2 flex flex-col pt-2">
+              <span className="text-pharaonic-gold-dark font-bold text-xs uppercase tracking-widest mb-1">الأهمية الثقافية</span>
+              <p className="text-hieroglyph-gray leading-relaxed text-sm">{article.symbol.culturalSignificance}</p>
             </div>
           </div>
 
           {/* Product Integration in Symbol Box */}
           {showProductIntegration && symbolMapping && (
-            <div className="border-t border-amber-200 pt-4">
-              <h4 className="font-semibold text-blue-900 mb-2">
-                وسائد السفر المستوحاة من هذا الرمز | Travel Pillows Inspired by This Symbol
+            <div className="border-t border-pharaonic-gold/20 pt-6 relative z-10">
+              <h4 className="font-bold text-deep-blue mb-3 flex items-center gap-2">
+                <span className="text-amber-500">✨</span>
+                وسائد السفر المستوحاة من هذا الرمز
               </h4>
-              <p className="text-gray-700 text-sm mb-3">
+              <p className="text-hieroglyph-light text-sm mb-4 leading-relaxed">
                 {symbolMapping.description}
               </p>
               <Link
                 href={`/products?symbol=${encodeURIComponent(article.symbol.name)}`}
-                className="inline-flex items-center text-amber-600 hover:text-blue-600 font-medium transition-colors"
+                className="inline-flex items-center px-6 py-2 bg-gradient-to-r from-pharaonic-gold to-pharaonic-gold-dark text-black text-sm font-bold rounded-full hover:shadow-golden transition-all duration-300 transform hover:-translate-y-0.5"
               >
-                عرض الوسائد المستوحاة من {article.symbol.arabicName}
+                تسوّق مجموعة {article.symbol.arabicName}
                 <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
               </Link>
             </div>
@@ -145,11 +170,11 @@ export default function BlogArticleEnhanced({
                 className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 group egyptian-card"
               >
                 <div className="relative h-48 bg-gradient-to-br from-amber-400 to-blue-600 flex items-center justify-center">
-                  <div className="text-6xl text-white/80 group-hover:scale-110 transition-transform duration-300">
+                  <div className="text-6xl text-black/80 group-hover:scale-110 transition-transform duration-300">
                     {getSymbolIcon(article.symbol.name)}
                   </div>
-                  <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm rounded-full px-3 py-1">
-                    <span className="text-white text-xs font-medium">{product.collection.toUpperCase()}</span>
+                  <div className="absolute top-4 right-4 bg-white/40 backdrop-blur-sm rounded-full px-3 py-1">
+                    <span className="text-black text-xs font-medium">{product.collection.toUpperCase()}</span>
                   </div>
                 </div>
 
@@ -174,7 +199,7 @@ export default function BlogArticleEnhanced({
 
                   <Link
                     href={`/products/${product.collection}/${product.id}`}
-                    className="w-full inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-amber-500 to-blue-500 text-white font-medium rounded-lg hover:from-amber-600 hover:to-blue-600 transition-all duration-300"
+                    className="w-full inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-amber-400 to-amber-600 text-black font-medium rounded-lg hover:from-amber-500 hover:to-amber-700 transition-all duration-300"
                   >
                     عرض التفاصيل | View Details
                     <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -189,7 +214,7 @@ export default function BlogArticleEnhanced({
           <div className="text-center mt-8">
             <Link
               href={`/products?symbol=${encodeURIComponent(article.symbol.name)}`}
-              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-amber-500 to-blue-500 text-white font-bold rounded-full hover:from-amber-600 hover:to-blue-600 transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-amber-400 to-amber-600 text-black font-bold rounded-full hover:from-amber-500 hover:to-amber-700 transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               عرض جميع وسائد {article.symbol.arabicName} | View All {article.symbol.name} Pillows
               <svg className="w-5 h-5 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -318,18 +343,18 @@ function formatEnhancedContent(content: string, article: BlogArticle): string {
   // Add product integration section after the first major heading
   if (symbolMapping) {
     const productSection = `
-      <div class="bg-gradient-to-r from-amber-50 to-blue-50 p-6 rounded-2xl my-8 border border-amber-200">
-        <h3 class="text-xl font-bold text-blue-900 mb-4 flex items-center">
+      <div class="bg-gradient-to-r from-amber-50 to-blue-50 p-6 rounded-2xl my-8 border border-amber-200 shadow-sm">
+        <h3 class="text-xl font-bold text-black mb-4 flex items-center">
           <span class="text-2xl ml-3">${getSymbolIcon(article.symbol.name)}</span>
           ${article.symbol.name} في وسائد السفر المصرية الحديثة
         </h3>
-        <p class="text-gray-700 mb-4">${symbolMapping.description}</p>
-        <p class="text-gray-700 mb-4">
+        <p class="text-black mb-4">${symbolMapping.description}</p>
+        <p class="text-black mb-4">
           تتميز مجموعة وسائد السفر المصرية الفاخرة لدينا بتصاميم أصيلة مستوحاة من رمز ${article.symbol.arabicName} 
           التي تكرم الأهمية الثقافية لهذا الرمز القديم مع توفير الراحة العصرية للمسافرين اليوم.
         </p>
         <a href="/products?symbol=${encodeURIComponent(article.symbol.name)}" 
-           class="inline-flex items-center text-amber-600 hover:text-blue-600 font-medium transition-colors">
+           class="inline-flex items-center text-black font-bold hover:text-pharaonic-gold transition-colors decoration-pharaonic-gold underline underline-offset-4">
           اكتشف وسائد ${article.symbol.arabicName}
           <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -347,13 +372,13 @@ function formatEnhancedContent(content: string, article: BlogArticle): string {
 
   // Convert markdown-style content to HTML with Egyptian styling
   return enhancedContent
-    .replace(/## (.*)/g, '<h2 class="text-2xl font-bold text-blue-900 mt-8 mb-4 flex items-center"><span class="text-amber-600 ml-3">𓋹</span>$1</h2>')
-    .replace(/### (.*)/g, '<h3 class="text-xl font-semibold text-blue-800 mt-6 mb-3">$1</h3>')
-    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-amber-700 font-semibold">$1</strong>')
-    .replace(/\*(.*?)\*/g, '<em class="text-blue-700">$1</em>')
-    .replace(/\n\n/g, '</p><p class="mb-4">')
-    .replace(/^/, '<p class="mb-4">')
+    .replace(/## (.*)/g, '<h2 class="text-3xl font-bold text-black mt-12 mb-6 flex items-center border-b-2 border-pharaonic-gold pb-2"><span class="text-pharaonic-gold ml-4 text-2xl opacity-80">𓋹</span>$1</h2>')
+    .replace(/### (.*)/g, '<h3 class="text-2xl font-bold text-black mt-8 mb-4 flex items-center"><span class="w-3 h-3 bg-pharaonic-gold rounded-full ml-3 opacity-80 shadow-sm"></span>$1</h3>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong class="text-black font-black">$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em class="text-black font-semibold italic border-b border-pharaonic-gold/30">$1</em>')
+    .replace(/\n\n/g, '</p><p class="mb-6 leading-relaxed text-black">')
+    .replace(/^/, '<p class="mb-6 leading-relaxed text-black">')
     .replace(/$/, '</p>')
-    .replace(/- (.*)/g, '<li class="mb-2 flex items-start"><span class="text-amber-600 ml-2">•</span>$1</li>')
-    .replace(/(<li.*<\/li>)/g, '<ul class="mb-4 mr-4">$1</ul>');
+    .replace(/- (.*)/g, '<li class="mb-3 flex items-start text-black"><span class="text-pharaonic-gold ml-3 text-xl font-bold">𓈖</span><span class="flex-1 font-medium">$1</span></li>')
+    .replace(/(<li.*<\/li>)/g, '<ul class="mb-8 mr-6 list-none">$1</ul>');
 }

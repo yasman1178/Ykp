@@ -12,7 +12,7 @@ export function middleware(request: NextRequest) {
 
   // 0. Domain Normalization (Redirect to www.ykp-eg.com)
   const primaryDomain = 'www.ykp-eg.com';
-  const secondaryDomains = ['ykp-eg.com', 'www.ykp-eg.com'];
+  const secondaryDomains = ['ykp-eg.com'];
 
   if (secondaryDomains.includes(hostname)) {
     const url = request.nextUrl.clone();
@@ -23,7 +23,7 @@ export function middleware(request: NextRequest) {
   // 1. Handle canonical URL enforcement (except for API routes and static files)
   if (!pathname.startsWith('/api') &&
     !pathname.startsWith('/_next') &&
-    !pathname.match(/\.(jpg|jpeg|png|gif|svg|ico|css|js|woff|woff2|ttf|eot)$/)) {
+    !pathname.match(/\.(jpg|jpeg|png|gif|svg|webp|ico|css|js|woff|woff2|ttf|eot|webmanifest)$/)) {
 
     // Check if URL needs canonical redirect
     const { needsRedirect, canonicalPath } = needsCanonicalRedirect(
@@ -85,7 +85,7 @@ export function middleware(request: NextRequest) {
   response.headers.set('Content-Language', locale);
 
   // Add cache headers for static content
-  if (pathname.startsWith('/prodect') ||
+  if (pathname.startsWith('/product') ||
     pathname.startsWith('/products') ||
     pathname.startsWith('/public') ||
     pathname.match(/\.(jpg|jpeg|png|gif|svg|webp)$/)) {

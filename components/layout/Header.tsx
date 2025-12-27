@@ -51,16 +51,7 @@ const Header: React.FC<HeaderProps> = ({ translations: t, locale = 'en' }) => {
       label: getNavLabel('blog', 'Egyptian Heritage'),
       href: '/blog',
       children: [
-        {
-          label: isRTL ? 'الرموز الفرعونية' : 'Pharaonic Symbols',
-          href: '/blog/symbols',
-          icon: '𓂀',
-        },
-        {
-          label: isRTL ? 'الثقافة المصرية' : 'Egyptian Culture',
-          href: '/blog/culture',
-          icon: '🏺',
-        },
+
         {
           label: isRTL ? 'جميع المقالات' : 'All Articles',
           href: '/blog',

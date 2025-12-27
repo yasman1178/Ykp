@@ -199,11 +199,6 @@ export const REDIRECT_PATTERNS: Array<{
     {
       pattern: /^\/blog\/([^\/]+)\/$/,
       redirect: (match) => `/blog/${match[1]}`
-    },
-    // Redirect uppercase paths to lowercase
-    {
-      pattern: /^\/[A-Z]/,
-      redirect: (match) => match[0].toLowerCase()
     }
   ];
 

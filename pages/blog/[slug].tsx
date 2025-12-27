@@ -84,7 +84,7 @@ export default function BlogArticlePage({ article, relatedArticles }: BlogArticl
         canonical={`https://ykp-eg.com/blog/${article.slug}`}
       />
 
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-papyrus-light/30">
         {/* Newspaper-Style Header */}
         <section className="relative py-8 px-4 bg-white border-b-4 border-black">
           <div className="max-w-7xl mx-auto">
@@ -125,7 +125,7 @@ export default function BlogArticlePage({ article, relatedArticles }: BlogArticl
         </section>
 
         {/* Article Header - Newspaper Style */}
-        <section className="py-12 px-4 bg-gray-50 border-b-2 border-gray-300">
+        <section className="py-12 px-4 bg-papyrus-light/40 border-b-2 border-pharaonic-gold/20">
           <div className="max-w-5xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -151,38 +151,38 @@ export default function BlogArticlePage({ article, relatedArticles }: BlogArticl
               </h2>
 
               {/* Byline */}
-              <div className="flex flex-wrap items-center gap-6 text-sm text-gray-700 mb-6 pb-6 border-b border-gray-300">
+              <div className="flex flex-wrap items-center gap-6 text-sm text-hieroglyph-light mb-6 pb-6 border-b border-pharaonic-gold/30">
                 <div className="flex items-center gap-2">
-                  <span className="font-bold">By</span>
-                  <span>{article.author}</span>
+                  <span className="font-bold text-pharaonic-gold-dark">By</span>
+                  <span className="font-semibold">{article.author}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-pharaonic-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span>{article.readingTime} min read</span>
                 </div>
                 <button
                   onClick={() => setShowShareDialog(true)}
-                  className="flex items-center gap-2 hover:text-amber-700 transition-colors"
+                  className="flex items-center gap-2 hover:text-pharaonic-gold transition-colors font-medium"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-pharaonic-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
                   </svg>
-                  <span>Share</span>
+                  <span>Share Story</span>
                 </button>
               </div>
 
               {/* Lead Image/Symbol */}
               <div className="relative h-96 bg-gradient-to-br from-gray-100 to-amber-50 flex items-center justify-center border-4 border-black mb-8">
                 <div className="text-9xl">{getSymbolIcon(article.symbol.name)}</div>
-                <div className="absolute bottom-4 left-4 bg-black text-white px-4 py-2 text-xs uppercase tracking-wider font-bold">
+                <div className="absolute bottom-4 left-4 bg-pharaonic-gold text-black px-4 py-2 text-xs uppercase tracking-wider font-bold">
                   {article.symbol.arabicName}
                 </div>
               </div>
 
               {/* Lead Paragraph / Description */}
-              <p className="text-xl md:text-2xl text-gray-800 leading-relaxed mb-8 font-serif border-l-4 border-black pl-6">
+              <p className="text-xl md:text-2xl text-hieroglyph-gray leading-relaxed mb-12 font-secondary border-l-4 border-pharaonic-gold pl-8 italic">
                 {article.description}
               </p>
             </motion.div>
@@ -190,7 +190,7 @@ export default function BlogArticlePage({ article, relatedArticles }: BlogArticl
         </section>
 
         {/* Article Content - Newspaper Columns */}
-        <section className="py-12 px-4 bg-white">
+        <section className="py-12 px-4 shadow-inner">
           <div className="max-w-5xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -226,10 +226,10 @@ export default function BlogArticlePage({ article, relatedArticles }: BlogArticl
 
         {/* Related Articles - Newspaper Style */}
         {relatedArticles.length > 0 && (
-          <section className="py-12 px-4 bg-gray-50 border-t-4 border-black">
+          <section className="py-12 px-4 bg-papyrus-light/20 border-t-4 border-pharaonic-gold shadow-lg">
             <div className="max-w-7xl mx-auto">
-              <div className="border-b-4 border-black pb-3 mb-8">
-                <h2 className="text-3xl font-bold text-black uppercase tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
+              <div className="border-b-4 border-pharaonic-gold pb-3 mb-8">
+                <h2 className="text-3xl font-bold text-deep-blue uppercase tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
                   More From This Section
                 </h2>
                 <p className="text-lg text-gray-700 mt-1" style={{ fontFamily: 'Playfair Display, serif', fontStyle: 'italic' }}>
@@ -250,7 +250,7 @@ export default function BlogArticlePage({ article, relatedArticles }: BlogArticl
                       {/* Article Image */}
                       <div className="relative h-48 bg-gradient-to-br from-gray-100 to-amber-50 flex items-center justify-center border-2 border-black mb-4">
                         <div className="text-6xl">{getSymbolIcon(relatedArticle.symbol.name)}</div>
-                        <div className="absolute top-2 right-2 bg-black text-white px-3 py-1 text-xs font-bold">
+                        <div className="absolute top-2 right-2 bg-pharaonic-gold text-black px-3 py-1 text-xs font-bold">
                           {relatedArticle.readingTime} MIN
                         </div>
                       </div>

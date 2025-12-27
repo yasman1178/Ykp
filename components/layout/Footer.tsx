@@ -34,9 +34,6 @@ const Footer: React.FC<FooterProps> = ({ translations: t, locale = 'en' }) => {
     {
       title: t?.footer?.sections?.heritage?.title || 'Egyptian Heritage',
       links: [
-        { label: t?.footer?.sections?.heritage?.symbols || 'Pharaonic Symbols', href: '/blog/symbols' },
-        { label: t?.footer?.sections?.heritage?.culture || 'Egyptian Culture', href: '/blog/culture' },
-        { label: t?.footer?.sections?.heritage?.stories || 'Design Stories', href: '/blog/design' },
         { label: t?.footer?.sections?.heritage?.articles || 'All Articles', href: '/blog' },
       ],
     },

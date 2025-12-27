@@ -39,6 +39,11 @@ interface ProductsPageProps {
 const ProductsPage: React.FC<ProductsPageProps> = ({ translations: t, locale }) => {
   const [selectedCollection, setSelectedCollection] = useState('premium');
   const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Complete product catalog for each collection - Updated with WebP images and comprehensive SEO keywords
   const collectionProducts = {
@@ -220,7 +225,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ translations: t, locale }) 
 
           {/* Animated Background Elements */}
           <div className="absolute inset-0">
-            {[...Array(15)].map((_, i) => (
+            {isMounted && [...Array(15)].map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute w-1 h-1 bg-white/20 rounded-full"
@@ -243,7 +248,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ translations: t, locale }) 
 
           {/* Floating Egyptian Hieroglyphs */}
           <div className="absolute inset-0 pointer-events-none">
-            {['𓂀', '𓁹', '𓋹', '𓊪', '𓈖', '𓊽', '𓇳', '𓊨'].map((hieroglyph, i) => (
+            {isMounted && ['𓂀', '𓁹', '𓋹', '𓊪', '𓈖', '𓊽', '𓇳', '𓊨'].map((hieroglyph, i) => (
               <FloatingHieroglyphs
                 key={i}
                 className="absolute text-white/10 text-4xl font-bold"
@@ -672,7 +677,7 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ translations: t, locale }) 
 
         {/* Animated Background */}
         <div className="absolute inset-0">
-          {[...Array(10)].map((_, i) => (
+          {isMounted && [...Array(10)].map((_, i) => (
             <motion.div
               key={i}
               className="absolute w-1 h-1 bg-white/20 rounded-full"

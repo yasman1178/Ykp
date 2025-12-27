@@ -28,9 +28,9 @@ export const ScarabLoader: React.FC<{ className?: string }> = ({ className }) =>
 );
 
 // Pyramid Building Animation
-export const PyramidBuilder: React.FC<{ className?: string; size?: 'sm' | 'md' | 'lg' }> = ({ 
-  className, 
-  size = 'md' 
+export const PyramidBuilder: React.FC<{ className?: string; size?: 'sm' | 'md' | 'lg' }> = ({
+  className,
+  size = 'md'
 }) => {
   const sizes = {
     sm: 'w-16 h-16',
@@ -48,7 +48,7 @@ export const PyramidBuilder: React.FC<{ className?: string; size?: 'sm' | 'md' |
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.5, delay: 0 }}
         />
-        
+
         {/* Middle Layer */}
         <motion.div
           className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-3/4 h-2 bg-gradient-to-r from-terracotta-light to-terracotta"
@@ -56,7 +56,7 @@ export const PyramidBuilder: React.FC<{ className?: string; size?: 'sm' | 'md' |
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         />
-        
+
         {/* Top Layer */}
         <motion.div
           className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-1/2 h-2 bg-gradient-to-r from-desert-sand to-terracotta-light"
@@ -64,7 +64,7 @@ export const PyramidBuilder: React.FC<{ className?: string; size?: 'sm' | 'md' |
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.5, delay: 0.6 }}
         />
-        
+
         {/* Capstone */}
         <motion.div
           className="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-1/4 h-2 bg-pharaonic-gold"
@@ -78,69 +78,78 @@ export const PyramidBuilder: React.FC<{ className?: string; size?: 'sm' | 'md' |
 };
 
 // Hieroglyph Writing Animation
-export const HieroglyphWriter: React.FC<{ 
+export const HieroglyphWriter: React.FC<{
   symbols?: string[];
   className?: string;
   speed?: number;
-}> = ({ 
-  symbols = ['𓂀', '𓁹', '𓋹', '𓆣', '𓇳'], 
+}> = ({
+  symbols = ['𓂀', '𓁹', '𓋹', '𓆣', '𓇳'],
   className,
-  speed = 0.5 
+  speed = 0.5
 }) => (
-  <div className={cn('flex items-center space-x-2', className)}>
-    {symbols.map((symbol, index) => (
-      <motion.span
-        key={index}
-        className="font-hieroglyphic text-pharaonic-gold text-2xl"
-        initial={{ opacity: 0, y: 20, rotate: -90 }}
-        animate={{ opacity: 1, y: 0, rotate: 0 }}
-        transition={{
-          duration: 0.8 / speed,
-          delay: (index * 0.2) / speed,
-          ease: "easeOut",
-        }}
-      >
-        {symbol}
-      </motion.span>
-    ))}
-  </div>
-);
+    <div className={cn('flex items-center space-x-2', className)}>
+      {symbols.map((symbol, index) => (
+        <motion.span
+          key={index}
+          className="font-hieroglyphic text-pharaonic-gold text-2xl"
+          initial={{ opacity: 0, y: 20, rotate: -90 }}
+          animate={{ opacity: 1, y: 0, rotate: 0 }}
+          transition={{
+            duration: 0.8 / speed,
+            delay: (index * 0.2) / speed,
+            ease: "easeOut",
+          }}
+        >
+          {symbol}
+        </motion.span>
+      ))}
+    </div>
+  );
 
 // Golden Particle Effect
-export const GoldenParticles: React.FC<{ 
+export const GoldenParticles: React.FC<{
   count?: number;
   className?: string;
-}> = ({ count = 15, className }) => (
-  <div className={cn('absolute inset-0 pointer-events-none', className)}>
-    {Array.from({ length: count }).map((_, i) => (
-      <motion.div
-        key={i}
-        className="absolute w-1 h-1 bg-pharaonic-gold rounded-full"
-        style={{
-          left: `${Math.random() * 100}%`,
-          top: `${Math.random() * 100}%`,
-        }}
-        animate={{
-          y: [0, -50, 0],
-          x: [0, Math.random() * 20 - 10, 0],
-          opacity: [0, 1, 0],
-          scale: [0, 1, 0],
-        }}
-        transition={{
-          duration: 2 + Math.random() * 2,
-          repeat: Infinity,
-          delay: Math.random() * 2,
-          ease: "easeInOut",
-        }}
-      />
-    ))}
-  </div>
-);
+}> = ({ count = 15, className }) => {
+  const [isMounted, setIsMounted] = React.useState(false);
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return <div className={cn('absolute inset-0 pointer-events-none', className)} />;
+
+  return (
+    <div className={cn('absolute inset-0 pointer-events-none', className)}>
+      {Array.from({ length: count }).map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1 h-1 bg-pharaonic-gold rounded-full"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+          }}
+          animate={{
+            y: [0, -50, 0],
+            x: [0, Math.random() * 20 - 10, 0],
+            opacity: [0, 1, 0],
+            scale: [0, 1, 0],
+          }}
+          transition={{
+            duration: 2 + Math.random() * 2,
+            repeat: Infinity,
+            delay: Math.random() * 2,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+};
 
 // Ankh Rotation Animation
-export const AnkhSpinner: React.FC<{ className?: string; size?: string }> = ({ 
-  className, 
-  size = 'text-4xl' 
+export const AnkhSpinner: React.FC<{ className?: string; size?: string }> = ({
+  className,
+  size = 'text-4xl'
 }) => (
   <motion.div
     className={cn('text-pharaonic-gold font-hieroglyphic', size, className)}
@@ -178,7 +187,7 @@ export const LotusBloom: React.FC<{ className?: string }> = ({ className }) => (
   <motion.div
     className={cn('text-pharaonic-gold font-hieroglyphic text-4xl', className)}
     initial={{ scale: 0, rotate: 0 }}
-    animate={{ 
+    animate={{
       scale: [0, 1.2, 1],
       rotate: [0, 180, 360],
     }}
@@ -194,7 +203,7 @@ export const LotusBloom: React.FC<{ className?: string }> = ({ className }) => (
 );
 
 // Combined Egyptian Loading Animation
-export const EgyptianLoader: React.FC<{ 
+export const EgyptianLoader: React.FC<{
   variant?: 'scarab' | 'pyramid' | 'hieroglyph' | 'ankh' | 'eye' | 'lotus';
   className?: string;
 }> = ({ variant = 'scarab', className }) => {
@@ -222,31 +231,31 @@ export const pageTransitions = {
     exit: { opacity: 0, y: -20 },
     transition: { duration: 0.3 }
   },
-  
+
   slideInRight: {
     initial: { opacity: 0, x: 100 },
     animate: { opacity: 1, x: 0 },
     exit: { opacity: 0, x: -100 },
     transition: { duration: 0.4, ease: "easeInOut" }
   },
-  
+
   scaleIn: {
     initial: { opacity: 0, scale: 0.9 },
     animate: { opacity: 1, scale: 1 },
     exit: { opacity: 0, scale: 1.1 },
     transition: { duration: 0.3 }
   },
-  
+
   crystalReveal: {
-    initial: { 
-      opacity: 0, 
-      scale: 0.8, 
+    initial: {
+      opacity: 0,
+      scale: 0.8,
       rotateY: -15,
       clipPath: "polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%)"
     },
-    animate: { 
-      opacity: 1, 
-      scale: 1, 
+    animate: {
+      opacity: 1,
+      scale: 1,
       rotateY: 0,
       clipPath: "polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)"
     },

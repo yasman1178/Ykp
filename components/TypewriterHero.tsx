@@ -11,6 +11,11 @@ const TypewriterHero: React.FC<TypewriterHeroProps> = ({ locale = 'en' }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const isArabic = locale === 'ar';
 
@@ -67,10 +72,10 @@ const TypewriterHero: React.FC<TypewriterHeroProps> = ({ locale = 'en' }) => {
       {/* Background with Egyptian Pattern */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-amber-800"></div>
-        
+
         {/* Animated Egyptian Hieroglyphs Background */}
         <div className="absolute inset-0 opacity-10">
-          {['𓂀', '𓁹', '𓋹', '𓊪', '𓈖', '𓊽', '𓇳', '𓊨', '𓃭', '𓆣'].map((hieroglyph, i) => (
+          {isMounted && ['𓂀', '𓁹', '𓋹', '𓊪', '𓈖', '𓊽', '𓇳', '𓊨', '𓃭', '𓆣'].map((hieroglyph, i) => (
             <motion.div
               key={i}
               className="absolute text-6xl text-amber-400"
@@ -96,7 +101,7 @@ const TypewriterHero: React.FC<TypewriterHeroProps> = ({ locale = 'en' }) => {
 
         {/* Animated Particles */}
         <div className="absolute inset-0">
-          {[...Array(30)].map((_, i) => (
+          {isMounted && [...Array(30)].map((_, i) => (
             <motion.div
               key={i}
               className="absolute w-1 h-1 bg-amber-400/40 rounded-full"

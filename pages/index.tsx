@@ -32,6 +32,11 @@ const HomePage: React.FC<HomePageProps> = ({ translations: t, locale }) => {
   const baseUrl = 'https://ykp-eg.com';
   const currentUrl = `${baseUrl}${router.asPath}`;
 
+  const [isMounted, setIsMounted] = React.useState(false);
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <div className="min-h-screen bg-white" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEO
@@ -62,7 +67,7 @@ const HomePage: React.FC<HomePageProps> = ({ translations: t, locale }) => {
 
         {/* Floating Atmospheric Hieroglyphs */}
         <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
-          {['𓂀', '𓁹', '𓋹', '𓊪', '𓈖', '𓊽', '𓇳', '𓊨'].map((h, i) => (
+          {isMounted && ['𓂀', '𓁹', '𓋹', '𓊪', '𓈖', '𓊽', '𓇳', '𓊨'].map((h, i) => (
             <FloatingHieroglyphs
               key={i}
               className="absolute text-white/5 text-6xl"

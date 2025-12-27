@@ -38,11 +38,11 @@ const EgyptianCTA: React.FC<EgyptianCTAProps> = ({
   const getVariantClasses = () => {
     switch (variant) {
       case 'gradient':
-        return 'bg-gradient-to-r from-blue-900 to-amber-900 text-white';
+        return 'bg-gradient-to-r from-amber-100 to-amber-200 text-black border border-pharaonic-gold/30 shadow-lg';
       case 'minimal':
-        return 'bg-white border-2 border-amber-200 text-blue-900';
+        return 'bg-white border-2 border-amber-200 text-black';
       default:
-        return 'bg-gradient-to-br from-amber-50 to-blue-50 text-blue-900 border border-amber-200';
+        return 'bg-gradient-to-br from-amber-50 to-blue-50 text-black border border-amber-200';
     }
   };
 
@@ -71,10 +71,9 @@ const EgyptianCTA: React.FC<EgyptianCTAProps> = ({
             viewport={{ once: true }}
           >
             {/* Symbol Icon */}
-            <div className="mb-6">
-              <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full text-3xl shadow-lg ${
-                variant === 'gradient' ? 'bg-white/20 text-white' : 'bg-gradient-to-br from-amber-400 to-blue-600 text-white'
-              }`}>
+            <div className="mb-6 rotate-container">
+              <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full text-3xl shadow-lg ${variant === 'gradient' ? 'bg-pharaonic-gold text-black' : 'bg-gradient-to-br from-amber-400 to-blue-400 text-black'
+                }`}>
                 {symbolIcon}
               </div>
             </div>
@@ -99,7 +98,7 @@ const EgyptianCTA: React.FC<EgyptianCTAProps> = ({
             )}
 
             {/* English Description */}
-            <p className={`text-lg mb-8 leading-relaxed ${variant === 'gradient' ? 'text-blue-100' : 'opacity-80'}`}>
+            <p className={`text-lg mb-8 leading-relaxed ${variant === 'gradient' ? 'text-black/80' : 'opacity-80'}`}>
               {description}
             </p>
 
@@ -108,11 +107,10 @@ const EgyptianCTA: React.FC<EgyptianCTAProps> = ({
               {/* Primary Button */}
               <Link
                 href={primaryButton.href}
-                className={`inline-flex items-center px-8 py-4 font-bold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg ${
-                  variant === 'gradient' 
-                    ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-white hover:from-amber-600 hover:to-amber-700' 
-                    : 'bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800'
-                }`}
+                className={`inline-flex items-center px-8 py-4 font-bold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg ${variant === 'gradient'
+                    ? 'bg-gradient-to-r from-amber-500 to-amber-600 text-black hover:from-amber-600 hover:to-amber-700'
+                    : 'bg-gradient-to-r from-pharaonic-gold to-pharaonic-gold-dark text-black hover:from-pharaonic-gold-dark hover:to-pharaonic-gold-darker'
+                  }`}
               >
                 {primaryButton.arabicText && (
                   <span className="ml-2">{primaryButton.arabicText}</span>
@@ -130,11 +128,10 @@ const EgyptianCTA: React.FC<EgyptianCTAProps> = ({
               {secondaryButton && (
                 <Link
                   href={secondaryButton.href}
-                  className={`inline-flex items-center px-8 py-4 font-bold rounded-full transition-all duration-300 transform hover:scale-105 ${
-                    variant === 'gradient'
-                      ? 'bg-white/20 text-white border-2 border-white/30 hover:bg-white/30'
-                      : 'bg-gradient-to-r from-amber-500 to-amber-600 text-white hover:from-amber-600 hover:to-amber-700 shadow-lg'
-                  }`}
+                  className={`inline-flex items-center px-8 py-4 font-bold rounded-full transition-all duration-300 transform hover:scale-105 ${variant === 'gradient'
+                      ? 'bg-black/10 text-black border-2 border-black/20 hover:bg-black/20'
+                      : 'bg-gradient-to-r from-amber-400 to-amber-500 text-black hover:from-amber-500 hover:to-amber-600 shadow-lg'
+                    }`}
                 >
                   {secondaryButton.arabicText && (
                     <span className="ml-2">{secondaryButton.arabicText}</span>

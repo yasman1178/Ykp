@@ -20,8 +20,8 @@ interface BlogInternalLinksProps {
   variant?: 'default' | 'compact' | 'grid';
 }
 
-export default function BlogInternalLinks({ 
-  links, 
+export default function BlogInternalLinks({
+  links,
   title = "Related Links",
   arabicTitle = "روابط ذات صلة",
   maxLinks = 6,
@@ -61,8 +61,8 @@ export default function BlogInternalLinks({
         transition={{ duration: 0.6 }}
         className="bg-gradient-to-r from-blue-50 to-amber-50 rounded-xl p-4 my-6"
       >
-        <h3 className="text-lg font-bold text-blue-900 mb-3 flex items-center">
-          <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <h3 className="text-lg font-bold text-black mb-3 flex items-center">
+          <svg className="w-5 h-5 ml-2 text-pharaonic-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
           </svg>
           {arabicTitle} | {title}
@@ -72,7 +72,7 @@ export default function BlogInternalLinks({
             <Link
               key={index}
               href={link.url}
-              className="inline-flex items-center px-3 py-1 bg-white rounded-full text-sm text-blue-900 hover:text-amber-600 transition-colors shadow-sm hover:shadow-md"
+              className="inline-flex items-center px-3 py-1 bg-white rounded-full text-sm text-black font-semibold hover:text-pharaonic-gold transition-colors shadow-sm hover:shadow-md border border-pharaonic-gold/20"
               title={link.title}
             >
               <span className="ml-1">{getLinkIcon(link.type)}</span>
@@ -92,8 +92,8 @@ export default function BlogInternalLinks({
         transition={{ duration: 0.6 }}
         className="bg-gradient-to-r from-blue-50 to-amber-50 rounded-2xl p-6 my-8"
       >
-        <h3 className="text-xl font-bold text-blue-900 mb-6 flex items-center">
-          <svg className="w-6 h-6 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <h3 className="text-xl font-bold text-black mb-6 flex items-center">
+          <svg className="w-6 h-6 ml-3 text-pharaonic-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
           </svg>
           {arabicTitle} | {title}
@@ -111,14 +111,14 @@ export default function BlogInternalLinks({
                 className="flex items-center p-4 bg-white rounded-xl hover:bg-amber-50 transition-all duration-300 group shadow-sm hover:shadow-lg"
                 title={link.title}
               >
-                <div className={`flex-shrink-0 w-10 h-10 bg-gradient-to-r ${getLinkColor(link.type)} rounded-full flex items-center justify-center text-white text-lg mr-4 group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`flex-shrink-0 w-10 h-10 bg-gradient-to-r ${getLinkColor(link.type)} rounded-full flex items-center justify-center text-black text-lg mr-4 group-hover:scale-110 transition-transform duration-300`}>
                   {getLinkIcon(link.type)}
                 </div>
                 <div className="flex-1">
-                  <span className="text-blue-900 group-hover:text-amber-600 transition-colors font-medium">
+                  <span className="text-black group-hover:text-pharaonic-gold transition-colors font-bold">
                     {link.anchor}
                   </span>
-                  <p className="text-xs text-gray-600 mt-1 line-clamp-2">
+                  <p className="text-xs text-black/80 mt-1 line-clamp-2">
                     {link.title}
                   </p>
                 </div>
@@ -141,8 +141,8 @@ export default function BlogInternalLinks({
       transition={{ duration: 0.6 }}
       className="bg-gradient-to-r from-blue-50 to-amber-50 rounded-2xl p-6 my-8 border border-amber-200"
     >
-      <h3 className="text-lg font-bold text-blue-900 mb-4 flex items-center">
-        <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <h3 className="text-lg font-bold text-black mb-4 flex items-center">
+        <svg className="w-5 h-5 ml-2 text-pharaonic-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
         </svg>
         {arabicTitle} | {title}
@@ -155,10 +155,10 @@ export default function BlogInternalLinks({
             className="flex items-center p-3 bg-white rounded-lg hover:bg-amber-50 transition-colors group"
             title={link.title}
           >
-            <div className={`flex-shrink-0 w-8 h-8 bg-gradient-to-r ${getLinkColor(link.type)} rounded-full flex items-center justify-center text-white text-sm mr-3`}>
+            <div className={`flex-shrink-0 w-8 h-8 bg-gradient-to-r ${getLinkColor(link.type)} rounded-full flex items-center justify-center text-black text-sm mr-3`}>
               {getLinkIcon(link.type)}
             </div>
-            <span className="text-blue-900 group-hover:text-amber-600 transition-colors text-sm font-medium">
+            <span className="text-black group-hover:text-pharaonic-gold transition-colors text-sm font-bold">
               {link.anchor}
             </span>
           </Link>
