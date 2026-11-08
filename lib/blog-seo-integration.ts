@@ -447,7 +447,7 @@ export const generateBlogStructuredData = (article: BlogArticle) => {
   };
 };
 
-export default {
+const blogSEOIntegration = {
   BLOG_SEO_KEYWORDS,
   SYMBOL_PRODUCT_MAPPING,
   generateBlogSEOMeta,
@@ -457,3 +457,5 @@ export default {
   optimizeBlogContent,
   generateBlogStructuredData
 };
+
+export default blogSEOIntegration;

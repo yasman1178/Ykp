@@ -448,9 +448,11 @@ export const FloatingCTA: React.FC<CTAComponentProps> = ({
   );
 };
 
-export default {
+const CTAComponents = {
   PrimaryCTA,
   InlineCTA,
   SidebarCTA,
   FloatingCTA
 };
+
+export default CTAComponents;

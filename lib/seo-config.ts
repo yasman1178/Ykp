@@ -432,7 +432,7 @@ export const generateSitemapData = () => {
   };
 };
 
-export default {
+const seoConfig = {
   DEFAULT_SEO,
   PAGE_SEO_CONFIGS,
   COLLECTION_SEO_CONFIGS,
@@ -445,3 +445,5 @@ export default {
   generateEnhancedMetaTags,
   generateSitemapData
 };
+
+export default seoConfig;

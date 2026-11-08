@@ -395,8 +395,10 @@ export const PRODUCT_COLLECTIONS: Record<string, ProductCollection> = {
   }
 };
 
-export default {
+const productGenerator = {
   GENERATED_PRODUCTS,
   PRODUCT_COLLECTIONS,
   convertToProduct
 };
+
+export default productGenerator;

@@ -629,7 +629,7 @@ export function generateCompleteStructuredData(
   return schemas;
 }
 
-export default {
+const structuredDataEnhanced = {
   generateOrganizationSchemaEnhanced,
   generateProductSchemaEnhanced,
   generateBreadcrumbSchemaEnhanced,
@@ -638,3 +638,5 @@ export default {
   generateWebsiteSchemaEnhanced,
   generateCompleteStructuredData,
 };
+
+export default structuredDataEnhanced;

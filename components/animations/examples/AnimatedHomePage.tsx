@@ -4,6 +4,7 @@
  */
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import {
   AnimatedHero,
   AnimatedSectionHeader,
@@ -196,9 +197,11 @@ export const AnimatedHomePage: React.FC = () => {
 
               <div className="about-image">
                 <FloatingCard className="image-container">
-                  <img
+                  <Image
                     src="/pillowindex.png"
                     alt="Egyptian Pillows"
+                    width={500}
+                    height={350}
                     className="w-full h-auto rounded-lg"
                   />
                 </FloatingCard>

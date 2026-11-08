@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FiClock, FiUser, FiCalendar, FiShare2, FiBookmark } from 'react-icons/fi';
 import ReadingProgress from '@/components/ReadingProgress';
@@ -361,10 +362,12 @@ function AuthorBio({ author }: { author: { name: string; avatar?: string; bio?: 
       <h3 className="text-lg font-bold text-gray-900 mb-4">About the Author | عن الكاتب</h3>
       <div className="flex items-start gap-4">
         {author.avatar && (
-          <img
+          <Image
             src={author.avatar}
             alt={author.name}
-            className="w-16 h-16 rounded-full border-2 border-amber-500"
+            width={64}
+            height={64}
+            className="w-16 h-16 rounded-full border-2 border-amber-500 object-cover"
           />
         )}
         <div>

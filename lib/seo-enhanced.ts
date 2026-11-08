@@ -460,7 +460,7 @@ export function generateProductEnhancedSEO(
   };
 }
 
-export default {
+const seoEnhanced = {
   ARABIC_PRIMARY_KEYWORDS,
   ARABIC_KEYWORD_VARIATIONS,
   ARABIC_LONG_TAIL_KEYWORDS,
@@ -474,3 +474,5 @@ export default {
   generateHomepageEnhancedSEO,
   generateProductEnhancedSEO,
 };
+
+export default seoEnhanced;

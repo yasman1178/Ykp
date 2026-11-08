@@ -27,6 +27,32 @@ const nextConfig = {
     defaultLocale: 'en',
     localeDetection: false,
   },
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.plugins.push({
+        apply(compiler) {
+          const createChunksLink = () => {
+            try {
+              const fs = require('fs');
+              const path = require('path');
+              const serverDir = path.join(process.cwd(), '.next', 'server');
+              const chunksDir = path.join(serverDir, 'chunks');
+              const symlinkPath = path.join(chunksDir, 'vendor-chunks');
+              if (!fs.existsSync(chunksDir)) {
+                fs.mkdirSync(chunksDir, { recursive: true });
+              }
+              if (!fs.existsSync(symlinkPath)) {
+                fs.symlinkSync('../vendor-chunks', symlinkPath, 'dir');
+              }
+            } catch (e) {}
+          };
+          compiler.hooks.afterEmit.tap('EnsureVendorChunksPlugin', createChunksLink);
+          compiler.hooks.done.tap('EnsureVendorChunksPlugin', createChunksLink);
+        }
+      });
+    }
+    return config;
+  },
 }
 
 module.exports = nextConfig

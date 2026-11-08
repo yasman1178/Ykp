@@ -67,7 +67,12 @@ export const AnimationProvider: React.FC<AnimationProviderProps> = ({ children }
 
   // Apply speed multiplier to document root
   useEffect(() => {
-    const multiplier = getSpeedMultiplier();
+    const speedMap: Record<'slow' | 'normal' | 'fast', number> = {
+      slow: 1.5,
+      fast: 0.7,
+      normal: 1
+    };
+    const multiplier = speedMap[animationSpeed] || 1;
     document.documentElement.style.setProperty('--animation-speed', multiplier.toString());
   }, [animationSpeed]);
 

@@ -231,7 +231,7 @@ export function isValidCanonicalUrl(url: string): boolean {
   }
 }
 
-export default {
+const canonicalUrlUtils = {
   generateCanonicalUrl,
   needsCanonicalRedirect,
   getCanonicalForSitemap,
@@ -243,3 +243,5 @@ export default {
   isValidCanonicalUrl,
   REDIRECT_PATTERNS
 };
+
+export default canonicalUrlUtils;

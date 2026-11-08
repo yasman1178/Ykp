@@ -421,7 +421,7 @@ export function generateOptimizedHomepageContent(): {
   };
 }
 
-export default {
+const arabicKeywordOptimizer = {
   optimizePageTitle,
   optimizeMetaDescription,
   generateArabicMetaDescription,
@@ -432,3 +432,5 @@ export default {
   generateOptimizedCollectionContent,
   generateOptimizedHomepageContent,
 };
+
+export default arabicKeywordOptimizer;

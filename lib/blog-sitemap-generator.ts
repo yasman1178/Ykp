@@ -109,9 +109,11 @@ export const generateBlogRobotsTxt = (): string[] => {
   ];
 };
 
-export default {
+const blogSitemapGenerator = {
   generateBlogSitemapEntries,
   generateBlogIndexSitemapEntry,
   generateBlogSitemapXML,
   generateBlogRobotsTxt
 };
+
+export default blogSitemapGenerator;

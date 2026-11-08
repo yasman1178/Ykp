@@ -270,7 +270,7 @@ export const COLLECTION_INFO = {
   }
 };
 
-export default {
+const productAnalyzer = {
   analyzeProductCollection,
   getAllProducts,
   getProductById,
@@ -281,6 +281,8 @@ export default {
   T_PRODUCTS,
   TB_PRODUCTS
 };
+
+export default productAnalyzer;
 
 // Additional B123 Premium Products
 const ADDITIONAL_B123_PRODUCTS: ProductAnalysis[] = [

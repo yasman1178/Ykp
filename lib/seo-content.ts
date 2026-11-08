@@ -328,7 +328,7 @@ export const generateContentSuggestions = (
   return suggestions;
 };
 
-export default {
+const seoContent = {
   TARGET_KEYWORDS,
   generateSEOSlug,
   generateProductSEOUrl,
@@ -339,3 +339,5 @@ export default {
   checkKeywordDensity,
   generateContentSuggestions
 };
+
+export default seoContent;

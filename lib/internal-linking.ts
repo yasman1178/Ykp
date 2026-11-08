@@ -305,7 +305,7 @@ export const generateContextualLinks = (
   return prioritizedLinks.slice(0, maxLinks);
 };
 
-export default {
+const internalLinking = {
   getProductToBlogLinks,
   getBlogToProductLinks,
   getCollectionLinks,
@@ -314,3 +314,5 @@ export default {
   prioritizeInternalLinks,
   generateContextualLinks
 };
+
+export default internalLinking;

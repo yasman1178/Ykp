@@ -1,7 +1,7 @@
 // Advanced Search System for Manufacturing Blog
 // Real-time search with autocomplete and manufacturing-focused suggestions
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BlogArticleEnhanced } from '@/types/blog-enhanced';
 import { keywordManager } from '@/lib/keyword-management';
@@ -56,21 +56,127 @@ export const SearchSystem: React.FC<SearchSystemProps> = ({
     }
   }, []);
 
-  // Debounced search function
-  const debouncedSearch = useCallback(
-    debounce((searchQuery: string) => {
-      if (searchQuery.trim()) {
-        performSearch(searchQuery);
-        generateSuggestions(searchQuery);
-      } else {
-        if (onSearchResults) {
-          onSearchResults(articles);
-        }
-        setSuggestions([]);
+  // Perform search
+  const performSearch = useCallback(
+    (searchQuery: string) => {
+      const results = searchArticles(searchQuery, articles);
+      if (onSearchResults) {
+        onSearchResults(results);
       }
-      setIsSearching(false);
-    }, 300),
+    },
     [articles, onSearchResults]
+  );
+
+  // Generate search suggestions
+  const generateSuggestions = useCallback(
+    (searchQuery: string) => {
+      const suggestions: SearchSuggestion[] = [];
+      const lowerQuery = searchQuery.toLowerCase();
+
+      // Article suggestions
+      const articleMatches = articles
+        .filter(article => 
+          article.title.toLowerCase().includes(lowerQuery) ||
+          article.description.toLowerCase().includes(lowerQuery) ||
+          article.culturalElement.englishName.toLowerCase().includes(lowerQuery)
+        )
+        .slice(0, 3);
+
+      articleMatches.forEach(article => {
+        suggestions.push({
+          type: 'article',
+          text: article.title,
+          description: `${article.readingTime} min read • ${article.viewCount.toLocaleString()} views`,
+          icon: getCulturalIcon(article.culturalElement.iconCode)
+        });
+      });
+
+      // Manufacturing keyword suggestions
+      const manufacturingKeywords = [
+        ...keywordManager.generateContentKeywords('', 'pillow', ['memory foam']).primary,
+        ...keywordManager.generateContentKeywords('', 'pillow', ['memory foam']).secondary
+      ];
+
+      manufacturingKeywords
+        .filter(keyword => keyword.toLowerCase().includes(lowerQuery))
+        .slice(0, 3)
+        .forEach(keyword => {
+          suggestions.push({
+            type: 'keyword',
+            text: keyword,
+            description: 'Manufacturing keyword',
+            icon: '🏭'
+          });
+        });
+
+      // Cultural element suggestions
+      const culturalElements = ['Anubis', 'Eye of Horus', 'Ankh', 'Scarab', 'Nefertiti', 'Pyramid'];
+      culturalElements
+        .filter(element => element.toLowerCase().includes(lowerQuery))
+        .forEach(element => {
+          const count = articles.filter(a => a.culturalElement.englishName === element).length;
+          suggestions.push({
+            type: 'cultural',
+            text: element,
+            description: `${count} articles about ${element}`,
+            icon: getCulturalIconByName(element),
+            count
+          });
+        });
+
+      // Material suggestions
+      const materials = ['memory foam', 'Egyptian cotton', 'bamboo fiber', 'organic cotton'];
+      materials
+        .filter(material => material.toLowerCase().includes(lowerQuery))
+        .forEach(material => {
+          const count = articles.filter(a => 
+            a.manufacturingFocus.materials.some(m => m.toLowerCase().includes(material.toLowerCase()))
+          ).length;
+          suggestions.push({
+            type: 'material',
+            text: material,
+            description: `${count} articles about ${material}`,
+            icon: '🧵',
+            count
+          });
+        });
+
+      // Category suggestions
+      const categories = Array.from(new Set(articles.map(a => a.category.name)));
+      categories
+        .filter(category => category.toLowerCase().includes(lowerQuery))
+        .forEach(category => {
+          const count = articles.filter(a => a.category.name === category).length;
+          suggestions.push({
+            type: 'category',
+            text: category,
+            description: `${count} articles in this category`,
+            icon: '📁',
+            count
+          });
+        });
+
+      setSuggestions(suggestions.slice(0, 8));
+    },
+    [articles]
+  );
+
+  // Debounced search function
+  const debouncedSearch = useMemo(
+    () =>
+      debounce((searchQuery: string) => {
+        if (searchQuery.trim()) {
+          performSearch(searchQuery);
+          generateSuggestions(searchQuery);
+        } else {
+          if (onSearchResults) {
+            onSearchResults(articles);
+          }
+          setSuggestions([]);
+        }
+        setIsSearching(false);
+      }, 300),
+    [articles, onSearchResults, performSearch, generateSuggestions]
   );
 
   // Handle input change
@@ -94,105 +200,6 @@ export const SearchSystem: React.FC<SearchSystemProps> = ({
         onSearchResults(articles);
       }
     }
-  };
-
-  // Perform search
-  const performSearch = (searchQuery: string) => {
-    const results = searchArticles(searchQuery, articles);
-    if (onSearchResults) {
-      onSearchResults(results);
-    }
-  };
-
-  // Generate search suggestions
-  const generateSuggestions = (searchQuery: string) => {
-    const suggestions: SearchSuggestion[] = [];
-    const lowerQuery = searchQuery.toLowerCase();
-
-    // Article suggestions
-    const articleMatches = articles
-      .filter(article => 
-        article.title.toLowerCase().includes(lowerQuery) ||
-        article.description.toLowerCase().includes(lowerQuery) ||
-        article.culturalElement.englishName.toLowerCase().includes(lowerQuery)
-      )
-      .slice(0, 3);
-
-    articleMatches.forEach(article => {
-      suggestions.push({
-        type: 'article',
-        text: article.title,
-        description: `${article.readingTime} min read • ${article.viewCount.toLocaleString()} views`,
-        icon: getCulturalIcon(article.culturalElement.iconCode)
-      });
-    });
-
-    // Manufacturing keyword suggestions
-    const manufacturingKeywords = [
-      ...keywordManager.generateContentKeywords('', 'pillow', ['memory foam']).primary,
-      ...keywordManager.generateContentKeywords('', 'pillow', ['memory foam']).secondary
-    ];
-
-    manufacturingKeywords
-      .filter(keyword => keyword.toLowerCase().includes(lowerQuery))
-      .slice(0, 3)
-      .forEach(keyword => {
-        suggestions.push({
-          type: 'keyword',
-          text: keyword,
-          description: 'Manufacturing keyword',
-          icon: '🏭'
-        });
-      });
-
-    // Cultural element suggestions
-    const culturalElements = ['Anubis', 'Eye of Horus', 'Ankh', 'Scarab', 'Nefertiti', 'Pyramid'];
-    culturalElements
-      .filter(element => element.toLowerCase().includes(lowerQuery))
-      .forEach(element => {
-        const count = articles.filter(a => a.culturalElement.englishName === element).length;
-        suggestions.push({
-          type: 'cultural',
-          text: element,
-          description: `${count} articles about ${element}`,
-          icon: getCulturalIconByName(element),
-          count
-        });
-      });
-
-    // Material suggestions
-    const materials = ['memory foam', 'Egyptian cotton', 'bamboo fiber', 'organic cotton'];
-    materials
-      .filter(material => material.toLowerCase().includes(lowerQuery))
-      .forEach(material => {
-        const count = articles.filter(a => 
-          a.manufacturingFocus.materials.some(m => m.toLowerCase().includes(material.toLowerCase()))
-        ).length;
-        suggestions.push({
-          type: 'material',
-          text: material,
-          description: `${count} articles about ${material}`,
-          icon: '🧵',
-          count
-        });
-      });
-
-    // Category suggestions
-    const categories = Array.from(new Set(articles.map(a => a.category.name)));
-    categories
-      .filter(category => category.toLowerCase().includes(lowerQuery))
-      .forEach(category => {
-        const count = articles.filter(a => a.category.name === category).length;
-        suggestions.push({
-          type: 'category',
-          text: category,
-          description: `${count} articles in this category`,
-          icon: '📁',
-          count
-        });
-      });
-
-    setSuggestions(suggestions.slice(0, 8));
   };
 
   // Handle suggestion selection

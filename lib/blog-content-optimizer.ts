@@ -223,10 +223,12 @@ export const generateEnhancedStructuredData = (article: BlogArticle) => {
   };
 };
 
-export default {
+const blogContentOptimizer = {
   enhanceArticleSEO,
   addCTAContent,
   addInternalLinks,
   optimizeMetaDescription,
   generateEnhancedStructuredData
 };
+
+export default blogContentOptimizer;

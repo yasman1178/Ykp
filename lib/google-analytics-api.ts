@@ -175,5 +175,5 @@ class GoogleAnalyticsAPI {
     };
   }
 }
-
-export default new GoogleAnalyticsAPI();
+const googleAnalyticsAPI = new GoogleAnalyticsAPI();
+export default googleAnalyticsAPI;
