@@ -118,7 +118,7 @@ const WholesalePage: React.FC<WholesalePageProps> = ({ translations: t, locale }
   return (
     <div dir={isRTL ? 'rtl' : 'ltr'} className="min-h-screen bg-papyrus-light">
       <SEO
-        title={isRTL ? 'الجملة والتوزيع | الوسائد الفرعونية' : 'Wholesale & B2B | Pharaonic Pillows'}
+        title={isRTL ? 'عقود التوريد والجملة B2B | YKP Supplies' : 'B2B Wholesale & Private Label Supply | YKP Supplies'}
         description={t.site.description}
         locale={locale}
       />

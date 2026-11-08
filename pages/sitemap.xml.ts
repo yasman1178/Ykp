@@ -113,6 +113,12 @@ const generateSitemap = (): string => {
       lastmod: getLastModified('static')
     },
     {
+      url: '/retail',
+      changefreq: 'weekly',
+      priority: '0.85',
+      lastmod: getLastModified('products')
+    },
+    {
       url: '/partnership',
       changefreq: 'monthly',
       priority: calculatePriority('other'),
@@ -242,7 +248,7 @@ const generateSitemap = (): string => {
       ...(isRecent && {
         news: {
           publication: {
-            name: 'Pharaonic Pillows Blog',
+            name: 'YKP Supplies Blog',
             language: 'en'
           },
           publication_date: publishDate.toISOString(),
@@ -255,19 +261,23 @@ const generateSitemap = (): string => {
 
   allPages.push(...blogPages);
 
-  // Generate XML sitemap with enhanced metadata
+  // Generate XML sitemap with enhanced metadata and multilingual hreflang
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+          xmlns:xhtml="http://www.w3.org/1999/xhtml"
           xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
           xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
     ${allPages.map(page => {
-    // Use canonical URL for sitemap entries
     const canonicalUrl = getCanonicalForSitemap(page.url);
     const escapedUrl = canonicalUrl.replace(/&/g, '&amp;');
+    const arUrl = `${baseUrl}/ar${page.url === '/' ? '' : page.url}`.replace(/&/g, '&amp;');
 
     return `
   <url>
     <loc>${escapedUrl}</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="${escapedUrl}" />
+    <xhtml:link rel="alternate" hreflang="ar" href="${arUrl}" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="${escapedUrl}" />
     <lastmod>${page.lastmod}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>${page.news ? `

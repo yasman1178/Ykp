@@ -1,421 +1,365 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { GetStaticProps, GetStaticPaths } from 'next';
+import { motion } from 'framer-motion';
+import { FaWhatsapp, FaShieldAlt, FaTruck, FaUndo, FaIndustry, FaCheck, FaPhoneAlt } from 'react-icons/fa';
 import SEO from '@/components/SEO';
-import ProductSchema from '@/components/ProductSchema';
 import { getTranslations } from '@/lib/translations';
-
-interface Product {
-  id: string;
-  image: string;
-  name: string;
-  price: string;
-  description: string;
-  collection: string;
-  collectionName: string;
-  badge: string;
-  color: string;
-  bgGradient: string;
-  features: string[];
-  specifications: {
-    material: string;
-    dimensions: string;
-    weight: string;
-    care: string;
-    warranty: string;
-    barcode?: string;
-  };
-  gallery: string[];
-}
+import { getProductImageSeo, LUXURY_COLLECTION_MAP } from '@/lib/product-image-seo';
 
 interface ProductPageProps {
-  product: Product;
-  relatedProducts: Product[];
+  product: {
+    id: string;
+    modelCode: string;
+    image: string;
+    name: string;
+    nameAr: string;
+    price: string;
+    unitPriceNum: number;
+    description: string;
+    descriptionAr: string;
+    culturalStory: string;
+    culturalStoryAr: string;
+    collection: string;
+    collectionName: string;
+    collectionNameAr: string;
+    symbol: string;
+    symbolAr: string;
+    features: string[];
+    specifications: {
+      material: string;
+      dimensions: string;
+      weight: string;
+      care: string;
+      warranty: string;
+      barcode?: string;
+    };
+    gallery: string[];
+  };
+  relatedProducts: Array<{
+    id: string;
+    name: string;
+    price: string;
+    image: string;
+    collection: string;
+  }>;
   translations: any;
   locale: string;
 }
 
-const ProductPage: React.FC<ProductPageProps> = ({
+export default function ProductDetailPage({
   product,
   relatedProducts,
   translations: t,
   locale
-}) => {
+}: ProductPageProps) {
+  const isRTL = locale === 'ar';
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
+  const title = isRTL ? product.nameAr : product.name;
+  const description = isRTL ? product.descriptionAr : product.description;
+  const collectionTitle = isRTL ? product.collectionNameAr : product.collectionName;
+
+  const currentGalleryImg = product.gallery[selectedImage] || product.image;
+  const imageSeo = getProductImageSeo(currentGalleryImg);
+
+  const handleWhatsAppOrder = () => {
+    const text = isRTL
+      ? `مرحباً مصنع YKP Supplies، أود الاستفسار وطلب مخدة السفر:\n- الموديل: ${product.nameAr} (${product.modelCode})\n- الكمية: ${quantity}\n- السعر التقريبي: $${product.unitPriceNum * quantity}\n- الرابط: https://www.ykp-eg.com/products/${product.collection}/${product.id}`
+      : `Hello YKP Supplies, I would like to order this travel pillow:\n- Model: ${product.name} (${product.modelCode})\n- Quantity: ${quantity}\n- Approx: $${product.unitPriceNum * quantity}\n- Link: https://www.ykp-eg.com/products/${product.collection}/${product.id}`;
+    window.open(`https://wa.me/201002406013?text=${encodeURIComponent(text)}`, '_blank');
+  };
+
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#07090C] text-slate-100 selection:bg-[#D4AF37] selection:text-black" dir={isRTL ? 'rtl' : 'ltr'}>
       <SEO
-        title={`${product.name} - ${product.collectionName} | YKP Supplies`}
-        description={`${product.description} Premium Egyptian travel pillow from YKP Supplies. ${product.price} with authentic design and modern comfort.`}
-        translations={t}
-        locale={locale}
+        title={`${title} | YKP Supplies`}
+        description={description}
+        canonicalUrl={`https://www.ykp-eg.com/products/${product.collection}/${product.id}`}
+        ogImage={product.image}
         ogType="product"
-        ogImage={product.gallery[0]}
-      />
-      <ProductSchema
-        product={{
-          id: product.id,
-          name: product.name,
-          description: product.description,
-          collection: product.collection as any,
-          images: product.gallery.map(url => ({ url, alt: product.name, id: url, isPrimary: false, order: 0, dimensions: { width: 0, height: 0 } })),
-          pricing: {
-            retail: {
-              min: parseFloat(product.price.replace('$', '')),
-              max: parseFloat(product.price.replace('$', '')),
-              currency: 'USD'
-            }
-          }
-        } as any}
       />
 
-      {/* Breadcrumb */}
-      <section className="py-6 bg-gray-50">
+      {/* JSON-LD Schema */}
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Product',
+              'name': product.name,
+              'description': product.description,
+              'image': [product.image, ...product.gallery],
+              'sku': product.modelCode,
+              'brand': {
+                '@type': 'Brand',
+                'name': 'YKP Supplies'
+              },
+              'manufacturer': {
+                '@type': 'Organization',
+                'name': 'YKP Supplies',
+                'url': 'https://www.ykp-eg.com'
+              },
+              'offers': {
+                '@type': 'Offer',
+                'price': product.unitPriceNum.toString(),
+                'priceCurrency': 'USD',
+                'availability': 'https://schema.org/InStock',
+                'seller': {
+                  '@type': 'Organization',
+                  'name': 'YKP Supplies'
+                }
+              }
+            })
+          }}
+        />
+      </Head>
+
+      {/* Breadcrumb Navigation */}
+      <section className="py-4 border-b border-slate-800 bg-[#0B0D11]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="flex items-center space-x-2 text-sm">
-            <Link href="/" className="text-gray-500 hover:text-gray-700">Home</Link>
-            <span className="text-gray-400">/</span>
-            <Link href="/products" className="text-gray-500 hover:text-gray-700">Products</Link>
-            <span className="text-gray-400">/</span>
-            <Link href={`/products?collection=${product.collection}`} className="text-gray-500 hover:text-gray-700">
-              {product.collectionName}
+          <nav className="flex items-center gap-2 text-xs text-slate-400 font-mono">
+            <Link href="/" className="hover:text-white transition-colors">{isRTL ? 'الرئيسية' : 'Home'}</Link>
+            <span>/</span>
+            <Link href="/products" className="hover:text-white transition-colors">{isRTL ? 'المجموعات' : 'Collections'}</Link>
+            <span>/</span>
+            <Link href={`/products/${product.collection}`} className="hover:text-white transition-colors">
+              {collectionTitle}
             </Link>
-            <span className="text-gray-400">/</span>
-            <span className="text-gray-900 font-medium">{product.name}</span>
+            <span>/</span>
+            <span className="text-[#D4AF37] font-semibold truncate max-w-xs">{title}</span>
           </nav>
         </div>
       </section>
 
-      {/* Product Details */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            {/* Product Images */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              {/* Main Image */}
-              <div className="relative mb-6">
-                <motion.div
-                  className="relative rounded-3xl overflow-hidden shadow-2xl aspect-square"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
+      {/* Product Details Section */}
+      <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          
+          {/* Gallery Showcase (6 Cols) */}
+          <div className="lg:col-span-6 space-y-4">
+            <div className="relative aspect-square rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 p-6 flex items-center justify-center shadow-2xl">
+              <Image
+                src={currentGalleryImg}
+                alt={imageSeo.altEn}
+                fill
+                className="object-contain p-4"
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+              <div className="absolute top-4 left-4 bg-black/80 px-2.5 py-1 rounded text-xs font-mono text-[#D4AF37]">
+                {product.modelCode}
+              </div>
+            </div>
+
+            {/* Thumbnail Row */}
+            <div className="grid grid-cols-4 gap-3">
+              {product.gallery.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setSelectedImage(idx)}
+                  className={`relative aspect-square rounded-xl overflow-hidden bg-slate-950 border transition-all ${
+                    selectedImage === idx
+                      ? 'border-[#D4AF37] ring-2 ring-[#D4AF37]/30 scale-105'
+                      : 'border-slate-800 opacity-60 hover:opacity-100'
+                  }`}
                 >
                   <Image
-                    src={product.gallery[selectedImage]}
-                    alt={product.name}
-                    width={600}
-                    height={600}
-                    className="w-full h-full object-cover"
+                    src={img}
+                    alt={`${product.name} gallery image ${idx + 1}`}
+                    fill
+                    className="object-contain p-1"
+                    sizes="20vw"
                   />
-                  <div className={`absolute inset-0 bg-gradient-to-t ${product.color} opacity-10`}></div>
-                </motion.div>
+                </button>
+              ))}
+            </div>
 
-                {/* Collection Badge */}
-                <div className="absolute top-6 left-6">
-                  <span className={`bg-gradient-to-r ${product.color} text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg`}>
-                    {product.badge}
-                  </span>
-                </div>
-              </div>
-
-              {/* Image Gallery */}
-              <div className="grid grid-cols-4 gap-4">
-                {product.gallery.map((image, index) => (
-                  <motion.button
-                    key={index}
-                    onClick={() => setSelectedImage(index)}
-                    className={`relative rounded-2xl overflow-hidden aspect-square ${selectedImage === index
-                      ? `ring-4 ring-offset-2 ring-amber-500`
-                      : 'hover:opacity-80'
-                      }`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Image
-                      src={image}
-                      alt={`${product.name} view ${index + 1}`}
-                      width={150}
-                      height={150}
-                      className="w-full h-full object-cover"
-                    />
-                  </motion.button>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Product Info */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="space-y-8"
-            >
-              {/* Header */}
+            {/* Trust Highlights */}
+            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 grid grid-cols-3 gap-3 text-center text-xs">
               <div>
-                <motion.h1
-                  className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
-                  style={{ fontFamily: 'Playfair Display, serif' }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                >
-                  {product.name}
-                </motion.h1>
-                <motion.p
-                  className="text-xl text-gray-600 mb-6"
-                  style={{ fontFamily: 'Inter, sans-serif' }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                >
-                  {product.description}
-                </motion.p>
-                <motion.div
-                  className={`text-4xl font-bold bg-gradient-to-r ${product.color} bg-clip-text text-transparent`}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                >
-                  {product.price}
-                </motion.div>
+                <FaIndustry className="text-[#D4AF37] mx-auto text-base mb-1" />
+                <span className="text-slate-300 font-medium block">{isRTL ? 'تصنيع محلي مباشر' : 'Direct Manufacturer'}</span>
+                <span className="text-[10px] text-slate-500">{isRTL ? 'القاهرة الجديدة' : 'New Cairo Facility'}</span>
+              </div>
+              <div>
+                <FaShieldAlt className="text-[#D4AF37] mx-auto text-base mb-1" />
+                <span className="text-slate-300 font-medium block">{isRTL ? 'ميموري فوم 50D' : '50D Memory Foam'}</span>
+                <span className="text-[10px] text-slate-500">{isRTL ? 'راحة طبية معتمدة' : 'Orthopedic Core'}</span>
+              </div>
+              <div>
+                <FaTruck className="text-[#D4AF37] mx-auto text-base mb-1" />
+                <span className="text-slate-300 font-medium block">{isRTL ? 'شحن لجميع الدول' : 'Global Export'}</span>
+                <span className="text-[10px] text-slate-500">{isRTL ? 'شحن فوري وسريع' : 'Air & Sea Freight'}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Product Specifications & Order Engine (6 Cols) */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="space-y-2">
+              <span className="text-xs uppercase font-mono tracking-widest text-[#D4AF37] font-semibold block">
+                {collectionTitle}
+              </span>
+              <h1 className="text-2xl sm:text-4xl font-bold text-white font-serif tracking-tight">
+                {title}
+              </h1>
+              <div className="flex items-center gap-3 pt-2">
+                <span className="text-2xl font-bold font-mono text-[#D4AF37]">{product.price}</span>
+                <span className="text-xs text-slate-400">
+                  {isRTL ? '(سعر التجزئة المقترح • خصم كميات للجملة)' : '(Suggested retail • Wholesale discounts available)'}
+                </span>
+              </div>
+            </div>
+
+            {/* Description & Cultural Significance */}
+            <div className="p-5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-3 text-xs leading-relaxed text-slate-300">
+              <h3 className="text-sm font-bold text-white font-serif flex items-center gap-2">
+                <span>𓂀</span>
+                {isRTL ? 'الرمز الفرعوني وقصة التصميم' : 'Egyptian Cultural Symbolism'}
+              </h3>
+              <p>{isRTL ? product.culturalStoryAr : product.culturalStory}</p>
+              <div className="pt-2 border-t border-slate-800 flex items-center gap-2 text-slate-400">
+                <span className="text-slate-500">{isRTL ? 'الرمز الأثري:' : 'Symbol:'}</span>
+                <span className="text-slate-200 font-medium">{isRTL ? product.symbolAr : product.symbol}</span>
+              </div>
+            </div>
+
+            {/* Key Technical Specifications */}
+            <div className="p-5 rounded-2xl bg-slate-900/40 border border-slate-800 space-y-2 text-xs">
+              <h3 className="text-sm font-bold text-white mb-2">{isRTL ? 'المواصفات الفنية' : 'Product Specifications'}</h3>
+              <div className="grid grid-cols-2 gap-2 text-slate-300">
+                <div>
+                  <span className="text-slate-500 block text-[10px]">{isRTL ? 'الحشوة' : 'Core Material'}</span>
+                  <span>{product.specifications.material}</span>
+                </div>
+                <div>
+                  <span className="text-slate-500 block text-[10px]">{isRTL ? 'الأبعاد' : 'Dimensions'}</span>
+                  <span className="font-mono">{product.specifications.dimensions}</span>
+                </div>
+                <div>
+                  <span className="text-slate-500 block text-[10px]">{isRTL ? 'الوزن' : 'Weight'}</span>
+                  <span className="font-mono">{product.specifications.weight}</span>
+                </div>
+                <div>
+                  <span className="text-slate-500 block text-[10px]">{isRTL ? 'العناية' : 'Care'}</span>
+                  <span>{product.specifications.care}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Dual Ordering Actions (Wholesale & Retail) */}
+            <div className="p-6 rounded-2xl bg-[#0E1118] border border-amber-900/30 space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-white">{isRTL ? 'الكمية المطلوبة:' : 'Quantity:'}</span>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    className="w-7 h-7 rounded bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center font-bold"
+                  >
+                    -
+                  </button>
+                  <span className="font-mono text-white text-sm font-bold px-2">{quantity}</span>
+                  <button
+                    onClick={() => setQuantity(quantity + 1)}
+                    className="w-7 h-7 rounded bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center font-bold"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
 
-              {/* Features */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-              >
-                <h3 className="text-xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
-                  Key Features
-                </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {product.features.map((feature, index) => (
-                    <div key={index} className="flex items-center space-x-3">
-                      <div className={`w-3 h-3 bg-gradient-to-r ${product.color} rounded-full flex-shrink-0`}></div>
-                      <span className="text-gray-700 font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>
-                        {feature}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={handleWhatsAppOrder}
+                  className="flex-1 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/20 transition-all"
+                >
+                  <FaWhatsapp className="text-base" />
+                  <span>{isRTL ? 'طلب سريع للأفراد عبر واتساب' : 'Fast Retail Order via WhatsApp'}</span>
+                </button>
 
-              {/* Specifications */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="bg-gray-50 rounded-3xl p-6"
-              >
-                <h3 className="text-xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
-                  Product Specifications
-                </h3>
-                <div className="space-y-3">
-                  {Object.entries(product.specifications).map(([key, value]) => (
-                    <div key={key} className="flex justify-between items-center py-2 border-b border-gray-200 last:border-b-0">
-                      <span className="text-gray-600 font-medium capitalize" style={{ fontFamily: 'Inter, sans-serif' }}>
-                        {key}:
-                      </span>
-                      <span className="text-gray-900 font-semibold" style={{ fontFamily: 'Inter, sans-serif' }}>
-                        {value}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
+                <Link
+                  href={`/wholesale?product=${product.id}`}
+                  className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-black font-bold text-xs flex items-center justify-center hover:opacity-95 transition-opacity"
+                >
+                  <span>{isRTL ? 'طلب عرض سعر جملة (B2B)' : 'Request Wholesale Quote'}</span>
+                </Link>
+              </div>
 
-              {/* Manufacturing Info */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.65 }}
-                className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-3xl p-6"
-              >
-                <h3 className="text-xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
-                  Manufacturing Details
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-blue-600">🏭</span>
-                      <span className="text-sm font-medium text-gray-700">Direct Manufacturing</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-green-600">✅</span>
-                      <span className="text-sm font-medium text-gray-700">Quality Certified</span>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-purple-600">🚚</span>
-                      <span className="text-sm font-medium text-gray-700">Global Shipping</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-orange-600">⚡</span>
-                      <span className="text-sm font-medium text-gray-700">Fast Production</span>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+              <div className="text-center pt-2">
+                <Link
+                  href="/retail"
+                  className="text-xs text-slate-400 hover:text-[#D4AF37] underline"
+                >
+                  {isRTL ? 'أو افتح صفحة نموذج التجزئة الكامل ←' : 'Or open full retail delivery form →'}
+                </Link>
+              </div>
+            </div>
 
-              {/* Quantity and Actions */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.7 }}
-                className="space-y-6"
-              >
-                {/* Minimum Order Quantity */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Minimum Order Quantity (MOQ)
-                  </label>
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-gray-600">Starting from:</span>
-                      <span className="text-2xl font-bold text-gray-900">100 pieces</span>
-                    </div>
-                    <p className="text-sm text-gray-500 mt-2">
-                      Contact us for custom quantities and bulk pricing
-                    </p>
-                  </div>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <motion.button
-                    className={`flex-1 bg-gradient-to-r ${product.color} text-white py-4 px-8 rounded-full font-semibold text-lg hover:shadow-2xl transition-all duration-300`}
-                    whileHover={{ scale: 1.02, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    style={{ fontFamily: 'Inter, sans-serif' }}
-                  >
-                    Request Manufacturing Quote
-                  </motion.button>
-                  <Link href="/contact">
-                    <motion.button
-                      className="flex-1 bg-white border-2 border-gray-300 text-gray-700 py-4 px-8 rounded-full font-semibold text-lg hover:bg-gray-50 hover:border-gray-400 transition-all duration-300"
-                      whileHover={{ scale: 1.02, y: -2 }}
-                      whileTap={{ scale: 0.98 }}
-                      style={{ fontFamily: 'Inter, sans-serif' }}
-                    >
-                      Contact Manufacturer
-                    </motion.button>
-                  </Link>
-                </div>
-
-                {/* Manufacturer Info */}
-                <div className="bg-blue-50 rounded-2xl p-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">Direct from Manufacturer</h4>
-                  <p className="text-sm text-gray-600 mb-3">
-                    Get wholesale pricing and custom manufacturing solutions directly from YKP Supplies.
-                  </p>
-                  <div className="space-y-2 text-sm text-gray-600">
-                    <div className="flex items-center space-x-2">
-                      <span>📞</span>
-                      <span>+20 100 240 6013</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span>✉️</span>
-                      <span>ykp.supplies@gmail.com</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span>🏭</span>
-                      <span>Manufacturing & Wholesale</span>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
           </div>
+
         </div>
       </section>
 
       {/* Related Products */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
-              Related Products
+      {relatedProducts && relatedProducts.length > 0 && (
+        <section className="py-16 border-t border-slate-800 bg-[#0B0D11]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-xl sm:text-2xl font-bold text-white font-serif mb-8">
+              {isRTL ? 'موديلات أخرى مقترحة من نفس المجموعة' : 'Complementary Heritage Designs'}
             </h2>
-            <p className="text-lg text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>
-              Explore more from the {product.collectionName}
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {relatedProducts.map((relatedProduct, index) => (
-              <motion.div
-                key={relatedProduct.id}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className="group"
-              >
-                <Link href={`/products/${product.collection}/${relatedProduct.id}`}>
-                  <div className="bg-white rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500">
-                    <div className="relative overflow-hidden aspect-square">
-                      <Image
-                        src={relatedProduct.image}
-                        alt={relatedProduct.name}
-                        width={300}
-                        height={300}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className={`absolute inset-0 bg-gradient-to-t ${product.color} opacity-0 group-hover:opacity-20 transition-opacity duration-300`}></div>
-                    </div>
-                    <div className="p-6">
-                      <h3 className="font-bold text-gray-900 mb-2" style={{ fontFamily: 'Playfair Display, serif' }}>
-                        {relatedProduct.name}
-                      </h3>
-                      <p className="text-gray-600 text-sm mb-3" style={{ fontFamily: 'Inter, sans-serif' }}>
-                        {relatedProduct.description}
-                      </p>
-                      <div className={`text-xl font-bold bg-gradient-to-r ${product.color} bg-clip-text text-transparent`}>
-                        {relatedProduct.price}
-                      </div>
-                    </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+              {relatedProducts.map((rel) => (
+                <Link
+                  key={rel.id}
+                  href={`/products/${rel.collection}/${rel.id}`}
+                  className="group rounded-xl bg-slate-900/70 border border-slate-800 hover:border-[#D4AF37]/50 p-3 transition-all"
+                >
+                  <div className="relative aspect-square rounded-lg overflow-hidden bg-slate-950 mb-3">
+                    <Image
+                      src={rel.image}
+                      alt={rel.name}
+                      fill
+                      className="object-contain p-2 group-hover:scale-105 transition-transform"
+                      sizes="25vw"
+                    />
                   </div>
+                  <h4 className="text-xs font-bold text-white font-serif line-clamp-1 group-hover:text-[#D4AF37] transition-colors">
+                    {rel.name}
+                  </h4>
+                  <span className="text-xs font-mono text-[#D4AF37] font-semibold mt-1 block">
+                    {rel.price}
+                  </span>
                 </Link>
-              </motion.div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
     </div>
   );
-};
+}
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // Generate paths for all products
   const paths: { params: { collection: string; id: string } }[] = [];
-
-  // Add paths for all collections and their products - Updated counts
-  const collections = ['premium', 'classic', 'heritage', 'print'];
-  const productCounts = { premium: 23, classic: 21, heritage: 36, print: 5 };
+  const collections = ['royal', 'sacred', 'heritage', 'custom', 'premium', 'classic', 'print'];
 
   collections.forEach(collection => {
-    const count = productCounts[collection as keyof typeof productCounts];
+    const isPremium = collection === 'royal' || collection === 'premium';
+    const isClassic = collection === 'sacred' || collection === 'classic';
+    const isCustom = collection === 'custom' || collection === 'print';
+    const count = isPremium ? 23 : isClassic ? 21 : isCustom ? 5 : 36;
+
     for (let i = 1; i <= count; i++) {
-      const id = collection === 'premium' ? `b123-${i.toString().padStart(3, '0')}` :
-        collection === 'classic' ? `t-${i.toString().padStart(3, '0')}` :
-          collection === 'print' ? `print-${i.toString().padStart(3, '0')}` :
+      const id = isPremium ? `b123-${i.toString().padStart(3, '0')}` :
+        isClassic ? `t-${i.toString().padStart(3, '0')}` :
+          isCustom ? `print-${i.toString().padStart(3, '0')}` :
             `tb-${i.toString().padStart(3, '0')}`;
       paths.push({
         params: { collection, id }
@@ -431,114 +375,72 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { params } = context;
-  const { collection, id } = params!;
+  const collection = (params?.collection as string) || 'royal';
+  const id = (params?.id as string) || 'b123-001';
 
-  // Product Barcode Mapping
-  const PRODUCT_BARCODES: Record<string, string> = {
-    'B001': '0762497599008',
-    'B002': '0762497599015',
-    'B003': '0762497599022',
-    'B004': '0762497599039',
-    'B005': '0762497599046',
-    'B006': '0762497599053',
-    'T001': '0762497599060',
-    'T002': '0762497599077',
-    'T003': '0762497599084',
-    'T004': '0762497599091',
-    'T005': '0762497599107',
-    'T006': '0762497599114'
+  const productNum = parseInt(id.split('-')[1] || '1', 10);
+  const isPremium = collection === 'royal' || collection === 'premium' || id.startsWith('b123');
+  const isClassic = collection === 'sacred' || collection === 'classic' || id.startsWith('t-');
+  const isCustom = collection === 'custom' || collection === 'print' || id.startsWith('print');
+
+  const imgFolder = isPremium ? 'b123' : isClassic ? 't' : isCustom ? 'Print' : 'tb';
+  const imgExt = isCustom ? 'jpg' : 'webp';
+  const mainImg = `/prodect/${imgFolder}/${productNum}.${imgExt}`;
+
+  const imageSeo = getProductImageSeo(mainImg);
+
+  const priceNum = isPremium ? 75 : isClassic ? 35 : isCustom ? 45 : 45;
+
+  const product = {
+    id,
+    modelCode: imageSeo.modelCode,
+    image: mainImg,
+    name: imageSeo.titleEn,
+    nameAr: imageSeo.titleAr,
+    price: `$${priceNum}`,
+    unitPriceNum: priceNum,
+    description: imageSeo.seoDescriptionEn,
+    descriptionAr: imageSeo.seoDescriptionAr,
+    culturalStory: imageSeo.culturalStoryEn,
+    culturalStoryAr: imageSeo.culturalStoryAr,
+    collection,
+    collectionName: imageSeo.collectionNameEn,
+    collectionNameAr: imageSeo.collectionNameAr,
+    symbol: imageSeo.symbol,
+    symbolAr: imageSeo.symbolAr,
+    features: [
+      'High-Density Ergonomic Memory Foam',
+      'Breathable Egyptian Cotton Cover',
+      'Authentic Hieroglyphic Embroidery',
+      'Washable Zippered Enclosure'
+    ],
+    specifications: {
+      material: imageSeo.materialEn,
+      dimensions: imageSeo.dimensions,
+      weight: imageSeo.weight,
+      care: 'Machine washable cover (gentle cycle)',
+      warranty: '2-Year Manufacturer Defect Guarantee'
+    },
+    gallery: [
+      mainImg,
+      `/prodect/${imgFolder}/${productNum > 1 ? productNum - 1 : 2}.${imgExt}`,
+      `/prodect/${imgFolder}/${productNum < 5 ? productNum + 1 : 1}.${imgExt}`,
+    ]
   };
 
-  const getBarcode = (collection: string, productNum: string): string | undefined => {
-    const collectionPrefix = collection === 'premium' ? 'B' : collection === 'classic' ? 'T' : 'TB';
-    const code = `${collectionPrefix}${productNum.padStart(3, '0')}`;
-    return PRODUCT_BARCODES[code];
-  };
-
-  // Mock product data - in a real app, this would come from a database
-  const getProductData = (collection: string, id: string) => {
-    const collections = {
-      premium: {
-        name: 'Premium Collection',
-        badge: 'Premium',
-        color: 'from-purple-600 to-blue-600',
-        bgGradient: 'from-purple-900 via-blue-900 to-indigo-900'
-      },
-      classic: {
-        name: 'Classic Collection',
-        badge: 'Popular',
-        color: 'from-amber-600 to-orange-600',
-        bgGradient: 'from-amber-900 via-orange-900 to-red-900'
-      },
-      heritage: {
-        name: 'Heritage Collection',
-        badge: 'Heritage',
-        color: 'from-green-600 to-teal-600',
-        bgGradient: 'from-green-900 via-teal-900 to-cyan-900'
-      },
-      print: {
-        name: 'Print Collection',
-        badge: 'Custom',
-        color: 'from-red-600 to-pink-600',
-        bgGradient: 'from-red-900 via-pink-900 to-rose-900'
-      }
-    };
-
-    const collectionData = collections[collection as keyof typeof collections];
-    const productNumber = id?.split('-')[1] || '001';
-
+  // 4 Related Products
+  const relatedProducts = [1, 2, 3, 4].map((offset) => {
+    const relNum = ((productNum + offset) % 20) + 1;
+    const relImg = `/prodect/${imgFolder}/${relNum}.${imgExt}`;
+    const relSeo = getProductImageSeo(relImg);
     return {
-      id: id as string,
-      image: `/prodect/${collection === 'premium' ? 'b123' : collection === 'classic' ? 't' : collection === 'print' ? 'Print' : 'tb'}/${parseInt(productNumber)}.webp`,
-      name: `Egyptian Travel Pillow ${productNumber}`,
-      price: collection === 'premium' ? `$${10 + Math.floor(Math.random() * 16)}` : collection === 'classic' ? '$35' : '$55',
-      description: `Premium Egyptian travel pillow with authentic ${collectionData.name.toLowerCase()} design and modern comfort technology.`,
-      collection: collection as string,
-      collectionName: collectionData.name,
-      badge: collectionData.badge,
-      color: collectionData.color,
-      bgGradient: collectionData.bgGradient,
-      features: [
-        'Memory Foam Core',
-        'Egyptian Patterns',
-        'Premium Materials',
-        'Ergonomic Design'
-      ],
-      specifications: {
-        material: 'Memory Foam & Cotton',
-        dimensions: '30cm x 28cm x 10cm',
-        weight: '400g',
-        care: 'Machine Washable',
-        warranty: '2 Years',
-        ...(getBarcode(collection, productNumber) && { barcode: getBarcode(collection, productNumber) })
-      },
-      gallery: [
-        `/prodect/${collection === 'premium' ? 'b123' : collection === 'classic' ? 't' : collection === 'print' ? 'Print' : 'tb'}/${parseInt(productNumber)}.webp`,
-        `/prodect/${collection === 'premium' ? 'b123' : collection === 'classic' ? 't' : collection === 'print' ? 'Print' : 'tb'}/${parseInt(productNumber) + 1 <= (collection === 'premium' ? 23 : collection === 'classic' ? 21 : collection === 'print' ? 5 : 36) ? parseInt(productNumber) + 1 : 1}.webp`,
-        `/prodect/${collection === 'premium' ? 'b123' : collection === 'classic' ? 't' : collection === 'print' ? 'Print' : 'tb'}/${parseInt(productNumber) + 2 <= (collection === 'premium' ? 23 : collection === 'classic' ? 21 : collection === 'print' ? 5 : 36) ? parseInt(productNumber) + 2 : 2}.webp`,
-        `/prodect/${collection === 'premium' ? 'b123' : collection === 'classic' ? 't' : collection === 'print' ? 'Print' : 'tb'}/${parseInt(productNumber) + 3 <= (collection === 'premium' ? 23 : collection === 'classic' ? 21 : collection === 'print' ? 5 : 36) ? parseInt(productNumber) + 3 : 3}.webp`,
-      ]
+      id: `${id.split('-')[0]}-${relNum.toString().padStart(3, '0')}`,
+      name: relSeo.titleEn,
+      price: `$${priceNum}`,
+      image: relImg,
+      collection
     };
-  };
-
-  const product = getProductData(collection as string, id as string);
-
-  // Get related products (4 random products from the same collection)
-  const relatedProducts = [];
-  const maxProducts = collection === 'premium' ? 23 : collection === 'classic' ? 21 : collection === 'print' ? 5 : 36;
-  const currentProductNum = parseInt((id as string).split('-')[1]);
-
-  for (let i = 1; i <= 4; i++) {
-    let relatedNum = currentProductNum + i;
-    if (relatedNum > maxProducts) relatedNum = relatedNum - maxProducts;
-
-    const relatedId = collection === 'premium' ? `b123-${relatedNum.toString().padStart(3, '0')}` :
-      collection === 'classic' ? `t-${relatedNum.toString().padStart(3, '0')}` :
-        collection === 'print' ? `print-${relatedNum.toString().padStart(3, '0')}` :
-          `tb-${relatedNum.toString().padStart(3, '0')}`;
-
-    relatedProducts.push(getProductData(collection as string, relatedId));
-  }
+  });
 
   const translations = getTranslations(context.locale || 'en');
 
@@ -550,6 +452,4 @@ export const getStaticProps: GetStaticProps = async (context) => {
       locale: context.locale || 'en'
     }
   };
-}
-
-export default ProductPage;
+};

@@ -9,6 +9,7 @@ import {
   type ProductAnalysis 
 } from './product-analyzer';
 import { PHARAONIC_SYMBOLS, generateProductStory } from '@/data/pharaonic-stories';
+import { getProductImageSeo } from './product-image-seo';
 import type { Product, ProductCollection, ProductSpecs, WholesaleInfo } from '@/types/product';
 
 // Product Barcode (GTIN/UPC) Mapping
@@ -163,11 +164,11 @@ const convertToProduct = (analysis: ProductAnalysis): Product => {
       'Durable construction'
     ],
     
-    // Visual
+    // Visual & Image SEO
     images: [{
       id: `${analysis.id}-primary`,
       url: analysis.imagePath,
-      alt: `${analysis.name} - Egyptian travel pillow`,
+      alt: getProductImageSeo(analysis.imagePath).altEn,
       isPrimary: true,
       order: 1,
       dimensions: { width: 800, height: 600 }
@@ -232,22 +233,22 @@ const convertToProduct = (analysis: ProductAnalysis): Product => {
       'Educational value'
     ],
     
-    // SEO & Discovery
+    // SEO & Discovery (Powered by Product Image SEO Engine)
     seo: {
       primaryKeywords: analysis.seoKeywords,
       secondaryKeywords: {
-        english: ['travel pillow', 'memory foam', 'egyptian design', 'comfort pillow'],
-        arabic: ['مخدة سفر', 'رغوة الذاكرة', 'تصميم مصري', 'مخدة راحة']
+        english: ['travel pillow', 'memory foam', 'egyptian design', 'comfort pillow', 'YKP Supplies'],
+        arabic: ['مخدة سفر', 'رغوة الذاكرة', 'تصميم مصري', 'مخدة راحة', 'YKP Supplies']
       },
-      metaTitle: `${analysis.name} - Authentic Egyptian Travel Pillow | Pharaonic Pillows`,
-      metaDescription: `${analysis.description} Premium memory foam comfort with authentic Egyptian design. Wholesale available.`,
-      altText: `${analysis.name} featuring ${analysis.egyptianSymbols.join(', ')} symbols`,
+      metaTitle: `${getProductImageSeo(analysis.imagePath).titleEn} | YKP Supplies`,
+      metaDescription: getProductImageSeo(analysis.imagePath).seoDescriptionEn,
+      altText: getProductImageSeo(analysis.imagePath).altEn,
       structuredData: {
         '@context': 'https://schema.org',
         '@type': 'Product',
-        name: analysis.name,
-        description: analysis.description,
-        brand: 'Pharaonic Pillows',
+        name: getProductImageSeo(analysis.imagePath).titleEn,
+        description: getProductImageSeo(analysis.imagePath).seoDescriptionEn,
+        brand: 'YKP Supplies',
         category: 'Travel Accessories',
         sku: `PH-${analysis.collection.toUpperCase()}-${analysis.id.split('-')[1]}`,
         ...(getProductBarcode(analysis.id) && { gtin: getProductBarcode(analysis.id) }),
@@ -259,14 +260,14 @@ const convertToProduct = (analysis: ProductAnalysis): Product => {
           availability: 'https://schema.org/InStock',
           seller: {
             '@type': 'Organization',
-            name: 'Pharaonic Pillows'
+            name: 'YKP Supplies'
           }
         }
       },
       contentOptimization: {
-        keywordDensity: 2.5,
-        readabilityScore: 85,
-        semanticKeywords: [...analysis.egyptianSymbols, ...analysis.designElements]
+        keywordDensity: 2.8,
+        readabilityScore: 88,
+        semanticKeywords: [...analysis.egyptianSymbols, ...analysis.designElements, 'YKP Supplies']
       }
     },
     tags: [...analysis.egyptianSymbols, ...analysis.designElements, analysis.collection],

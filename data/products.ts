@@ -11,30 +11,35 @@ export const T_PRODUCTS = GENERATED_PRODUCTS.t;
 export const TB_PRODUCTS = GENERATED_PRODUCTS.tb;
 
 // Collection summaries for quick reference
-export const COLLECTION_SUMMARIES = {
+export const COLLECTION_SUMMARIES: Record<string, any> = {
   b123: {
     id: 'b123',
-    name: 'Premium Collection (B123)',
-    shortName: 'Premium',
+    slug: 'b123',
+    aliasSlug: 'royal',
+    name: 'Royal Pharaonic Collection',
+    nameAr: 'المجموعة الملكية الفرعونية',
+    shortName: 'Royal Pharaonic',
+    badge: 'Royal Atelier Edition',
+    badgeAr: 'إصدار القصور الملكية',
     description: 'Luxurious Egyptian travel pillows inspired by royal pharaonic treasures and ancient Egyptian royalty.',
-    longDescription: 'Our Premium Collection represents the pinnacle of Egyptian-inspired travel comfort. Each pillow in this collection is meticulously crafted with premium memory foam and adorned with authentic pharaonic designs inspired by the treasures of ancient Egyptian royalty. From the golden artifacts of Tutankhamun to the elegant beauty of Queen Nefertiti, these pillows bring the luxury and grandeur of ancient Egypt to modern travelers.',
+    longDescription: 'Our Royal Pharaonic Collection represents the pinnacle of Egyptian-inspired travel comfort. Each pillow in this collection is meticulously crafted with premium memory foam and adorned with authentic pharaonic designs inspired by the treasures of ancient Egyptian royalty. From the golden artifacts of Tutankhamun to the elegant beauty of Queen Nefertiti, these pillows bring the luxury and grandeur of ancient Egypt to modern travelers.',
     totalProducts: 23,
     priceRange: { min: 70, max: 90, currency: 'USD' },
-    targetMarket: 'Luxury travelers, business executives, premium gift market',
+    targetMarket: 'Luxury travelers, business executives, premium gift market, boutique hotels',
     keyFeatures: [
-      'Premium memory foam core',
-      'Egyptian cotton covers',
-      'Royal pharaonic patterns',
-      'Gold accent details',
-      'Luxury packaging',
-      'Certificate of authenticity'
+      'High-density viscoelastic memory foam core',
+      'Breathable Egyptian cotton velvet covers',
+      'Royal pharaonic embroidery and patterns',
+      'Gold accent precision details',
+      'Luxury packaging with magnetic closure',
+      'Certificate of cultural authenticity'
     ],
     uniqueSellingPoints: [
-      'Inspired by actual pharaonic treasures',
-      'Premium materials and craftsmanship',
-      'Limited edition designs',
-      'Luxury travel experience',
-      'Cultural authenticity guarantee'
+      'Inspired by actual pharaonic museum treasures',
+      'Premium materials and artisanal Egyptian craftsmanship',
+      'Limited edition collection designs',
+      'Unsurpassed 360-degree cervical flight support',
+      'Guaranteed authentic heritage'
     ],
     wholesaleInfo: {
       minimumOrder: 50,
@@ -49,27 +54,32 @@ export const COLLECTION_SUMMARIES = {
   },
   t: {
     id: 't',
-    name: 'Classic Collection (T)',
-    shortName: 'Classic',
+    slug: 't',
+    aliasSlug: 'sacred',
+    name: 'Sacred Symbols & Icons Collection',
+    nameAr: 'مجموعة الرموز والمقدسات المصرية',
+    shortName: 'Sacred Symbols',
+    badge: 'Heritage Icons',
+    badgeAr: 'أيقونات البركة والخلود',
     description: 'Traditional Egyptian designs offering reliable comfort and authentic cultural patterns at accessible prices.',
-    longDescription: 'The Classic Collection brings timeless Egyptian symbols and traditional designs to everyday travelers. Featuring iconic symbols like the Ankh, Sacred Scarab, and Eye of Horus, these pillows offer authentic Egyptian heritage at accessible prices. Perfect for cultural enthusiasts, students, and anyone seeking to connect with ancient Egyptian wisdom during their travels.',
+    longDescription: 'The Sacred Symbols Collection brings timeless Egyptian emblems to everyday travelers. Featuring iconic sacred symbols like the Ankh (Key of Life), Sacred Scarab, and Eye of Horus (Wedjat), these pillows offer authentic Egyptian heritage and orthopedic cervical alignment.',
     totalProducts: 21,
     priceRange: { min: 25, max: 45, currency: 'USD' },
-    targetMarket: 'Budget-conscious travelers, students, cultural tourists, gift buyers',
+    targetMarket: 'International travelers, students, cultural tourists, gift buyers',
     keyFeatures: [
-      'Standard memory foam comfort',
-      'Cotton blend covers',
-      'Traditional Egyptian patterns',
-      'Authentic cultural symbols',
-      'Durable construction',
+      'Orthopedic memory foam comfort',
+      'Breathable soft-touch cotton blend covers',
+      'Traditional Egyptian protective symbols',
+      'Authentic cultural patterns',
+      'Durable, machine-washable construction',
       'Educational symbol guide included'
     ],
     uniqueSellingPoints: [
-      'Authentic traditional designs',
-      'Excellent value for money',
-      'Educational cultural content',
-      'Durable everyday comfort',
-      'Perfect for cultural gifts'
+      'Authentic traditional sacred designs',
+      'Exceptional value for money and durability',
+      'Educational cultural documentation',
+      'Ergonomic everyday travel comfort',
+      'Ideal for memorable cultural gifts'
     ],
     wholesaleInfo: {
       minimumOrder: 100,
@@ -84,27 +94,30 @@ export const COLLECTION_SUMMARIES = {
   },
   tb: {
     id: 'tb',
-    name: 'Heritage Collection (TB)',
-    shortName: 'Heritage',
-    description: 'Ancient Egyptian symbols and hieroglyphs reimagined for modern travelers seeking cultural authenticity.',
-    longDescription: 'The Heritage Collection celebrates the rich symbolic language of ancient Egypt through carefully researched designs featuring authentic hieroglyphs, sacred symbols, and cultural motifs. Each pillow tells a story of ancient Egyptian civilization, making them perfect for cultural enthusiasts, educators, and travelers who appreciate the deeper meanings behind Egyptian art and symbolism.',
+    slug: 'tb',
+    aliasSlug: 'heritage',
+    name: 'Ancient Heritage & Hieroglyphs Collection',
+    nameAr: 'مجموعة النقوش والبرديات الأثرية',
+    shortName: 'Heritage & Hieroglyphs',
+    badge: 'Papyrus & Inscriptions',
+    badgeAr: 'نقوش المعابد والبرديات',
+    description: 'Ancient Egyptian temple hieroglyphs and sacred papyrus scripts reimagined for modern travelers seeking authentic depth.',
+    longDescription: 'The Heritage Collection celebrates the rich hieroglyphic language of ancient Egypt through carefully researched designs featuring authentic temple wall carvings, royal cartouches, and Nile papyrus scripts.',
     totalProducts: 36,
     priceRange: { min: 35, max: 65, currency: 'USD' },
-    targetMarket: 'Cultural enthusiasts, educators, symbol collectors, heritage travelers',
+    targetMarket: 'Cultural enthusiasts, educators, symbol collectors, museum shops',
     keyFeatures: [
-      'Heritage foam technology',
-      'Cultural fabric blends',
-      'Authentic hieroglyphic patterns',
-      'Sacred symbol designs',
-      'Educational documentation',
-      'Cultural authenticity certificate'
+      'Heritage resilience foam technology',
+      'Jacquard and textured cultural fabrics',
+      'Authentic hieroglyphic patterns from Karnak & Luxor',
+      'Sacred cartouche and amulet designs',
+      'Detailed historical documentation'
     ],
     uniqueSellingPoints: [
-      'Largest collection of Egyptian symbols',
-      'Authentic hieroglyphic designs',
-      'Educational and cultural value',
-      'Perfect for museums and cultural centers',
-      'Comprehensive symbol meanings included'
+      'Comprehensive library of authentic Egyptian symbols',
+      'Authentic hieroglyphic reliefs',
+      'Deep educational and artistic value',
+      'Preferred by museum stores and cultural centers'
     ],
     wholesaleInfo: {
       minimumOrder: 75,
@@ -114,19 +127,57 @@ export const COLLECTION_SUMMARIES = {
         { quantity: 300, discount: 38 }
       ],
       leadTime: '2-4 weeks',
-      customization: 'Custom hieroglyphic messages available'
+      customization: 'Custom hieroglyphic cartouche messages available'
+    }
+  },
+  print: {
+    id: 'print',
+    slug: 'print',
+    aliasSlug: 'custom',
+    name: 'Custom & Corporate OEM Collection',
+    nameAr: 'المجموعة المخصصة وتصنيع الفنادق والطيران',
+    shortName: 'Custom & OEM',
+    badge: 'Bespoke / OEM',
+    badgeAr: 'تصنيع مخصص للعلامات التجارية',
+    description: 'Bespoke manufactured and embroidered travel pillows for airlines, luxury hotels, corporate gifts, and private labels.',
+    longDescription: 'Full OEM and private-label manufacturing capabilities straight from our New Cairo facility. Custom foam densities, certified fabrics, customized embroidery, and bespoke luxury packaging tailored to international brands.',
+    totalProducts: 5,
+    priceRange: { min: 30, max: 60, currency: 'USD' },
+    targetMarket: 'Airlines, luxury hotels, corporate gift programs, private label distributors',
+    keyFeatures: [
+      'Custom memory foam density and firmness',
+      'Bespoke embroidery with client logos and motifs',
+      'OEKO-TEX and CertiPUR certified materials',
+      'Custom luxury boxes and travel pouches'
+    ],
+    uniqueSellingPoints: [
+      'Direct manufacturer pricing without middlemen',
+      'Comprehensive private label customization',
+      'Reliable global export logistics',
+      'Strict quality control and fast sampling'
+    ],
+    wholesaleInfo: {
+      minimumOrder: 100,
+      bulkDiscounts: [
+        { quantity: 100, discount: 20 },
+        { quantity: 500, discount: 35 },
+        { quantity: 1000, discount: 45 }
+      ],
+      leadTime: '3-4 weeks',
+      customization: 'Full private label customization'
     }
   }
 };
 
-// Product search and filter functions
-export const getProductsByCollection = (collection: 'b123' | 't' | 'tb'): Product[] => {
-  switch (collection) {
-    case 'b123': return B123_PRODUCTS;
-    case 't': return T_PRODUCTS;
-    case 'tb': return TB_PRODUCTS;
-    default: return [];
+export const getProductsByCollection = (collection: string): Product[] => {
+  const norm = collection.toLowerCase();
+  if (norm === 'b123' || norm === 'royal') return B123_PRODUCTS;
+  if (norm === 't' || norm === 'sacred') return T_PRODUCTS;
+  if (norm === 'tb' || norm === 'heritage') return TB_PRODUCTS;
+  if (norm === 'print' || norm === 'custom') {
+    return ALL_PRODUCTS.filter(p => (p as any).collection === 'print' || p.id.includes('print'));
   }
+  return [];
 };
 
 export const getProductById = (id: string): Product | undefined => {

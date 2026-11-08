@@ -20,8 +20,15 @@ export class ProductService {
   }
 
   // Get products by collection
-  getProductsByCollection(collectionId: 'b123' | 't' | 'tb'): Product[] {
-    return this.products.filter(product => product.collection === collectionId);
+  getProductsByCollection(collectionId: string): Product[] {
+    const map: Record<string, string> = {
+      royal: 'b123',
+      sacred: 't',
+      heritage: 'tb',
+      custom: 'print'
+    };
+    const key = map[collectionId.toLowerCase()] || collectionId.toLowerCase();
+    return this.products.filter(product => product.collection === key);
   }
 
   // Get single product by ID
@@ -31,7 +38,14 @@ export class ProductService {
 
   // Get collection information
   getCollection(collectionId: string): ProductCollection | null {
-    return this.collections[collectionId] || null;
+    const map: Record<string, string> = {
+      royal: 'b123',
+      sacred: 't',
+      heritage: 'tb',
+      custom: 'print'
+    };
+    const key = map[collectionId.toLowerCase()] || collectionId.toLowerCase();
+    return this.collections[key] || null;
   }
 
   // Get all collections

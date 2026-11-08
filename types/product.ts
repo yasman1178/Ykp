@@ -221,7 +221,7 @@ export interface ProductVariant {
 }
 
 export interface ProductCollection {
-  id: 'b123' | 't' | 'tb';
+  id: 'b123' | 't' | 'tb' | 'print';
   name: string;
   shortName: string;
   description: string;

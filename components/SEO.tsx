@@ -31,9 +31,9 @@ const SEO: React.FC<SEOProps> = ({
     const fullCanonicalUrl = canonicalUrl || `${baseUrl}${currentPath}`;
 
     // Use translations if provided, otherwise fallback to props or defaults
-    const finalTitle = title || (t?.site?.title) || 'Ykp Pharaonic Pillows';
-    const finalDescription = description || (t?.site?.description) || 'Premium Egyptian Pharaonic Travel Pillows';
-    const finalKeywords = keywords || t?.keywords || 'egyptian pillows, travel pillows, pharaonic design';
+    const finalTitle = title || (t?.site?.title) || 'YKP Supplies | Egyptian Travel Pillows Manufacturer';
+    const finalDescription = description || (t?.site?.description) || 'Premium Egyptian Pharaonic Travel Pillows manufactured in New Cairo by YKP Supplies';
+    const finalKeywords = keywords || t?.keywords || 'egyptian travel pillows, pharaonic design, memory foam, YKP Supplies, wholesale travel pillows';
 
     return (
         <Head>
@@ -49,7 +49,7 @@ const SEO: React.FC<SEOProps> = ({
             <link rel="canonical" href={fullCanonicalUrl} />
 
             {/* Open Graph */}
-            <meta property="og:site_name" content="Pharaonic Pillows" />
+            <meta property="og:site_name" content="YKP Supplies" />
             <meta property="og:title" content={finalTitle} />
             <meta property="og:description" content={finalDescription} />
             <meta property="og:type" content={ogType} />

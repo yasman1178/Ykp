@@ -18,8 +18,8 @@ export interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({
   children,
-  pageTitle = 'Pharaonic Pillows - Egyptian Heritage Travel Comfort',
-  metaDescription = 'Premium Egyptian travel pillows inspired by ancient Pharaonic designs. Wholesale opportunities available for international distributors.',
+  pageTitle = 'YKP Supplies - Egyptian Pharaonic Travel Pillows Manufacturer',
+  metaDescription = 'Premium Egyptian travel pillows manufactured by YKP Supplies in New Cairo. High-density memory foam with authentic Pharaonic heritage for global wholesale and retail.',
   egyptianTheme = 'gold',
   showBreadcrumbs = false,
   className = '',
@@ -53,10 +53,10 @@ const Layout: React.FC<LayoutProps> = ({
         <meta property="twitter:image" content="/og-image.jpg" />
 
         {/* Additional SEO */}
-        <meta name="keywords" content="Egyptian travel pillows, Pharaonic design, memory foam, wholesale, B2B, travel comfort, Egyptian heritage" />
-        <meta name="author" content="Pharaonic Pillows" />
+        <meta name="keywords" content="Egyptian travel pillows, Pharaonic design, memory foam, wholesale, B2B, travel comfort, Egyptian heritage, YKP Supplies" />
+        <meta name="author" content="YKP Supplies" />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href={typeof window !== 'undefined' ? window.location.href : ''} />
+        <link rel="canonical" href="https://www.ykp-eg.com" />
 
         {/* Structured Data */}
         <script
@@ -65,14 +65,15 @@ const Layout: React.FC<LayoutProps> = ({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              "name": "Pharaonic Pillows",
+              "name": "YKP Supplies",
               "description": metaDescription,
-              "url": typeof window !== 'undefined' ? window.location.origin : '',
-              "logo": "/logo.png",
+              "url": "https://www.ykp-eg.com",
+              "logo": "https://www.ykp-eg.com/logo.png",
               "contactPoint": {
                 "@type": "ContactPoint",
-                "telephone": "+1-XXX-XXX-XXXX",
-                "contactType": "customer service",
+                "telephone": "+20-100-240-6013",
+                "contactType": "sales",
+                "areaServed": "Worldwide",
                 "availableLanguage": ["English", "Arabic"]
               },
               "sameAs": [

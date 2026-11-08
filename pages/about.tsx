@@ -73,7 +73,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ translations: t, locale }) => {
   return (
     <div dir={isRTL ? 'rtl' : 'ltr'} className="min-h-screen bg-papyrus-light">
       <SEO
-        title={isRTL ? "من نحن | الوسائد الفرعونية" : "About Us | Pharaonic Pillows"}
+        title={isRTL ? "من نحن - مصنع وتاريخ الشركة | YKP Supplies" : "About Our Atelier & Egyptian Heritage | YKP Supplies"}
         description={t.site.description}
         locale={locale}
       />
@@ -96,7 +96,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ translations: t, locale }) => {
               </StaggerItem>
               <StaggerItem>
                 <h1 className="text-5xl md:text-7xl font-black text-hieroglyph-black mb-6 shimmer-text italic" style={{ fontFamily: 'Playfair Display, serif' }}>
-                  {isRTL ? '🏺 قصة التراث والراحة' : '🏺 A Story of Heritage & Comfort'}
+                  {isRTL ? 'قصة التراث والراحة الفاخرة' : 'A Story of Heritage & Comfort'}
                 </h1>
               </StaggerItem>
               <StaggerItem>
