@@ -16,7 +16,7 @@ export function getTranslations(locale: string = 'en') {
 }
 
 export function getStaticPropsWithTranslations(context: any) {
-    const locale = context.locale || 'en';
+    const locale = typeof context === 'string' ? context : (context?.locale || 'en');
     const translations = getTranslations(locale);
 
     return {
