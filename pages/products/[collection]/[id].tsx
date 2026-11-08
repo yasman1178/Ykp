@@ -367,6 +367,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
     }
   });
 
+  // Add The Beloved Camel plush paths
+  paths.push({ params: { collection: 'souvenirs', id: 'camel-plush-22cm' } });
+  paths.push({ params: { collection: 'souvenirs', id: 'camel-plush-28cm' } });
+
   return {
     paths,
     fallback: 'blocking'
@@ -377,6 +381,94 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const { params } = context;
   const collection = (params?.collection as string) || 'royal';
   const id = (params?.id as string) || 'b123-001';
+
+  // Special handling for The Beloved Camel Plush collection
+  if (id.startsWith('camel') || collection === 'souvenirs' || collection === 'heritage-souvenirs') {
+    const is22 = id.includes('22');
+    const camelProduct = {
+      id: is22 ? 'camel-plush-22cm' : 'camel-plush-28cm',
+      modelCode: is22 ? 'YKP-CAMEL-22' : 'YKP-CAMEL-28',
+      image: is22 ? '/assets/aistudio/1794114379573_df8dd34d.jpg' : '/assets/aistudio/file_000000000604820aa5649d2a0b525298_e93a9b68.png',
+      name: is22 ? 'The Beloved Camel - Pharaonic Plush Toy (22 cm)' : 'The Beloved Camel - Grand Pharaonic Deluxe Plush (28 cm)',
+      nameAr: is22 ? 'الجمل المحبوب - دمية قطيفة بتصميم فرعوني (٢٢ سم)' : 'الجمل المحبوب - دمية قطيفة فرعونية فاخرة الحجم الكبير (٢٨ سم)',
+      price: is22 ? '$18' : '$26',
+      unitPriceNum: is22 ? 18 : 26,
+      description: is22
+        ? 'Authentic Egyptian handcrafted plush camel with embroidered pharaonic saddle ("I ❤ EGYPT") and ancient protective motifs. Designed with ultra-soft velvet and child-safe materials in New Cairo.'
+        : 'Grand Deluxe 28 cm Egyptian pharaonic plush camel with opulent embroidered ceremonial saddle, fluffy plush mane, and reinforced standing legs. Perfect for luxury hotels, VIP suites, and collector displays.',
+      descriptionAr: is22
+        ? 'دمية قطيفة فرعونية أصلية فائقة النعومة بمقاس 22 سم، مع سرج مطرز بنقوش الأهرامات وتطريز I Love Egypt. آمنة تماماً للأطفال ومثالية كهدايا وتذكارات سياحية.'
+        : 'الإصدار الملكي الكبير الفاخر بمقاس 28 سم من دمية الجمل المحبوب. تطريز احتفالي فاخر بخيوط ذهبية وأرجل مدعمة للوقوف، مخصصة للأجنحة الفندقية VIP وكبار الزوار.',
+      culturalStory: 'In ancient Egyptian tradition and modern desert heritage, the camel is the noble protector of desert journeys and the beloved companion of travelers.',
+      culturalStoryAr: 'يجسد الجمل في التراث المصري رمز الصبر والشهامة ورفيق الترحال في صحاري مصر، مزيناً في هذا التصميم بنقوش فرعونية أصيلة تروي حكاية حضارة عريقة.',
+      collection: 'souvenirs',
+      collectionName: 'Heritage Souvenirs & Plush',
+      collectionNameAr: 'مجموعة التذكارات والهدايا التراثية',
+      symbol: 'Pharaonic Desert Camel & Sacred Ankh',
+      symbolAr: 'الجمل التراثي ومفتاح الحياة',
+      features: [
+        'Super-Soft Hypoallergenic Velvet Micro-Plush',
+        'Handcrafted Pharaonic Embroidered Saddle',
+        'Child-Safe Non-Toxic Materials (EN-71 Certified)',
+        'Custom Hotel & Tourism Branding Available'
+      ],
+      specifications: {
+        material: 'Ultra-Soft Velvet Plush & Virgin PP Cotton',
+        dimensions: is22 ? '22 x 14 x 22 cm' : '28 x 18 x 28 cm',
+        weight: is22 ? '240g' : '380g',
+        care: 'Surface wipe with damp cloth or gentle hand wash 30°C',
+        warranty: '1-Year Manufacturer Workmanship Guarantee'
+      },
+      gallery: [
+        '/assets/aistudio/1794114379573_df8dd34d.jpg',
+        '/assets/aistudio/1794122038268_02f24669.jpg',
+        '/assets/aistudio/file_000000000604820aa5649d2a0b525298_e93a9b68.png',
+        '/assets/aistudio/file_00000000bdd4820a898fb93da354784f_9e2791fa.png'
+      ]
+    };
+
+    const relatedProducts = [
+      {
+        id: is22 ? 'camel-plush-28cm' : 'camel-plush-22cm',
+        name: is22 ? 'The Beloved Camel (28 cm)' : 'The Beloved Camel (22 cm)',
+        price: is22 ? '$26' : '$18',
+        image: is22 ? '/assets/aistudio/file_000000000604820aa5649d2a0b525298_e93a9b68.png' : '/assets/aistudio/1794114379573_df8dd34d.jpg',
+        collection: 'souvenirs'
+      },
+      {
+        id: 'b123-001',
+        name: 'Royal Tutankhamun Gold Travel Pillow',
+        price: '$75',
+        image: '/prodect/b123/1.webp',
+        collection: 'royal'
+      },
+      {
+        id: 't-001',
+        name: 'Sacred Ankh Protective Travel Pillow',
+        price: '$35',
+        image: '/prodect/t/1.webp',
+        collection: 'sacred'
+      },
+      {
+        id: 'tb-001',
+        name: 'Hieroglyphic Temple Relief Travel Pillow',
+        price: '$45',
+        image: '/prodect/tb/1.webp',
+        collection: 'heritage'
+      }
+    ];
+
+    const translations = getTranslations(context.locale || 'en');
+
+    return {
+      props: {
+        product: camelProduct,
+        relatedProducts,
+        translations,
+        locale: context.locale || 'en'
+      }
+    };
+  }
 
   const productNum = parseInt(id.split('-')[1] || '1', 10);
   const isPremium = collection === 'royal' || collection === 'premium' || id.startsWith('b123');

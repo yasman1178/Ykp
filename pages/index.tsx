@@ -20,6 +20,7 @@ import SEO from '@/components/SEO';
 import { getStaticPropsWithTranslations } from '@/lib/translations';
 import { ALL_PRODUCTS, COLLECTION_SUMMARIES } from '@/data/products';
 import { getProductImageSeo, LUXURY_COLLECTION_MAP } from '@/lib/product-image-seo';
+import BelovedCamelShowcase from '@/components/BelovedCamelShowcase';
 
 interface HomePageProps {
   translations: any;
@@ -238,6 +239,9 @@ export default function HomePage({ translations: t, locale }: HomePageProps) {
           </div>
         </div>
       </section>
+
+      {/* 2.5 New Release: The Beloved Camel Pharaonic Plush Collection */}
+      <BelovedCamelShowcase locale={locale} />
 
       {/* 3. The 4 Curated Collections */}
       <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

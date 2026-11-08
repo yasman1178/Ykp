@@ -227,7 +227,7 @@ export default function CollectionPage({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const collections = ['royal', 'sacred', 'heritage', 'b123', 't', 'tb'];
+  const collections = ['royal', 'sacred', 'heritage', 'b123', 't', 'tb', 'souvenirs', 'heritage-souvenirs'];
 
   const paths = collections.map((collection) => ({
     params: { collection }
@@ -243,7 +243,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const { params } = context;
   const collectionId = params?.collection as string;
 
-  const validCollections = ['royal', 'sacred', 'heritage', 'b123', 't', 'tb'];
+  const validCollections = ['royal', 'sacred', 'heritage', 'b123', 't', 'tb', 'souvenirs', 'heritage-souvenirs'];
   if (!validCollections.includes(collectionId)) {
     return {
       notFound: true

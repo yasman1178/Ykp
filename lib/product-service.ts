@@ -2,6 +2,7 @@
 // Handles product queries, filtering, search, and wholesale calculations
 
 import { GENERATED_PRODUCTS, PRODUCT_COLLECTIONS } from './product-generator';
+import { ALL_PRODUCTS, COLLECTION_SUMMARIES } from '@/data/products';
 import type { 
   Product, 
   ProductCollection, 
@@ -11,8 +12,8 @@ import type {
 } from '@/types/product';
 
 export class ProductService {
-  private products: Product[] = GENERATED_PRODUCTS.all;
-  private collections: Record<string, ProductCollection> = PRODUCT_COLLECTIONS;
+  private products: Product[] = ALL_PRODUCTS;
+  private collections: Record<string, any> = { ...PRODUCT_COLLECTIONS, ...COLLECTION_SUMMARIES };
 
   // Get all products
   getAllProducts(): Product[] {
@@ -25,7 +26,8 @@ export class ProductService {
       royal: 'b123',
       sacred: 't',
       heritage: 'tb',
-      custom: 'print'
+      custom: 'print',
+      'heritage-souvenirs': 'souvenirs'
     };
     const key = map[collectionId.toLowerCase()] || collectionId.toLowerCase();
     return this.products.filter(product => product.collection === key);
@@ -42,7 +44,8 @@ export class ProductService {
       royal: 'b123',
       sacred: 't',
       heritage: 'tb',
-      custom: 'print'
+      custom: 'print',
+      'heritage-souvenirs': 'souvenirs'
     };
     const key = map[collectionId.toLowerCase()] || collectionId.toLowerCase();
     return this.collections[key] || null;
@@ -69,11 +72,11 @@ export class ProductService {
       filteredProducts = filteredProducts.filter(product =>
         product.name.toLowerCase().includes(searchTerm) ||
         product.description.toLowerCase().includes(searchTerm) ||
-        product.tags.some(tag => tag.toLowerCase().includes(searchTerm)) ||
-        product.seo.primaryKeywords.english.some(keyword => 
+        product.tags.some((tag: string) => tag.toLowerCase().includes(searchTerm)) ||
+        (product.seo?.primaryKeywords?.english || []).some((keyword: string) => 
           keyword.toLowerCase().includes(searchTerm)
         ) ||
-        product.seo.primaryKeywords.arabic.some(keyword => 
+        (product.seo?.primaryKeywords?.arabic || []).some((keyword: string) => 
           keyword.includes(searchTerm)
         )
       );
@@ -97,11 +100,11 @@ export class ProductService {
       if (filters.symbols && filters.symbols.length > 0) {
         filteredProducts = filteredProducts.filter(product =>
           filters.symbols!.some(symbol =>
-            product.pharaonicDesign.primarySymbols.some(s => 
-              s.name.toLowerCase().includes(symbol.toLowerCase())
+            (product.pharaonicDesign?.primarySymbols || []).some((s: any) => 
+              (s?.name || '').toLowerCase().includes(symbol.toLowerCase())
             ) ||
-            product.pharaonicDesign.secondarySymbols.some(s =>
-              s.toLowerCase().includes(symbol.toLowerCase())
+            (product.pharaonicDesign?.secondarySymbols || []).some((s: any) =>
+              String(s).toLowerCase().includes(symbol.toLowerCase())
             )
           )
         );

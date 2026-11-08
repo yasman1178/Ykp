@@ -21,10 +21,10 @@ const Header: React.FC<HeaderProps> = ({ locale = 'en' }) => {
 
   const navLinks = [
     { label: isRTL ? 'الرئيسية' : 'Home', href: '/' },
+    { label: isRTL ? 'الجمل المحبوب' : 'Beloved Camel', href: '/#beloved-camel' },
     { label: isRTL ? 'المجموعات' : 'Collections', href: '/products' },
-    { label: isRTL ? 'طلبات الجملة (B2B)' : 'Wholesale B2B', href: '/wholesale' },
-    { label: isRTL ? 'شراء للأفراد' : 'Retail Orders', href: '/retail' },
-    { label: isRTL ? 'عن المصنع' : 'Atelier & Craft', href: '/about' },
+    { label: isRTL ? 'طلبات الجملة' : 'Wholesale B2B', href: '/wholesale' },
+    { label: isRTL ? 'المدونة والتراث' : 'Blog & Heritage', href: '/blog' },
     { label: isRTL ? 'تواصل معنا' : 'Contact', href: '/contact' },
   ];
 

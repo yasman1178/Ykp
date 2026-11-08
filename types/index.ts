@@ -2,7 +2,7 @@
 export interface Product {
   id: string;
   name: string;
-  category: 'b123' | 't' | 'tb';
+  category: 'b123' | 't' | 'tb' | 'souvenirs' | 'heritage-souvenirs';
   images: ProductImage[];
   description: ProductDescription;
   specifications: ProductSpecs;

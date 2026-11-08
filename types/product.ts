@@ -58,13 +58,13 @@ export interface PharaonicDesignInfo {
   secondarySymbols: string[];
   colorMeaning: Record<string, string>;
   designInspiration: string;
-  historicalPeriod: string;
-  culturalAuthenticity: {
+  historicalPeriod?: string;
+  culturalAuthenticity?: {
     researchSources: string[];
     expertValidation: boolean;
     museumCollaboration?: string | null;
   };
-  spiritualAspects: {
+  spiritualAspects?: {
     energyProperties: string[];
     chakraAlignment?: string[];
     meditativeQualities: string[];
@@ -121,12 +121,16 @@ export interface ProductSEO {
     english: string[];
     arabic: string[];
   };
+  title?: string;
   metaTitle: string;
+  description?: string;
   metaDescription: string;
+  keywords?: any;
   altText: string;
   canonicalUrl?: string;
-  structuredData: ProductStructuredData;
-  contentOptimization: {
+  openGraph?: any;
+  structuredData?: any;
+  contentOptimization?: {
     keywordDensity: number;
     readabilityScore: number;
     semanticKeywords: string[];
@@ -187,9 +191,10 @@ export interface ProductImage {
   url: string;
   alt: string;
   title?: string;
+  type?: string;
   isPrimary: boolean;
-  order: number;
-  dimensions: {
+  order?: number;
+  dimensions?: {
     width: number;
     height: number;
   };
@@ -221,7 +226,7 @@ export interface ProductVariant {
 }
 
 export interface ProductCollection {
-  id: 'b123' | 't' | 'tb' | 'print';
+  id: 'b123' | 't' | 'tb' | 'print' | 'souvenirs' | 'heritage-souvenirs';
   name: string;
   shortName: string;
   description: string;
@@ -247,14 +252,15 @@ export interface Product {
   sku: string;
   name: string;
   shortName?: string;
+  slug?: string;
   collection: ProductCollection['id'];
   
   // Content
   description: string;
   shortDescription: string;
-  longDescription: string;
-  features: string[];
-  benefits: string[];
+  longDescription?: string;
+  features?: string[];
+  benefits?: string[];
   
   // Visual
   images: ProductImage[];
@@ -263,16 +269,17 @@ export interface Product {
   
   // Egyptian Heritage
   pharaonicDesign: PharaonicDesignInfo;
-  culturalStory: string;
-  symbolMeaning: string;
-  historicalConnection: string;
+  culturalStory?: string;
+  symbolMeaning?: string;
+  historicalConnection?: string;
   
   // Technical
-  specifications: ProductSpecs;
-  designElements: string[];
-  colorPalette: string[];
+  specifications?: any;
+  designElements?: string[];
+  colorPalette?: string[];
   
   // Business
+  price?: any;
   pricing: {
     retail: {
       min: number;
@@ -281,17 +288,17 @@ export interface Product {
     };
     wholesale: PricingTier[];
   };
-  wholesaleInfo: WholesaleInfo;
+  wholesaleInfo?: any;
   
   // Marketing
-  targetAudience: string[];
-  useCases: string[];
-  competitiveAdvantages: string[];
+  targetAudience?: string[];
+  useCases?: string[];
+  competitiveAdvantages?: string[];
   
   // SEO & Discovery
   seo: ProductSEO;
   tags: string[];
-  categories: string[];
+  categories?: string[];
   
   // Inventory & Fulfillment
   availability: {
