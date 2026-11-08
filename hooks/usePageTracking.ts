@@ -4,14 +4,13 @@
  */
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import type { NextRouter } from 'next/router';
 import EnhancedAnalyticsManager from '../lib/analytics-enhanced';
 import EventTrackingSystem from '../lib/event-tracking-system';
 import AnalyticsTracker from '../lib/analytics-tracker';
 import { useCookieConsent } from './useCookieConsent';
 
-export const usePageTracking = () => {
-  const router = useRouter();
+export const usePageTracking = (router?: NextRouter) => {
   const { preferences, userPreferences } = useCookieConsent();
 
   // Initialize analytics and event tracking
@@ -40,6 +39,8 @@ export const usePageTracking = () => {
 
   // Track page views on route change
   useEffect(() => {
+    if (!router || !router.events) return;
+
     const handleRouteChange = (url: string) => {
       // Reset tracking state
       EnhancedAnalyticsManager.resetScrollDepth();
@@ -75,6 +76,7 @@ export const usePageTracking = () => {
 
   // Track time on page before unload
   useEffect(() => {
+    if (!router) return;
     const startTime = Date.now();
 
     const handleBeforeUnload = () => {
@@ -94,7 +96,8 @@ export const usePageTracking = () => {
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
-  }, [router.asPath, preferences.analytics]);
+  }, [router?.asPath, preferences.analytics]);
 };
 
 export default usePageTracking;
+

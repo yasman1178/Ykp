@@ -1,7 +1,5 @@
 import type { AppProps } from 'next/app';
 import { AnimatePresence } from 'framer-motion';
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Layout from '@/components/layout/Layout';
 import CookieConsentBanner from '@/components/CookieConsentBanner';
@@ -14,10 +12,9 @@ export default function App({ Component, pageProps, router }: AppProps) {
   const { preferences } = useCookieConsent();
 
   // Automatically track page views
-  usePageTracking();
+  usePageTracking(router);
 
   const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
-  const nextRouter = useRouter();
 
   return (
     <>
