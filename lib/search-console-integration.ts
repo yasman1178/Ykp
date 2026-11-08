@@ -8,7 +8,6 @@
  */
 
 import { google } from 'googleapis';
-import type { JWT } from 'google-auth-library';
 
 // Types for Search Console API responses
 export interface SitemapSubmissionResult {
@@ -109,7 +108,7 @@ export interface WebVitalsData {
  * Handles all interactions with Google Search Console API
  */
 export class SearchConsoleService {
-  private auth: JWT | null = null;
+  private auth: InstanceType<typeof google.auth.JWT> | null = null;
   private siteUrl: string;
   private searchConsole: any;
 
