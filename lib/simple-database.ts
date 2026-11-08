@@ -1,13 +1,18 @@
 /**
- * Simple File-Based Database for Pharaonic Pillows Analytics
- * Stores visitor data, cookie consents, and user activities
+ * Simple In-Memory & File-Fallback Database for Analytics
+ * Fully resilient to serverless (Vercel / Lambda) read-only filesystems (EROFS safe)
  */
 
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 
-// Database file paths
-const DB_DIR = path.join(process.cwd(), 'data');
+// Determine writable directory (use /tmp in serverless or fallback)
+const IS_SERVERLESS = !!process.env.VERCEL || !!process.env.AWS_LAMBDA_FUNCTION_NAME;
+const DB_DIR = IS_SERVERLESS
+  ? path.join(os.tmpdir(), 'pharaonic-data')
+  : path.join(process.cwd(), 'data');
+
 const VISITORS_DB = path.join(DB_DIR, 'visitors.json');
 const ACTIVITIES_DB = path.join(DB_DIR, 'activities.json');
 const CONSENTS_DB = path.join(DB_DIR, 'consents.json');
@@ -65,8 +70,15 @@ export interface DatabaseStats {
 class SimpleDatabase {
   private static instance: SimpleDatabase;
 
+  // In-memory persistent caches for serverless lifecycle
+  private visitorsMemory: VisitorRecord[] = [];
+  private activitiesMemory: ActivityRecord[] = [];
+  private consentsMemory: ConsentRecord[] = [];
+  private isFilesystemWritable: boolean = true;
+
   private constructor() {
     this.ensureDirectoryExists();
+    this.loadInitialData();
   }
 
   public static getInstance(): SimpleDatabase {
@@ -77,26 +89,49 @@ class SimpleDatabase {
   }
 
   /**
-   * Ensure database directory and files exist
+   * Ensure database directory and files exist with graceful fallback
    */
   private ensureDirectoryExists(): void {
     try {
       if (!fs.existsSync(DB_DIR)) {
         fs.mkdirSync(DB_DIR, { recursive: true });
       }
+      this.isFilesystemWritable = true;
+    } catch {
+      // Read-only filesystem in serverless environments (Vercel/Lambda)
+      this.isFilesystemWritable = false;
+    }
+  }
 
-      // Initialize empty files if they don't exist
-      if (!fs.existsSync(VISITORS_DB)) {
-        fs.writeFileSync(VISITORS_DB, JSON.stringify([]));
+  /**
+   * Pre-load data from files into memory on startup
+   */
+  private loadInitialData(): void {
+    try {
+      if (this.isFilesystemWritable && fs.existsSync(VISITORS_DB)) {
+        const raw = fs.readFileSync(VISITORS_DB, 'utf8');
+        this.visitorsMemory = JSON.parse(raw);
       }
-      if (!fs.existsSync(ACTIVITIES_DB)) {
-        fs.writeFileSync(ACTIVITIES_DB, JSON.stringify([]));
+    } catch {
+      // Memory defaults to empty array
+    }
+
+    try {
+      if (this.isFilesystemWritable && fs.existsSync(ACTIVITIES_DB)) {
+        const raw = fs.readFileSync(ACTIVITIES_DB, 'utf8');
+        this.activitiesMemory = JSON.parse(raw);
       }
-      if (!fs.existsSync(CONSENTS_DB)) {
-        fs.writeFileSync(CONSENTS_DB, JSON.stringify([]));
+    } catch {
+      // Memory defaults to empty array
+    }
+
+    try {
+      if (this.isFilesystemWritable && fs.existsSync(CONSENTS_DB)) {
+        const raw = fs.readFileSync(CONSENTS_DB, 'utf8');
+        this.consentsMemory = JSON.parse(raw);
       }
-    } catch (error) {
-      console.error('Error creating database directory:', error);
+    } catch {
+      // Memory defaults to empty array
     }
   }
 
@@ -104,30 +139,19 @@ class SimpleDatabase {
    * Generate unique ID
    */
   private generateId(): string {
-    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+    return Date.now().toString(36) + Math.random().toString(36).substring(2);
   }
 
   /**
-   * Read data from file
+   * Write data to disk safely without throwing EROFS
    */
-  private readData<T>(filePath: string): T[] {
-    try {
-      const data = fs.readFileSync(filePath, 'utf8');
-      return JSON.parse(data);
-    } catch (error) {
-      console.error(`Error reading ${filePath}:`, error);
-      return [];
-    }
-  }
-
-  /**
-   * Write data to file
-   */
-  private writeData<T>(filePath: string, data: T[]): void {
+  private safeWriteData<T>(filePath: string, data: T[]): void {
+    if (!this.isFilesystemWritable) return;
     try {
       fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-    } catch (error) {
-      console.error(`Error writing ${filePath}:`, error);
+    } catch {
+      // Mark filesystem as unwritable and continue purely in memory
+      this.isFilesystemWritable = false;
     }
   }
 
@@ -135,18 +159,19 @@ class SimpleDatabase {
    * Record new visitor
    */
   recordVisitor(visitorData: Omit<VisitorRecord, 'id' | 'timestamp'>): string {
-    const visitors = this.readData<VisitorRecord>(VISITORS_DB);
     const id = this.generateId();
-    
     const visitor: VisitorRecord = {
       id,
       timestamp: new Date().toISOString(),
       ...visitorData,
     };
 
-    visitors.push(visitor);
-    this.writeData(VISITORS_DB, visitors);
-    
+    this.visitorsMemory.push(visitor);
+    if (this.visitorsMemory.length > 5000) {
+      this.visitorsMemory.splice(0, this.visitorsMemory.length - 5000);
+    }
+
+    this.safeWriteData(VISITORS_DB, this.visitorsMemory);
     return id;
   }
 
@@ -154,38 +179,36 @@ class SimpleDatabase {
    * Record user activity
    */
   recordActivity(activityData: Omit<ActivityRecord, 'id' | 'timestamp'>): void {
-    const activities = this.readData<ActivityRecord>(ACTIVITIES_DB);
-    
     const activity: ActivityRecord = {
       id: this.generateId(),
       timestamp: new Date().toISOString(),
       ...activityData,
     };
 
-    activities.push(activity);
-    
-    // Keep only last 10000 activities to prevent file from getting too large
-    if (activities.length > 10000) {
-      activities.splice(0, activities.length - 10000);
+    this.activitiesMemory.push(activity);
+    if (this.activitiesMemory.length > 10000) {
+      this.activitiesMemory.splice(0, this.activitiesMemory.length - 10000);
     }
-    
-    this.writeData(ACTIVITIES_DB, activities);
+
+    this.safeWriteData(ACTIVITIES_DB, this.activitiesMemory);
   }
 
   /**
    * Record cookie consent
    */
   recordConsent(consentData: Omit<ConsentRecord, 'id' | 'timestamp'>): void {
-    const consents = this.readData<ConsentRecord>(CONSENTS_DB);
-    
     const consent: ConsentRecord = {
       id: this.generateId(),
       timestamp: new Date().toISOString(),
       ...consentData,
     };
 
-    consents.push(consent);
-    this.writeData(CONSENTS_DB, consents);
+    this.consentsMemory.push(consent);
+    if (this.consentsMemory.length > 5000) {
+      this.consentsMemory.splice(0, this.consentsMemory.length - 5000);
+    }
+
+    this.safeWriteData(CONSENTS_DB, this.consentsMemory);
   }
 
   /**
@@ -196,14 +219,9 @@ class SimpleDatabase {
     cutoffDate.setDate(cutoffDate.getDate() - days);
     const cutoffTimestamp = cutoffDate.toISOString();
 
-    const visitors = this.readData<VisitorRecord>(VISITORS_DB)
-      .filter(v => v.timestamp >= cutoffTimestamp);
-    
-    const activities = this.readData<ActivityRecord>(ACTIVITIES_DB)
-      .filter(a => a.timestamp >= cutoffTimestamp);
-    
-    const consents = this.readData<ConsentRecord>(CONSENTS_DB)
-      .filter(c => c.timestamp >= cutoffTimestamp);
+    const visitors = this.visitorsMemory.filter(v => v.timestamp >= cutoffTimestamp);
+    const activities = this.activitiesMemory.filter(a => a.timestamp >= cutoffTimestamp);
+    const consents = this.consentsMemory.filter(c => c.timestamp >= cutoffTimestamp);
 
     // Calculate top pages
     const pageViews: Record<string, number> = {};
@@ -241,8 +259,8 @@ class SimpleDatabase {
       topPages,
       topCountries,
       recentActivities: activities
-        .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
-        .slice(0, 20),
+        .slice(-20)
+        .reverse(),
     };
   }
 
@@ -254,14 +272,10 @@ class SimpleDatabase {
     activities: ActivityRecord[];
     consents: ConsentRecord[];
   } {
-    const visitors = this.readData<VisitorRecord>(VISITORS_DB);
-    const activities = this.readData<ActivityRecord>(ACTIVITIES_DB);
-    const consents = this.readData<ConsentRecord>(CONSENTS_DB);
-
     return {
-      visitor: visitors.find(v => v.id === visitorId) || null,
-      activities: activities.filter(a => a.visitorId === visitorId),
-      consents: consents.filter(c => c.visitorId === visitorId),
+      visitor: this.visitorsMemory.find(v => v.id === visitorId) || null,
+      activities: this.activitiesMemory.filter(a => a.visitorId === visitorId),
+      consents: this.consentsMemory.filter(c => c.visitorId === visitorId),
     };
   }
 
@@ -277,22 +291,20 @@ class SimpleDatabase {
     marketingRate: number;
     preferencesRate: number;
   } {
-    const consents = this.readData<ConsentRecord>(CONSENTS_DB);
-    
-    const total = consents.length;
-    const acceptedAll = consents.filter(c => 
+    const total = this.consentsMemory.length;
+    const acceptedAll = this.consentsMemory.filter(c => 
       c.analytics && c.marketing && c.preferences
     ).length;
     
-    const rejectedAll = consents.filter(c => 
+    const rejectedAll = this.consentsMemory.filter(c => 
       !c.analytics && !c.marketing && !c.preferences
     ).length;
     
     const customized = total - acceptedAll - rejectedAll;
     
-    const analyticsConsents = consents.filter(c => c.analytics).length;
-    const marketingConsents = consents.filter(c => c.marketing).length;
-    const preferencesConsents = consents.filter(c => c.preferences).length;
+    const analyticsConsents = this.consentsMemory.filter(c => c.analytics).length;
+    const marketingConsents = this.consentsMemory.filter(c => c.marketing).length;
+    const preferencesConsents = this.consentsMemory.filter(c => c.preferences).length;
 
     return {
       total,
@@ -313,18 +325,10 @@ class SimpleDatabase {
     cutoffDate.setDate(cutoffDate.getDate() - 30);
     const cutoffTimestamp = cutoffDate.toISOString();
 
-    // Clean visitors
-    const visitors = this.readData<VisitorRecord>(VISITORS_DB)
-      .filter(v => v.timestamp >= cutoffTimestamp);
-    this.writeData(VISITORS_DB, visitors);
-
-    // Clean activities
-    const activities = this.readData<ActivityRecord>(ACTIVITIES_DB)
-      .filter(a => a.timestamp >= cutoffTimestamp);
-    this.writeData(ACTIVITIES_DB, activities);
-
-    // Clean consents (keep all for compliance)
-    // Consents are kept for legal compliance
+    this.visitorsMemory = this.visitorsMemory.filter(v => v.timestamp >= cutoffTimestamp);
+    this.activitiesMemory = this.activitiesMemory.filter(a => a.timestamp >= cutoffTimestamp);
+    this.safeWriteData(VISITORS_DB, this.visitorsMemory);
+    this.safeWriteData(ACTIVITIES_DB, this.activitiesMemory);
   }
 }
 
