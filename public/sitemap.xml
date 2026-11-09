@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+          xmlns:xhtml="http://www.w3.org/1999/xhtml"
+          xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+          xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+    
+  <url>
+    <loc>https://www.ykp-eg.com</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/products</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/products" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/products" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/products" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/about" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/about" />
+    <lastmod>2026-10-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/contact</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/contact" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/contact" />
+    <lastmod>2026-10-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/wholesale</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/wholesale" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/wholesale" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/wholesale" />
+    <lastmod>2026-10-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/retail</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/retail" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/retail" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/retail" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/partnership</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/partnership" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/partnership" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/partnership" />
+    <lastmod>2026-10-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/distributor</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/distributor" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/distributor" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/distributor" />
+    <lastmod>2026-10-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/services</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/services" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/services" />
+    <lastmod>2026-10-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/blog</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/blog" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/blog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/blog" />
+    <lastmod>2026-11-02T00:00:00.000Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/egyptian-culture</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/egyptian-culture" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/egyptian-culture" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/egyptian-culture" />
+    <lastmod>2026-10-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/pharaonic-symbols</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/pharaonic-symbols" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/pharaonic-symbols" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/pharaonic-symbols" />
+    <lastmod>2026-10-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/products/b123</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/products/b123" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/products/b123" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/products/b123" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/b123/1.webp</image:loc>
+      <image:title><![CDATA[Egyptian Travel Pillows - B123 Collection]]></image:title>
+      <image:caption><![CDATA[Premium Egyptian travel pillows from the B123 collection with authentic Pharaonic designs]]></image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/products/t</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/products/t" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/products/t" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/products/t" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/t/1.webp</image:loc>
+      <image:title><![CDATA[Egyptian Travel Pillows - T Collection]]></image:title>
+      <image:caption><![CDATA[Premium Egyptian travel pillows from the T collection with authentic Pharaonic designs]]></image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/products/tb</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/products/tb" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/products/tb" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/products/tb" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/tb/1.webp</image:loc>
+      <image:title><![CDATA[Egyptian Travel Pillows - TB Collection]]></image:title>
+      <image:caption><![CDATA[Premium Egyptian travel pillows from the TB collection with authentic Pharaonic designs]]></image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/products/souvenirs/camel-plush-22cm</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/products/souvenirs/camel-plush-22cm" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/products/souvenirs/camel-plush-22cm" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/products/souvenirs/camel-plush-22cm" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/souvenirs/22cm.webp</image:loc>
+      <image:title><![CDATA[The Beloved Camel - Egyptian Pharaonic Plush Toy (22 cm)]]></image:title>
+      <image:caption><![CDATA[Authentic Egyptian handcrafted plush camel with embroidered pharaonic saddle ("I ❤ EGYPT") and ancient protective motifs. Designed with ultra-soft velvet and child-safe materials in New Cairo.]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/assets/aistudio/1794114379573_df8dd34d.jpg</image:loc>
+      <image:title><![CDATA[The Beloved Camel - Egyptian Pharaonic Plush Toy (22 cm) - View 2]]></image:title>
+      <image:caption><![CDATA[The Beloved Camel in Royal Egyptian Blue with I Love Egypt Pharaonic Saddle]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/assets/aistudio/1794122038268_02f24669.jpg</image:loc>
+      <image:title><![CDATA[The Beloved Camel - Egyptian Pharaonic Plush Toy (22 cm) - View 3]]></image:title>
+      <image:caption><![CDATA[Pharaonic Plush Camels in Desert Tan, Imperial Purple, Lotus Pink and Camel Beige]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/assets/aistudio/file_000000000604820aa5649d2a0b525298_e93a9b68.png</image:loc>
+      <image:title><![CDATA[The Beloved Camel - Egyptian Pharaonic Plush Toy (22 cm) - View 4]]></image:title>
+      <image:caption><![CDATA[الجمل المحبوب - صديق صغير بمغامرات كبيرة ناعم ومريح هدية مثالية]]></image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/products/souvenirs/camel-plush-28cm</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/products/souvenirs/camel-plush-28cm" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/products/souvenirs/camel-plush-28cm" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/products/souvenirs/camel-plush-28cm" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/souvenirs/28cm.webp</image:loc>
+      <image:title><![CDATA[The Beloved Camel - Grand Pharaonic Deluxe Plush (28 cm)]]></image:title>
+      <image:caption><![CDATA[Grand Deluxe 28 cm Egyptian pharaonic plush camel with opulent embroidered ceremonial saddle, fluffy plush mane, and reinforced standing legs. Perfect for luxury hotels, VIP suites, and collector displays.]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/assets/aistudio/file_000000000604820aa5649d2a0b525298_e93a9b68.png</image:loc>
+      <image:title><![CDATA[The Beloved Camel - Grand Pharaonic Deluxe Plush (28 cm) - View 2]]></image:title>
+      <image:caption><![CDATA[الجمل المحبوب - دمية قطيفة فرعونية فاخرة الحجم الكبير 28 سم]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/assets/aistudio/1794114379573_df8dd34d.jpg</image:loc>
+      <image:title><![CDATA[The Beloved Camel - Grand Pharaonic Deluxe Plush (28 cm) - View 3]]></image:title>
+      <image:caption><![CDATA[The Beloved Camel Royal Blue Edition with I Love Egypt Saddle]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/assets/aistudio/1794122038268_02f24669.jpg</image:loc>
+      <image:title><![CDATA[The Beloved Camel - Grand Pharaonic Deluxe Plush (28 cm) - View 4]]></image:title>
+      <image:caption><![CDATA[Four Pharaonic Plush Camels in Desert Tan, Imperial Purple, Lotus Pink and Camel Beige]]></image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/products/b123/b123-001</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/products/b123/b123-001" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/products/b123/b123-001" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/products/b123/b123-001" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/b123/001.webp</image:loc>
+      <image:title><![CDATA[Golden Pharaoh Memory Pillow]]></image:title>
+      <image:caption><![CDATA[Luxurious travel pillow featuring intricate golden pharaonic patterns inspired by King Tutankhamun's treasures. Premium memory foam core provides exceptional comfort.]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/b123/1.webp</image:loc>
+      <image:title><![CDATA[Golden Pharaoh Memory Pillow - View 2]]></image:title>
+      <image:caption><![CDATA[Ergonomic Egyptian memory foam travel pillow with golden Tutankhamun pharaonic pattern by YKP Supplies New Cairo]]></image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/products/b123/b123-002</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/products/b123/b123-002" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/products/b123/b123-002" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/products/b123/b123-002" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/b123/002.webp</image:loc>
+      <image:title><![CDATA[Royal Nefertiti Comfort Pillow]]></image:title>
+      <image:caption><![CDATA[Elegant travel pillow celebrating the beauty of Queen Nefertiti with sophisticated Egyptian motifs and premium comfort technology.]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/b123/2.webp</image:loc>
+      <image:title><![CDATA[Royal Nefertiti Comfort Pillow - View 2]]></image:title>
+      <image:caption><![CDATA[Luxury memory foam travel pillow with blue Nefertiti crown Egyptian motif manufactured in Cairo by YKP Supplies]]></image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/products/b123/b123-003</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/products/b123/b123-003" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/products/b123/b123-003" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/products/b123/b123-003" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/b123/003.webp</image:loc>
+      <image:title><![CDATA[Sacred Pyramid Energy Pillow]]></image:title>
+      <image:caption><![CDATA[Premium travel pillow featuring pyramid geometry and sacred Egyptian symbols, designed to channel positive energy during travel.]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/b123/3.webp</image:loc>
+      <image:title><![CDATA[Sacred Pyramid Energy Pillow - View 2]]></image:title>
+      <image:caption><![CDATA[Egyptian travel pillow featuring winged goddess Isis emblem on orthopedic memory foam by YKP Supplies]]></image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/products/b123/b123-004</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/products/b123/b123-004" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/products/b123/b123-004" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/products/b123/b123-004" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/b123/004.webp</image:loc>
+      <image:title><![CDATA[Cleopatra Royal Comfort Pillow]]></image:title>
+      <image:caption><![CDATA[Luxurious pillow inspired by the legendary Queen Cleopatra, featuring serpent motifs and royal Egyptian elegance.]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/b123/4.webp</image:loc>
+      <image:title><![CDATA[Cleopatra Royal Comfort Pillow - View 2]]></image:title>
+      <image:caption><![CDATA[High density memory foam neck pillow with golden Horus falcon design for international travelers]]></image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/products/b123/b123-005</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/products/b123/b123-005" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/products/b123/b123-005" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/products/b123/b123-005" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/b123/005.webp</image:loc>
+      <image:title><![CDATA[Anubis Guardian Travel Pillow]]></image:title>
+      <image:caption><![CDATA[Premium travel pillow featuring Anubis, the guardian of the afterlife, providing protection and peaceful rest during journeys.]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/b123/5.webp</image:loc>
+      <image:title><![CDATA[Anubis Guardian Travel Pillow - View 2]]></image:title>
+      <image:caption><![CDATA[Memory foam travel pillow with sacred winged scarab hieroglyphic embroidery by YKP Supplies]]></image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/products/t/t-001</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/products/t/t-001" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/products/t/t-001" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/products/t/t-001" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/t/001.webp</image:loc>
+      <image:title><![CDATA[Classic Ankh Travel Pillow]]></image:title>
+      <image:caption><![CDATA[Traditional Egyptian travel pillow featuring the timeless Ankh symbol, offering reliable comfort with authentic Egyptian design.]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/t/1.webp</image:loc>
+      <image:title><![CDATA[Classic Ankh Travel Pillow - View 2]]></image:title>
+      <image:caption><![CDATA[Ergonomic neck support pillow with Ankh key of life Egyptian hieroglyphic pattern by YKP Supplies]]></image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/products/t/t-002</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/products/t/t-002" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/products/t/t-002" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/products/t/t-002" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/t/002.webp</image:loc>
+      <image:title><![CDATA[Traditional Scarab Comfort Pillow]]></image:title>
+      <image:caption><![CDATA[Comfortable travel pillow adorned with the protective scarab beetle design, symbolizing renewal and protection during journeys.]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/t/2.webp</image:loc>
+      <image:title><![CDATA[Traditional Scarab Comfort Pillow - View 2]]></image:title>
+      <image:caption><![CDATA[Viscoelastic travel neck pillow with Eye of Horus Egyptian protective amulet design by YKP Supplies]]></image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/products/t/t-003</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/products/t/t-003" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/products/t/t-003" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/products/t/t-003" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/t/003.webp</image:loc>
+      <image:title><![CDATA[Lotus Flower Serenity Pillow]]></image:title>
+      <image:caption><![CDATA[Classic travel pillow featuring the sacred lotus flower, symbol of rebirth and purity in ancient Egyptian culture.]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/t/3.webp</image:loc>
+      <image:title><![CDATA[Lotus Flower Serenity Pillow - View 2]]></image:title>
+      <image:caption><![CDATA[Egyptian solar disk travel pillow with ergonomic cervical contouring by YKP Supplies Cairo]]></image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/products/t/t-004</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/products/t/t-004" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/products/t/t-004" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/products/t/t-004" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/t/004.webp</image:loc>
+      <image:title><![CDATA[Sphinx Wisdom Travel Pillow]]></image:title>
+      <image:caption><![CDATA[Traditional pillow featuring the Great Sphinx, combining ancient wisdom with modern comfort for thoughtful travelers.]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/t/4.webp</image:loc>
+      <image:title><![CDATA[Sphinx Wisdom Travel Pillow - View 2]]></image:title>
+      <image:caption><![CDATA[Authentic Egyptian sacred symbol travel pillow with ergonomic neck contouring by YKP Supplies]]></image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/products/tb/tb-001</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/products/tb/tb-001" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/products/tb/tb-001" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/products/tb/tb-001" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/tb/001.webp</image:loc>
+      <image:title><![CDATA[Eye of Horus Protection Pillow]]></image:title>
+      <image:caption><![CDATA[Heritage travel pillow featuring the powerful Eye of Horus symbol, offering protection and healing energy for travelers.]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/tb/1.webp</image:loc>
+      <image:title><![CDATA[Eye of Horus Protection Pillow - View 2]]></image:title>
+      <image:caption><![CDATA[Hieroglyphic inscription travel pillow with royal cartouche pattern by YKP Supplies New Cairo]]></image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/products/tb/tb-002</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/products/tb/tb-002" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/products/tb/tb-002" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/products/tb/tb-002" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/tb/002.webp</image:loc>
+      <image:title><![CDATA[Hieroglyphic Wisdom Pillow]]></image:title>
+      <image:caption><![CDATA[Authentic heritage pillow decorated with ancient hieroglyphic inscriptions, bringing the wisdom of the pharaohs to modern travel.]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/tb/2.webp</image:loc>
+      <image:title><![CDATA[Hieroglyphic Wisdom Pillow - View 2]]></image:title>
+      <image:caption><![CDATA[Ancient Egyptian papyrus scroll print travel pillow with memory foam core manufactured in Egypt]]></image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/products/tb/tb-003</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/products/tb/tb-003" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/products/tb/tb-003" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/products/tb/tb-003" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/tb/003.webp</image:loc>
+      <image:title><![CDATA[Pharaoh's Cartouche Heritage Pillow]]></image:title>
+      <image:caption><![CDATA[Authentic heritage pillow featuring royal cartouches and pharaonic names, connecting travelers to ancient Egyptian royalty.]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/tb/3.webp</image:loc>
+      <image:title><![CDATA[Pharaoh's Cartouche Heritage Pillow - View 2]]></image:title>
+      <image:caption><![CDATA[Egyptian hieroglyphic script travel pillow with memory foam comfort by YKP Supplies]]></image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/products/tb/tb-004</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/products/tb/tb-004" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/products/tb/tb-004" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/products/tb/tb-004" />
+    <lastmod>2026-11-01T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/tb/004.webp</image:loc>
+      <image:title><![CDATA[Sacred Ibis Wisdom Pillow]]></image:title>
+      <image:caption><![CDATA[Heritage pillow honoring Thoth, the ibis-headed god of wisdom and writing, perfect for scholarly travelers and knowledge seekers.]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/prodect/tb/4.webp</image:loc>
+      <image:title><![CDATA[Sacred Ibis Wisdom Pillow - View 2]]></image:title>
+      <image:caption><![CDATA[Egyptian hieroglyphic script travel pillow with memory foam comfort by YKP Supplies]]></image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/blog/anubis-ancient-egyptian-figure-travel-pillow-manufacturing</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/blog/anubis-ancient-egyptian-figure-travel-pillow-manufacturing" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/blog/anubis-ancient-egyptian-figure-travel-pillow-manufacturing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/blog/anubis-ancient-egyptian-figure-travel-pillow-manufacturing" />
+    <lastmod>2024-01-15T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/blog/anubis-pillow-manufacturing.jpg</image:loc>
+      <image:title><![CDATA[Anubis-themed travel pillow manufacturing process in Egyptian factory]]></image:title>
+      <image:caption><![CDATA[Premium Anubis travel pillow production at our Egyptian manufacturing facility]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/blog/anubis-design-process.jpg</image:loc>
+      <image:title><![CDATA[Anubis pillow design development process]]></image:title>
+      <image:caption><![CDATA[Cultural consultants working on authentic Anubis pillow designs]]></image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/blog/memory-foam-production.jpg</image:loc>
+      <image:title><![CDATA[Memory foam pillow manufacturing equipment]]></image:title>
+      <image:caption><![CDATA[State-of-the-art memory foam production facility]]></image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.ykp-eg.com/blog/eye-of-horus-protection-symbol-pillow-manufacturing</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.ykp-eg.com/blog/eye-of-horus-protection-symbol-pillow-manufacturing" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.ykp-eg.com/ar/blog/eye-of-horus-protection-symbol-pillow-manufacturing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.ykp-eg.com/blog/eye-of-horus-protection-symbol-pillow-manufacturing" />
+    <lastmod>2024-02-05T00:00:00.000Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://www.ykp-eg.com/blog/eye-of-horus-pillow-manufacturing.jpg</image:loc>
+      <image:title><![CDATA[Eye of Horus pillow manufacturing process showing cultural design accuracy]]></image:title>
+      <image:caption><![CDATA[Precision manufacturing of Eye of Horus travel pillows with authentic cultural designs]]></image:caption>
+    </image:image>
+  </url>
+  </urlset>

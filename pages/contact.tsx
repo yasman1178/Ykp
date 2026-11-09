@@ -53,23 +53,31 @@ const ContactPage: React.FC<ContactPageProps> = ({ translations: t, locale }) =>
                 body: JSON.stringify(data),
             });
 
-            const result = await response.json();
-
-            if (response.ok && result.success) {
-                setSubmitStatus('success');
-                setSubmitMessage(isRTL
-                    ? 'شكراً لك! تم إرسال رسالتك بنجاح. سنرد عليك خلال 24 ساعة.'
-                    : 'Thank you! Your message has been sent successfully. We will respond within 24 hours.');
-                reset();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else {
-                throw new Error(result.message || 'Failed to send message');
+            if (response.ok) {
+                const result = await response.json();
+                if (result.success) {
+                    setSubmitStatus('success');
+                    setSubmitMessage(isRTL
+                        ? 'شكراً لك! تم إرسال رسالتك بنجاح. سنرد عليك خلال 24 ساعة.'
+                        : 'Thank you! Your message has been sent successfully. We will respond within 24 hours.');
+                    reset();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return;
+                }
             }
+            throw new Error('Fallback to direct WhatsApp');
         } catch (error) {
-            setSubmitStatus('error');
+            // Static hosting fallback: open WhatsApp directly with prefilled message
+            const waText = encodeURIComponent(`*طلب تواصل جديد - YKP Supplies*\nالاسم: ${data.name}\nالبريد: ${data.email}\nالنوع: ${data.inquiryType || 'عام'}\nالموضوع: ${data.subject}\nالرسالة: ${data.message}`);
+            if (typeof window !== 'undefined') {
+                window.open(`https://wa.me/201002406013?text=${waText}`, '_blank');
+            }
+            setSubmitStatus('success');
             setSubmitMessage(isRTL
-                ? 'عذراً، حدث خطأ أثناء إرسال رسالتك. يرجى المحاولة مرة أخرى.'
-                : 'Sorry, there was an error sending your message. Please try again.');
+                ? 'شكراً لك! تم فتح واتساب للتواصل المباشر مع فريق المبيعات.'
+                : 'Thank you! WhatsApp opened for instant connection with our team.');
+            reset();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
 

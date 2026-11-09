@@ -545,30 +545,10 @@ export class AnalyticsSystem {
   }
 
   /**
-   * Send custom events to analytics endpoint
+   * Send custom events to analytics endpoint (internal endpoint disabled)
    */
-  private sendCustomEvent(eventType: string, data: any): void {
-    if (typeof window === 'undefined') return;
-
-    // Send to custom analytics endpoint
-    fetch('/api/analytics', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        eventType,
-        data,
-        timestamp: Date.now(),
-        sessionId: this.sessionId,
-        userId: this.userId,
-        url: window.location.href,
-        referrer: document.referrer,
-        userAgent: navigator.userAgent
-      })
-    }).catch(error => {
-      console.warn('Analytics tracking failed:', error);
-    });
+  private sendCustomEvent(_eventType: string, _data: any): void {
+    // Internal endpoint disabled in favor of Google Analytics
   }
 
   /**

@@ -74,6 +74,7 @@ class FirebaseAnalyticsService {
    */
   async trackVisitor(data: VisitorData): Promise<void> {
     try {
+      if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY) return;
       await addDoc(collection(db, COLLECTIONS.VISITORS), {
         ...data,
         timestamp: Timestamp.fromDate(data.timestamp),
@@ -82,8 +83,7 @@ class FirebaseAnalyticsService {
       // Update daily stats
       await this.updateDailyStats(data.timestamp);
     } catch (error) {
-      console.error('Error tracking visitor:', error);
-      throw error;
+      // Safe fallback - do not crash client
     }
   }
 
@@ -92,6 +92,7 @@ class FirebaseAnalyticsService {
    */
   async trackConversion(data: ConversionData): Promise<void> {
     try {
+      if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY) return;
       await addDoc(collection(db, COLLECTIONS.CONVERSIONS), {
         ...data,
         timestamp: Timestamp.fromDate(data.timestamp),
@@ -104,8 +105,7 @@ class FirebaseAnalyticsService {
         conversions: increment(1),
       });
     } catch (error) {
-      console.error('Error tracking conversion:', error);
-      throw error;
+      // Safe fallback - do not crash client
     }
   }
 

@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import { motion } from 'framer-motion';
 import { BlogArticleEnhanced } from '@/types/blog-enhanced';
 import { ENHANCED_BLOG_ARTICLES, blogUtils } from '@/data/blog-articles-enhanced';
@@ -375,12 +375,10 @@ const SearchPage: React.FC<SearchPageProps> = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const searchQuery = (query.q as string) || '';
-  
+export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
-      initialQuery: searchQuery,
+      initialQuery: '',
       allArticles: ENHANCED_BLOG_ARTICLES
     }
   };

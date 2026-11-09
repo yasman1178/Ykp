@@ -57,30 +57,44 @@ const PartnershipPage: React.FC = () => {
         body: JSON.stringify(formData),
       });
 
-      const result = await response.json();
-
-      if (response.ok && result.success) {
-        setSubmitStatus('success');
-        setSubmitMessage('تم إرسال طلبك بنجاح! سيتواصل معك فريق الشراكات خلال 48 ساعة.');
-        setFormData({
-          companyName: '',
-          contactName: '',
-          email: '',
-          phone: '',
-          website: '',
-          partnershipType: '',
-          companySize: '',
-          message: ''
-        });
-        // Scroll to top to show success message
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        throw new Error(result.message || 'Failed to send inquiry');
+      if (response.ok) {
+        const result = await response.json();
+        if (result.success) {
+          setSubmitStatus('success');
+          setSubmitMessage('تم إرسال طلبك بنجاح! سيتواصل معك فريق الشراكات خلال 48 ساعة.');
+          setFormData({
+            companyName: '',
+            contactName: '',
+            email: '',
+            phone: '',
+            website: '',
+            partnershipType: '',
+            companySize: '',
+            message: ''
+          });
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return;
+        }
       }
+      throw new Error('Static fallback');
     } catch (error) {
-      setSubmitStatus('error');
-      setSubmitMessage('عذراً، حدث خطأ في إرسال طلبك. يرجى المحاولة مرة أخرى أو التواصل معنا مباشرة.');
-      console.error('Form submission error:', error);
+      const waText = encodeURIComponent(`*طلب شراكة استراتيجية - YKP Supplies*\nالشركة: ${formData.companyName}\nالمسؤول: ${formData.contactName}\nالبريد: ${formData.email}\nالهاتف: ${formData.phone}\nنوع الشراكة: ${formData.partnershipType}\nحجم الشركة: ${formData.companySize}\nملاحظات: ${formData.message}`);
+      if (typeof window !== 'undefined') {
+        window.open(`https://wa.me/201002406013?text=${waText}`, '_blank');
+      }
+      setSubmitStatus('success');
+      setSubmitMessage('تم تجهيز طلبك وفتح واتساب للتواصل المباشر مع إدارة الشراكات.');
+      setFormData({
+        companyName: '',
+        contactName: '',
+        email: '',
+        phone: '',
+        website: '',
+        partnershipType: '',
+        companySize: '',
+        message: ''
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 

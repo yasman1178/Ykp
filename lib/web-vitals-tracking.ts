@@ -9,33 +9,10 @@ import { onCLS, onINP, onFCP, onLCP, onTTFB, Metric } from 'web-vitals';
 const ANALYTICS_ENDPOINT = '/api/analytics/web-vitals';
 
 /**
- * Send metric to analytics service
+ * Send metric to analytics service (internal endpoint disabled)
  */
-function sendToAnalytics(metric: Metric) {
-  const body = JSON.stringify({
-    name: metric.name,
-    value: metric.value,
-    rating: metric.rating,
-    delta: metric.delta,
-    id: metric.id,
-    navigationType: metric.navigationType,
-    url: window.location.href,
-    timestamp: Date.now()
-  });
-
-  // Use `navigator.sendBeacon()` if available, falling back to `fetch()`
-  if (navigator.sendBeacon) {
-    navigator.sendBeacon(ANALYTICS_ENDPOINT, body);
-  } else {
-    fetch(ANALYTICS_ENDPOINT, {
-      body,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      keepalive: true
-    }).catch(console.error);
-  }
+function sendToAnalytics(_metric: Metric) {
+  // Internal endpoint disabled; metrics sent to Google Analytics 4 via sendToGoogleAnalytics
 }
 
 /**

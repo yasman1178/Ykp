@@ -67,14 +67,20 @@ export default function RetailPage({ translations: t, locale }: RetailPageProps)
         })
       });
 
-      const data = await res.json();
-      if (res.ok && data.success) {
-        setOrderSuccess(data.orderId || 'RET-SUCCESS');
-      } else {
-        throw new Error(data.message || 'Error submitting order');
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success) {
+          setOrderSuccess(data.orderId || 'RET-SUCCESS');
+          return;
+        }
       }
+      throw new Error('Static fallback');
     } catch (err: any) {
-      setErrorMsg(err.message || 'Something went wrong');
+      const waText = encodeURIComponent(`*طلب تجزئة جديد - YKP Supplies*\nالعميل: ${customerName}\nالهاتف: ${phone}\nالمدينة/العنوان: ${city} - ${address}\nالمنتج: ${activeImageSeo.titleEn} (${activeImageSeo.modelCode})\nالكمية: ${quantity}\nملاحظات: ${notes || 'لا يوجد'}`);
+      if (typeof window !== 'undefined') {
+        window.open(`https://wa.me/201002406013?text=${waText}`, '_blank');
+      }
+      setOrderSuccess(`WA-${Date.now().toString().slice(-6)}`);
     } finally {
       setSubmitting(false);
     }
