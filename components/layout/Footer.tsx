@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { FaLinkedin, FaFacebook, FaWhatsapp, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+import { useRouter } from 'next/router';
+import { FaLinkedin, FaFacebook, FaWhatsapp, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaFileAlt } from 'react-icons/fa';
 
 interface FooterProps {
   translations?: any;
@@ -8,29 +9,38 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ locale = 'en' }) => {
-  const isRTL = locale === 'ar';
+  const router = useRouter();
+  const currentLocale = router.locale || locale;
+  const isRTL = currentLocale === 'ar';
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#07090C] text-slate-300 border-t border-amber-900/20" dir={isRTL ? 'rtl' : 'ltr'}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 mb-12">
+    <footer className="bg-[#070C18] text-slate-300 border-t border-slate-800" dir={isRTL ? 'rtl' : 'ltr'}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-14 border-b border-slate-800/80">
           
-          {/* Company Brand Column (4 Cols) */}
+          {/* Brand & Manufacturing Credibility (4 Cols) */}
           <div className="lg:col-span-4 space-y-4">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#D4AF37] to-[#B8860B] flex items-center justify-center text-black font-serif font-black text-xl shadow-md shadow-[#D4AF37]/20">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#D4AF37] to-[#B8860B] flex items-center justify-center text-slate-950 font-serif font-black text-xl shadow-md shadow-[#D4AF37]/20">
                 𓂀
               </div>
-              <span className="font-serif text-2xl font-bold tracking-tight text-white group-hover:text-[#D4AF37] transition-colors">
-                YKP Supplies
-              </span>
+              <div className="flex flex-col">
+                <span className="font-sans text-2xl font-bold tracking-tight text-white group-hover:text-[#D4AF37] transition-colors">
+                  YKP Supplies
+                </span>
+                <span className="text-[10px] uppercase tracking-wider text-slate-400 font-mono -mt-1">
+                  {isRTL ? 'مصنع مخدات السفر المصرية B2B' : 'Egyptian Travel Products Manufacturer'}
+                </span>
+              </div>
             </Link>
+
             <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
               {isRTL
-                ? 'المصنع المصري الرائد في ابتكار وتصنيع مخدات السفر الطبية بعبق التراث الفرعوني. نجمع بين أصالة القطن المصري ورغوة الذاكرة عالية الكثافة لراحة تدوم عبر القارات.'
-                : 'Premier Egyptian manufacturer of orthopedic travel pillows inspired by pharaonic heritage. We unite authentic Egyptian cotton with high-density viscoelastic memory foam for flight comfort across continents.'}
+                ? 'المصنع المصري الرائد في تصنيع مخدات السفر الطبية المصنوعة من رغوة الذاكرة عالية الكثافة، والمجموعات التراثية الفرعونية الفاخرة للعلامات التجارية العالمية، الموزعين، وسلاسل الفنادق والمتاحف.'
+                : 'Premier Egyptian manufacturer of high-density memory foam travel pillows, custom private-label travel collections, and authentic pharaonic heritage keepsakes for international distributors, retailers, and hospitality brands.'}
             </p>
+
             <div className="pt-2 flex items-center gap-3 text-slate-400">
               <a
                 href="https://www.linkedin.com/in/ykp-eg-483b8a398"
@@ -51,7 +61,7 @@ const Footer: React.FC<FooterProps> = ({ locale = 'en' }) => {
                 <FaFacebook className="text-sm" />
               </a>
               <a
-                href="https://wa.me/201002406013"
+                href="https://wa.me/201002406013?text=Hello%20YKP%20Supplies%2C%20I%20would%20like%20to%20inquire%20about%20manufacturing%20and%20wholesale"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center hover:text-emerald-400 hover:border-emerald-500/40 transition-colors"
@@ -60,100 +70,166 @@ const Footer: React.FC<FooterProps> = ({ locale = 'en' }) => {
                 <FaWhatsapp className="text-sm" />
               </a>
             </div>
+
+            <div className="pt-2">
+              <span className="inline-flex items-center gap-1.5 text-[11px] text-[#D4AF37] font-mono bg-[#D4AF37]/10 border border-[#D4AF37]/20 px-3 py-1.5 rounded-lg">
+                <span>🇪🇬 Made in Cairo, Egypt · Export Ready</span>
+              </span>
+            </div>
           </div>
 
-          {/* Collections Column (3 Cols) */}
-          <div className="lg:col-span-3 space-y-3">
-            <h3 className="text-xs uppercase tracking-widest font-semibold text-[#D4AF37] font-mono">
-              {isRTL ? 'المجموعات الفرعونية' : 'Collections'}
-            </h3>
-            <ul className="space-y-2 text-xs">
-              <li>
-                <Link href="/products/royal" className="text-slate-400 hover:text-white transition-colors">
-                  {isRTL ? 'المجموعة الملكية الفرعونية' : 'Royal Pharaonic Collection'}
-                </Link>
-              </li>
-              <li>
-                <Link href="/products/sacred" className="text-slate-400 hover:text-white transition-colors">
-                  {isRTL ? 'مجموعة الرموز والمقدسات (عنخ وحورس)' : 'Sacred Symbols (Ankh & Horus)'}
-                </Link>
-              </li>
-              <li>
-                <Link href="/products/heritage" className="text-slate-400 hover:text-white transition-colors">
-                  {isRTL ? 'مجموعة النقوش والبرديات الأثرية' : 'Ancient Heritage & Hieroglyphs'}
-                </Link>
-              </li>
-              <li>
-                <Link href="/products" className="text-slate-400 hover:text-white transition-colors">
-                  {isRTL ? 'جميع الموديلات (80+ مخدة)' : 'All Pillow Models (80+ Catalog)'}
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Commerce & Channels (2 Cols) */}
+          {/* Product Lines (2 Cols) */}
           <div className="lg:col-span-2 space-y-3">
-            <h3 className="text-xs uppercase tracking-widest font-semibold text-[#D4AF37] font-mono">
-              {isRTL ? 'قنوات الطلب' : 'Ordering Channels'}
+            <h3 className="text-xs uppercase tracking-wider font-semibold text-white font-mono">
+              {isRTL ? 'المنتجات والكتالوج' : 'Product Lines'}
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
-                <Link href="/wholesale" className="text-slate-400 hover:text-white transition-colors">
-                  {isRTL ? 'طلبات الجملة والتصدير' : 'B2B Wholesale Inquiries'}
+                <Link href="/products" className="text-slate-400 hover:text-[#D4AF37] transition-colors">
+                  {isRTL ? 'جميع المنتجات (كتالوج B2B)' : 'All Products Catalog'}
                 </Link>
               </li>
               <li>
-                <Link href="/retail" className="text-slate-400 hover:text-white transition-colors">
-                  {isRTL ? 'شراء للأفراد (تجزئة)' : 'Direct Retail Orders'}
+                <Link href="/products/tb" className="text-slate-400 hover:text-[#D4AF37] transition-colors">
+                  {isRTL ? 'المجموعة الفرعونية التراثية' : 'Egyptian Heritage'}
                 </Link>
               </li>
               <li>
-                <Link href="/distributor" className="text-slate-400 hover:text-white transition-colors">
-                  {isRTL ? 'بوابة الوكلاء والموزعين' : 'Distributor Portal'}
+                <Link href="/products/b123" className="text-slate-400 hover:text-[#D4AF37] transition-colors">
+                  {isRTL ? 'مجموعة ميموري فوم الفاخرة' : 'Premium Collection'}
                 </Link>
               </li>
               <li>
-                <Link href="/partnership" className="text-slate-400 hover:text-white transition-colors">
-                  {isRTL ? 'برنامج الشراكة وتصنيع الفنادق' : 'OEM / Hotel Hospitality'}
+                <Link href="/products/t" className="text-slate-400 hover:text-[#D4AF37] transition-colors">
+                  {isRTL ? 'المجموعة الكلاسيكية' : 'Classic Collection'}
+                </Link>
+              </li>
+              <li>
+                <Link href="/custom-travel-pillows" className="text-slate-400 hover:text-[#D4AF37] transition-colors">
+                  {isRTL ? 'منتجات التصنيع المخصص' : 'Custom & OEM Pillows'}
+                </Link>
+              </li>
+              <li>
+                <Link href="/products/souvenirs/camel-plush-22cm" className="text-slate-400 hover:text-[#D4AF37] transition-colors">
+                  {isRTL ? 'دمية الجمل المحبوب التراثية' : 'The Beloved Camel Plush'}
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Factory Contact & Location (3 Cols) */}
-          <div className="lg:col-span-3 space-y-3">
-            <h3 className="text-xs uppercase tracking-widest font-semibold text-[#D4AF37] font-mono">
-              {isRTL ? 'بيانات المصنع والتواصل' : 'Atelier & Factory'}
+          {/* Manufacturing & Capabilities (2 Cols) */}
+          <div className="lg:col-span-2 space-y-3">
+            <h3 className="text-xs uppercase tracking-wider font-semibold text-white font-mono">
+              {isRTL ? 'المصنع والتصنيع' : 'Manufacturing'}
+            </h3>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <Link href="/manufacturing" className="text-slate-400 hover:text-[#D4AF37] transition-colors">
+                  {isRTL ? 'مراحل الإنتاج والتصنيع' : 'Production Process'}
+                </Link>
+              </li>
+              <li>
+                <Link href="/factory" className="text-slate-400 hover:text-[#D4AF37] transition-colors">
+                  {isRTL ? 'جولة داخل مصنعنا' : 'Inside Our Factory'}
+                </Link>
+              </li>
+              <li>
+                <Link href="/quality" className="text-slate-400 hover:text-[#D4AF37] transition-colors">
+                  {isRTL ? 'معايير الجودة والمواد' : 'Quality & Testing Lab'}
+                </Link>
+              </li>
+              <li>
+                <Link href="/custom-travel-pillows" className="text-slate-400 hover:text-[#D4AF37] transition-colors">
+                  {isRTL ? 'العلامة الخاصة (Private Label)' : 'Private Label Solutions'}
+                </Link>
+              </li>
+              <li>
+                <Link href="/international-shipping" className="text-slate-400 hover:text-[#D4AF37] transition-colors">
+                  {isRTL ? 'الشحن والخدمات اللوجستية' : 'Packaging & Shipping'}
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* B2B Partnerships & Wholesale (2 Cols) */}
+          <div className="lg:col-span-2 space-y-3">
+            <h3 className="text-xs uppercase tracking-wider font-semibold text-white font-mono">
+              {isRTL ? 'الشراكات والجملة' : 'Partnerships'}
+            </h3>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <Link href="/wholesale-travel-pillows" className="text-slate-400 hover:text-[#D4AF37] transition-colors">
+                  {isRTL ? 'أسعار الجملة والكميات' : 'Wholesale Terms & MOQ'}
+                </Link>
+              </li>
+              <li>
+                <Link href="/distributor" className="text-slate-400 hover:text-[#D4AF37] transition-colors">
+                  {isRTL ? 'كن موزعاً إقليمياً' : 'Become a Distributor'}
+                </Link>
+              </li>
+              <li>
+                <Link href="/museum-tourist-gifts" className="text-slate-400 hover:text-[#D4AF37] transition-colors">
+                  {isRTL ? 'متاجر المتاحف والمطارات' : 'Museum & Tourist Gifts'}
+                </Link>
+              </li>
+              <li>
+                <Link href="/corporate-travel-gifts" className="text-slate-400 hover:text-[#D4AF37] transition-colors">
+                  {isRTL ? 'هدايا الشركات والضيافة' : 'Corporate Travel Gifts'}
+                </Link>
+              </li>
+              <li>
+                <Link href="/request-a-quote" className="text-[#D4AF37] font-semibold hover:underline">
+                  {isRTL ? 'اطلب عرض سعر رسمي (RFQ)' : 'Request a Quote (RFQ)'}
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Headquarters & Inquiries (2 Cols) */}
+          <div className="lg:col-span-2 space-y-3">
+            <h3 className="text-xs uppercase tracking-wider font-semibold text-white font-mono">
+              {isRTL ? 'التواصل المباشر' : 'Headquarters'}
             </h3>
             <div className="space-y-2 text-xs text-slate-400">
-              <div className="flex items-start gap-2.5">
+              <div className="flex items-start gap-2">
                 <FaMapMarkerAlt className="text-[#D4AF37] mt-0.5 shrink-0" />
-                <span>{isRTL ? 'القاهرة الجديدة، جمهورية مصر العربية' : 'New Cairo, Egypt'}</span>
+                <span>New Cairo, Cairo, Egypt</span>
               </div>
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2">
                 <FaPhoneAlt className="text-[#D4AF37] shrink-0" />
-                <span dir="ltr">+20 100 240 6013</span>
+                <a href="tel:+201002406013" dir="ltr" className="hover:text-white transition-colors">+20 100 240 6013</a>
               </div>
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2">
                 <FaEnvelope className="text-[#D4AF37] shrink-0" />
-                <a href="mailto:sales@ykp-eg.com" className="hover:text-white transition-colors">sales@ykp-eg.com</a>
+                <a href="mailto:ykpcommerchel@gmail.com" className="hover:text-white transition-colors truncate">
+                  sales@ykp-eg.com
+                </a>
               </div>
               <div className="pt-2">
-                <span className="inline-block text-[11px] text-emerald-400 font-mono bg-emerald-950/40 border border-emerald-800/40 px-2.5 py-1 rounded">
-                  {isRTL ? 'مصنع مباشر • أسعار جملة حقيقية' : 'Direct Manufacturer • Authentic Export'}
-                </span>
+                <Link
+                  href="/request-a-quote"
+                  className="block text-center px-3 py-2 rounded-lg bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-slate-950 font-bold text-xs hover:brightness-110 transition-all shadow-sm"
+                >
+                  {isRTL ? 'طلب عرض سعر سريع' : 'Instant RFQ'}
+                </Link>
               </div>
             </div>
           </div>
 
         </div>
 
-        {/* Bottom Copyright Bar */}
-        <div className="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-4">
-          <p>© {currentYear} YKP Supplies. {isRTL ? 'جميع الحقوق محفوظة. صُنعت بعناية في مصر.' : 'All rights reserved. Crafted with care in Egypt.'}</p>
-          <div className="flex items-center gap-6">
+        {/* Bottom Legal & Navigation Mirror */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-4">
+          <p>© {currentYear} YKP Supplies (ykp-eg.com). {isRTL ? 'جميع الحقوق محفوظة. صُنع بفخر في مصر.' : 'All rights reserved. Manufactured with pride in Cairo, Egypt.'}</p>
+          <div className="flex flex-wrap items-center gap-6">
             <Link href="/about" className="hover:text-slate-400 transition-colors">
-              {isRTL ? 'عن المصنع' : 'About'}
+              {isRTL ? 'عن الشركة' : 'About'}
+            </Link>
+            <Link href="/blog" className="hover:text-slate-400 transition-colors">
+              {isRTL ? 'المدونة' : 'Blog'}
+            </Link>
+            <Link href="/faq" className="hover:text-slate-400 transition-colors">
+              {isRTL ? 'الأسئلة الشائعة' : 'FAQ'}
             </Link>
             <Link href="/contact" className="hover:text-slate-400 transition-colors">
               {isRTL ? 'اتصل بنا' : 'Contact'}

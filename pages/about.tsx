@@ -1,227 +1,152 @@
 import React from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
+import Head from 'next/head';
 import Link from 'next/link';
-import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
-import { getStaticPropsWithTranslations } from '@/lib/translations';
-import {
-  FaHeart,
-  FaGlobe,
-  FaAward,
-  FaUsers,
-  FaRocket,
-  FaHandshake,
-  FaStar,
-  FaQuoteLeft,
-  FaArrowRight
-} from 'react-icons/fa';
-import Breadcrumbs from '@/components/layout/Breadcrumbs';
-import SEO from '@/components/SEO';
-import {
-  StaggerContainer,
-  StaggerItem,
-  FloatingHieroglyphs,
-  CrystalReveal,
-  FloatingCard
-} from '@/components/animations/EgyptianAnimations';
+import { GetStaticProps } from 'next';
+import Layout from '@/components/layout/Layout';
+import { FaIndustry, FaGlobeAmericas, FaAward, FaUsers, FaHeart, FaShieldAlt, FaArrowRight, FaArrowLeft } from 'react-icons/fa';
 
-interface AboutPageProps {
-  translations: any;
-  locale: string;
-}
-
-const AboutPage: React.FC<AboutPageProps> = ({ translations: t, locale }) => {
+export default function AboutPage() {
   const router = useRouter();
-  const isRTL = locale === 'ar';
-
-  const breadcrumbItems = [
-    { label: isRTL ? 'الرئيسية' : 'Home', href: '/', icon: '🏠' },
-    { label: isRTL ? 'من نحن' : 'About Us', href: '/about', icon: 'ℹ️' },
-  ];
-
-  const values = [
-    {
-      icon: <FaHeart className="text-4xl text-pharaonic-gold" />,
-      title: isRTL ? 'التراث المصري العريق' : 'Ancient Egyptian Heritage',
-      description: isRTL ? 'نحتفي بالفن المصري القديم في كل تصميم، نربط المسافرين المعاصرين بالكنوز الثقافية الخالدة.' : 'We celebrate ancient Egyptian art in every design, connecting modern travelers with timeless cultural treasures.',
-    },
-    {
-      icon: <FaAward className="text-4xl text-pharaonic-gold" />,
-      title: isRTL ? 'التميز في الجودة' : 'Quality Excellence',
-      description: isRTL ? 'مواد فاخرة وحرفية دقيقة تضمن أن كل وسادة تلبي أعلى معايير الراحة والمتانة.' : 'Premium materials and meticulous craftsmanship ensure every pillow meets the highest standards of comfort and durability.',
-    },
-    {
-      icon: <FaGlobe className="text-4xl text-pharaonic-gold" />,
-      title: isRTL ? 'الشراكة العالمية' : 'Global Partnership',
-      description: isRTL ? 'بناء علاقات دائمة مع الموزعين في جميع أنحاء العالم لنشر راحة السفر المصرية عبر القارات.' : 'Building lasting relationships with distributors worldwide to spread Egyptian travel comfort across continents.',
-    },
-    {
-      icon: <FaRocket className="text-4xl text-pharaonic-gold" />,
-      title: isRTL ? 'الابتكار المستمر' : 'Continuous Innovation',
-      description: isRTL ? 'دمج الحكمة القديمة مع التكنولوجيا الحديثة لإنتاج وسائد سفر تقدم راحة وأهمية ثقافية لا مثيل لها.' : 'Merging ancient wisdom with modern technology to produce travel pillows that offer unparalleled comfort and cultural significance.',
-    },
-  ];
-
-  const stats = [
-    { number: '50+', label: isRTL ? 'دولة حول العالم' : 'Countries Worldwide', icon: <FaGlobe /> },
-    { number: '100K+', label: isRTL ? 'عميل راضٍ' : 'Satisfied Customers', icon: <FaUsers /> },
-    { number: '15+', label: isRTL ? 'جائزة دولية' : 'International Awards', icon: <FaAward /> },
-    { number: '6', label: isRTL ? 'سنوات من التميز' : 'Years of Excellence', icon: <FaStar /> }
-  ];
+  const isRTL = router.locale === 'ar';
+  const Arrow = isRTL ? FaArrowLeft : FaArrowRight;
 
   return (
-    <div dir={isRTL ? 'rtl' : 'ltr'} className="min-h-screen bg-papyrus-light">
-      <SEO
-        title={isRTL ? "من نحن - مصنع وتاريخ الشركة | YKP Supplies" : "About Our Atelier & Egyptian Heritage | YKP Supplies"}
-        description={t.site.description}
-        locale={locale}
-      />
+    <Layout
+      pageTitle="About YKP Supplies | Egyptian Travel Pillow Manufacturer in Cairo"
+      metaDescription="Learn the story of YKP Supplies: Egyptian manufacturer of high-density memory foam travel pillows and pharaonic heritage keepsakes in New Cairo for global B2B buyers."
+      canonicalUrl="https://www.ykp-eg.com/about"
+      ogImage="/images/factory/factory-line.jpg"
+    >
+      {/* Hero */}
+      <div className="bg-[#070C18] border-b border-slate-800 py-14 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl space-y-4">
+            <span className="text-xs uppercase tracking-widest font-mono text-[#D4AF37] font-semibold">
+              {isRTL ? 'عن المصنع ورؤيتنا' : 'Our Heritage & Manufacturing Philosophy'}
+            </span>
+            <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight text-balance">
+              About YKP Supplies
+            </h1>
+            <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
+              We are an Egyptian manufacturer of ergonomic travel pillows, custom OEM private label travel gear, and authentic pharaonic heritage keepsakes, based in New Cairo.
+            </p>
+          </div>
+        </div>
+      </div>
 
-      <div className="relative overflow-hidden">
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 z-0 pointer-events-none opacity-20">
-          <FloatingHieroglyphs className="absolute top-20 left-10 text-9xl">𓂀</FloatingHieroglyphs>
-          <FloatingHieroglyphs className="absolute bottom-40 right-10 text-9xl">𓋹</FloatingHieroglyphs>
+      {/* Our Story & Heritage Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-6 space-y-5">
+            <span className="text-xs font-mono uppercase text-[#D4AF37] font-bold">Our Story</span>
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Egyptian Heritage Meets Modern Travel Comfort
+            </h2>
+            <p className="text-slate-300 text-sm leading-relaxed">
+              YKP Supplies was founded in Cairo with a clear purpose: to bridge 5,000 years of Egyptian textile mastery with modern orthopedic foam engineering. Ancient Egyptians were the world’s earliest pioneers in ergonomics and headrest design, carving ceremonial stone and wooden supports for peaceful alignment.
+            </p>
+            <p className="text-slate-300 text-sm leading-relaxed">
+              Today, our New Cairo atelier translates that sacred heritage into modern 50D viscoelastic polyurethane memory foam and velvety Egyptian cotton covers. We serve two distinct strengths: precision commercial travel pillows for global brands and airlines, and authentic museum-grade cultural collections for tourist retail.
+            </p>
+          </div>
+
+          <div className="lg:col-span-6">
+            <div className="rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl">
+              <img
+                src="/images/factory/factory-line.jpg"
+                alt="Inside YKP Supplies Factory in New Cairo"
+                className="w-full h-80 object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mission & Vision Strip */}
+      <div className="bg-[#0A1020] border-t border-b border-slate-800 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-3">
+              <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/10 text-[#D4AF37] flex items-center justify-center text-lg">
+                <FaAward />
+              </div>
+              <h3 className="text-xl font-bold text-white">Our Mission</h3>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                To engineer and supply the world’s most comfortable, durable, and culturally rich travel products directly from Egypt, empowering global distributors, retailers, and brand owners with direct factory economics and dependable quality.
+              </p>
+            </div>
+
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 space-y-3">
+              <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/10 text-[#D4AF37] flex items-center justify-center text-lg">
+                <FaGlobeAmericas />
+              </div>
+              <h3 className="text-xl font-bold text-white">Our Vision</h3>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                To establish Egypt as a premier international manufacturing hub for ergonomic travel goods, proving that ancient heritage and modern high-tech foam engineering create unmatched global value.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Our Manufacturing Approach & Team */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-6 order-2 lg:order-1">
+            <div className="rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl">
+              <img
+                src="/images/factory/quality-lab.jpg"
+                alt="YKP Quality Control Testing Laboratory"
+                className="w-full h-80 object-cover"
+              />
+            </div>
+          </div>
+
+          <div className="lg:col-span-6 space-y-4 order-1 lg:order-2">
+            <span className="text-xs font-mono uppercase text-[#D4AF37] font-bold">Our Engineering Standards</span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              Rigorous, Ethical, and Direct
+            </h2>
+            <p className="text-slate-300 text-sm leading-relaxed">
+              We operate an ethical, modern manufacturing environment in New Cairo. Our skilled pattern makers, mold operators, and sewing technicians are treated with dignity, receiving fair wages and safe working conditions.
+            </p>
+            <ul className="space-y-2 text-xs text-slate-300">
+              <li className="flex items-center gap-2">
+                <span className="text-emerald-400 font-bold">✓</span>
+                <span>Zero subcontracting to unknown shadow workshops — 100% in-house oversight</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-emerald-400 font-bold">✓</span>
+                <span>100% hypoallergenic, non-toxic materials compliant with European safety standards</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-emerald-400 font-bold">✓</span>
+                <span>Container-optimized vacuum compression to reduce the global carbon footprint of freight</span>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        {/* Hero Section */}
-        <section className="relative pt-32 pb-20 px-4">
-          <div className="max-w-6xl mx-auto text-center">
-            <StaggerContainer>
-              <StaggerItem>
-                <div className="mb-8">
-                  <Breadcrumbs items={breadcrumbItems} />
-                </div>
-              </StaggerItem>
-              <StaggerItem>
-                <h1 className="text-5xl md:text-7xl font-black text-hieroglyph-black mb-6 shimmer-text italic" style={{ fontFamily: 'Playfair Display, serif' }}>
-                  {isRTL ? 'قصة التراث والراحة الفاخرة' : 'A Story of Heritage & Comfort'}
-                </h1>
-              </StaggerItem>
-              <StaggerItem>
-                <p className="text-xl md:text-2xl text-hieroglyph-light max-w-3xl mx-auto leading-relaxed font-light">
-                  {isRTL
-                    ? 'نحن الوسائد الفرعونية، نجمع بين عراقة التراث المصري وحداثة التكنولوجيا لنقدم لك تجربة سفر لا تُنسى مليئة بالراحة والجمال الثقافي.'
-                    : 'We are Pharaonic Pillows, combining the depth of Egyptian heritage with modern technology to offer you an unforgettable travel experience full of comfort and cultural beauty.'}
-                </p>
-              </StaggerItem>
-            </StaggerContainer>
-          </div>
-        </section>
-
-        {/* Mission & Vision - Crystal Reveal Cards */}
-        <section className="py-20 px-4">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <CrystalReveal className="glass-panel p-12 rounded-[3rem] border border-pharaonic-gold/20 shadow-golden">
-              <div className="w-20 h-20 bg-gradient-gold rounded-3xl flex items-center justify-center mb-8 shadow-large">
-                <FaHeart className="text-white text-3xl" />
-              </div>
-              <h2 className="text-3xl font-bold text-hieroglyph-black mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
-                {isRTL ? 'رسالتنا' : 'Our Mission'}
-              </h2>
-              <p className="text-lg text-hieroglyph-light leading-relaxed">
-                {isRTL
-                  ? 'نسعى لنشر جمال التراث المصري العريق في جميع أنحاء العالم من خلال منتجات عالية الجودة تجمع بين الراحة الحديثة والتصميم الفرعوني الأصيل.'
-                  : 'We strive to spread the beauty of ancient Egyptian heritage worldwide through high-quality products that combine modern comfort with authentic Pharaonic design.'}
-              </p>
-            </CrystalReveal>
-
-            <CrystalReveal className="glass-panel-dark p-12 rounded-[3rem] border border-white/10 shadow-floating">
-              <div className="w-20 h-20 bg-gradient-royal rounded-3xl flex items-center justify-center mb-8 shadow-large">
-                <FaRocket className="text-white text-3xl" />
-              </div>
-              <h2 className="text-3xl font-bold text-white mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
-                {isRTL ? 'رؤيتنا' : 'Our Vision'}
-              </h2>
-              <p className="text-lg text-white/70 leading-relaxed">
-                {isRTL
-                  ? 'أن نصبح العلامة التجارية الرائدة عالمياً في وسائد السفر المستوحاة من التراث، ونكون السفراء الثقافيين للحضارة المصرية العريقة.'
-                  : 'To become the leading global brand in heritage-inspired travel pillows, serving as cultural ambassadors for the ancient Egyptian civilization.'}
-              </p>
-            </CrystalReveal>
-          </div>
-        </section>
-
-        {/* Stats Grid - Premium Glass Tiles */}
-        <section className="py-20 px-4 bg-hieroglyph-black relative overflow-hidden">
-          <div className="max-w-7xl mx-auto relative z-10">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center p-8 glass-panel border-white/5 rounded-3xl group hover:border-pharaonic-gold/30 transition-all duration-500">
-                  <div className="text-pharaonic-gold text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                    {stat.icon}
-                  </div>
-                  <div className="text-4xl md:text-5xl font-black shimmer-text mb-2">
-                    {stat.number}
-                  </div>
-                  <div className="text-white/40 text-xs uppercase tracking-widest">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Our Values - Interactive Hover Cards */}
-        <section className="py-32 px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-20">
-              <h2 className="text-4xl md:text-6xl font-black text-hieroglyph-black mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
-                {isRTL ? 'قيمنا الأساسية' : 'Our Core Values'}
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {values.map((value, index) => (
-                <FloatingCard key={index} className="bg-white p-10 rounded-[2.5rem] shadow-xl border border-gray-100 hover:border-pharaonic-gold/40 transition-all duration-500">
-                  <div className="mb-6">{value.icon}</div>
-                  <h3 className="text-2xl font-bold text-hieroglyph-black mb-4">
-                    {value.title}
-                  </h3>
-                  <p className="text-hieroglyph-light leading-relaxed text-sm">
-                    {value.description}
-                  </p>
-                </FloatingCard>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Call to Action - Immersive Gradient */}
-        <section className="py-32 px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="relative glass-panel-dark rounded-[4rem] p-16 text-center overflow-hidden border border-white/10 bg-gradient-hero shadow-huge group">
-              <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity">
-                <Image src="/hero.png" alt="CTA BG" fill className="object-cover" />
-              </div>
-              <div className="relative z-10">
-                <h2 className="text-4xl md:text-6xl font-black text-white mb-8" style={{ fontFamily: 'Playfair Display, serif' }}>
-                  {isRTL ? 'انضم إلى رحلتنا العريقة' : 'Join Our Eternal Journey'}
-                </h2>
-                <div className="flex flex-col sm:flex-row gap-8 justify-center items-center">
-                  <Link href="/products" className="w-full sm:w-auto">
-                    <motion.button className="shimmer-btn text-white px-10 py-5 rounded-full text-xl font-bold shadow-golden hover:shadow-golden-hover transition-all duration-300 w-full">
-                      {isRTL ? 'تصفح منتجاتنا' : 'Browse Products'}
-                    </motion.button>
-                  </Link>
-                  <Link href="/contact" className="w-full sm:w-auto">
-                    <motion.button className="glass-panel text-white border-white/30 px-10 py-5 rounded-full text-xl font-semibold hover:bg-white hover:text-hieroglyph-black transition-all duration-300 w-full">
-                      {isRTL ? 'كن شريكاً لنا' : 'Become a Partner'}
-                    </motion.button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Call to Action */}
+        <div className="text-center pt-8 border-t border-slate-800">
+          <Link
+            href="/request-a-quote"
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-slate-950 font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all shadow-xl shadow-[#D4AF37]/20"
+          >
+            <span>WORK WITH YKP SUPPLIES</span>
+            <Arrow />
+          </Link>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
-};
+}
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  return getStaticPropsWithTranslations(context);
+export const getStaticProps: GetStaticProps = async ({ locale = 'en' }) => {
+  return {
+    props: {
+      locale,
+    },
+  };
 };
-
-export default AboutPage;

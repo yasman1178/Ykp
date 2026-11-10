@@ -1,693 +1,371 @@
-/**
- * Distributor Page
- * Distributor program and opportunities
- */
-
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { SEOHead } from '@/components/SEOHead';
-import { 
-  FaTruck, 
-  FaChartLine, 
-  FaUsers,
-  FaAward,
-  FaMapMarkedAlt,
-  FaDollarSign,
-  FaEnvelope,
-  FaPhone,
-  FaWhatsapp,
-  FaDownload,
-  FaCheckCircle
-} from 'react-icons/fa';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import Layout from '@/components/layout/Layout';
+import { FaGlobeAmericas, FaAward, FaCogs, FaHandshake, FaMapMarkedAlt, FaCheckCircle, FaWhatsapp } from 'react-icons/fa';
 
-const DistributorPage: React.FC = () => {
+export default function DistributorPage() {
+  const router = useRouter();
+  const isRTL = router.locale === 'ar';
+
   const [formData, setFormData] = useState({
+    fullName: '',
     companyName: '',
-    contactName: '',
+    country: '',
     email: '',
     phone: '',
-    country: '',
-    city: '',
-    experience: '',
-    currentBrands: '',
-    salesChannels: '',
-    estimatedSales: '',
+    website: '',
+    businessType: 'Wholesale Distributor',
+    yearsInBusiness: '3-5 years',
+    salesChannels: 'Retail Stores & Airport Concessions',
+    estimatedOrderQuantity: '500 - 1,000 units / month',
     message: ''
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [resultData, setResultData] = useState<{ applicationId?: string; whatsappUrl?: string } | null>(null);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [submitMessage, setSubmitMessage] = useState('');
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitStatus('loading');
+    setSubmitting(true);
+    setErrorMsg('');
 
     try {
-      const response = await fetch('/api/distributor-inquiry', {
+      const res = await fetch('/api/distributor', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
       });
-
-      if (response.ok) {
-        const result = await response.json();
-        if (result.success) {
-          setSubmitStatus('success');
-          setSubmitMessage('تم إرسال طلبك بنجاح! سيتواصل معك فريق إدارة الموزعين خلال 72 ساعة.');
-          setFormData({
-            companyName: '',
-            contactName: '',
-            email: '',
-            phone: '',
-            country: '',
-            city: '',
-            experience: '',
-            currentBrands: '',
-            salesChannels: '',
-            estimatedSales: '',
-            message: ''
-          });
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-          return;
-        }
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setSubmitted(true);
+        setResultData({
+          applicationId: data.applicationId,
+          whatsappUrl: data.whatsappUrl
+        });
+      } else {
+        setErrorMsg(data.message || 'Failed to submit application. Please contact us directly.');
       }
-      throw new Error('Static fallback');
-    } catch (error) {
-      const waText = encodeURIComponent(`*طلب انضمام لبرنامج الموزعين - YKP Supplies*\nالشركة: ${formData.companyName}\nالمسؤول: ${formData.contactName}\nالبريد: ${formData.email}\nالهاتف: ${formData.phone}\nالدولة/المدينة: ${formData.country} / ${formData.city}\nالخبرة: ${formData.experience}\nقنوات البيع: ${formData.salesChannels}\nالمبيعات التقديرية: ${formData.estimatedSales}\nملاحظات: ${formData.message}`);
-      if (typeof window !== 'undefined') {
-        window.open(`https://wa.me/201002406013?text=${waText}`, '_blank');
-      }
-      setSubmitStatus('success');
-      setSubmitMessage('تم تجهيز طلبك وفتح واتساب للتواصل المباشر مع إدارة الموزعين.');
-      setFormData({
-        companyName: '',
-        contactName: '',
-        email: '',
-        phone: '',
-        country: '',
-        city: '',
-        experience: '',
-        currentBrands: '',
-        salesChannels: '',
-        estimatedSales: '',
-        message: ''
-      });
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+      setErrorMsg('Network error. Please try again or reach our team directly via WhatsApp.');
+    } finally {
+      setSubmitting(false);
     }
   };
 
+  const benefits = [
+    {
+      title: 'Wholesale Opportunities',
+      desc: 'Exclusive manufacturer-direct tiered pricing with aggressive volume discounts that maximize your regional margin.',
+      icon: FaAward
+    },
+    {
+      title: 'Marketing Support',
+      desc: 'Access high-resolution product photography, 3D renders, physical point-of-sale display stands, and localized catalogs.',
+      icon: FaGlobeAmericas
+    },
+    {
+      title: 'Product Customization',
+      desc: 'Customized packaging, localized language care tags, barcode labeling, and unique color combinations for your regional market.',
+      icon: FaCogs
+    },
+    {
+      title: 'Long-Term Partnerships',
+      desc: 'Guaranteed production line slots during peak travel seasons and dedicated account managers at our Cairo headquarters.',
+      icon: FaHandshake
+    },
+    {
+      title: 'Territory Opportunities',
+      desc: 'Regional exclusivity opportunities for proven distributors achieving agreed container volume thresholds.',
+      icon: FaMapMarkedAlt
+    }
+  ];
+
   return (
-    <>
-      <SEOHead
-        seoConfig={{
-          title: "برنامج الموزعين | Distributor Program - Pharaonic Pillows",
-          description: "انضم إلى برنامج الموزعين المعتمدين للوسائد الفرعونية. فرص توزيع حصرية، دعم تسويقي، وهوامش ربح ممتازة.",
-          keywords: [
-            'برنامج الموزعين',
-            'موزع معتمد',
-            'فرص التوزيع',
-            'distributor program',
-            'authorized distributor',
-            'distribution opportunities'
-          ],
-          openGraph: {
-            title: "برنامج الموزعين | Distributor Program - Pharaonic Pillows",
-            description: "انضم إلى برنامج الموزعين المعتمدين للوسائد الفرعونية. فرص توزيع حصرية ودعم تسويقي",
-            image: "/distributor-og.jpg",
-            url: "/distributor",
-            type: "website",
-            siteName: "Pharaonic Pillows"
-          },
-          twitter: {
-            card: "summary_large_image",
-            title: "برنامج الموزعين | Distributor Program - Pharaonic Pillows",
-            description: "انضم إلى برنامج الموزعين المعتمدين للوسائد الفرعونية. فرص توزيع حصرية ودعم تسويقي",
-            image: "/distributor-og.jpg"
-          }
-        }}
-        canonical="/distributor"
-      />
-
-      <div className="min-h-screen bg-gradient-to-br from-papyrus via-desert-sand to-pharaonic-gold">
-        {/* Hero Section */}
-        <section className="relative py-20 px-4">
-          <div className="max-w-6xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 className="text-4xl md:text-6xl font-bold text-hieroglyph-black mb-6 font-pharaonic">
-                🚚 برنامج الموزعين المعتمدين
-              </h1>
-              <p className="text-xl text-gray-700 mb-8 max-w-3xl mx-auto">
-                كن جزءاً من شبكة الموزعين المعتمدين واحصل على حقوق التوزيع الحصرية في منطقتك
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="#distributor-form"
-                  className="bg-gradient-to-r from-pharaonic-gold to-deep-blue text-white py-3 px-8 rounded-xl font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105"
-                >
-                  تقدم الآن
-                </a>
-                <button className="border-2 border-pharaonic-gold text-pharaonic-gold py-3 px-8 rounded-xl font-semibold hover:bg-pharaonic-gold hover:text-white transition-all duration-300 flex items-center justify-center">
-                  <FaDownload className="mr-2" />
-                  دليل الموزع
-                </button>
-              </div>
-            </motion.div>
+    <Layout
+      pageTitle="Become a YKP Distributor | International B2B Partnership Program"
+      metaDescription="Apply to become an authorized international distributor of YKP travel pillows. Direct factory pricing, marketing support, and regional territory opportunities."
+      canonicalUrl="https://www.ykp-eg.com/distributor"
+      ogImage="/images/factory/factory-line.jpg"
+    >
+      <div className="bg-[#070C18] border-b border-slate-800 py-14 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl space-y-4">
+            <span className="text-xs uppercase tracking-widest font-mono text-[#D4AF37] font-semibold">
+              {isRTL ? 'برنامج الشراكة والتوزيع الإقليمي' : 'Global Partnership Program'}
+            </span>
+            <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight text-balance">
+              Become a YKP Distributor
+            </h1>
+            <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
+              Expand your portfolio with Egypt’s leading travel pillow manufacturer. We are actively expanding our global distribution network across Europe, the Gulf, North America, and Asia.
+            </p>
           </div>
-        </section>
-
-        {/* Program Benefits */}
-        <section className="py-16 px-4">
-          <div className="max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-12"
-            >
-              <h2 className="text-3xl font-bold text-hieroglyph-black mb-4">
-                مزايا برنامج الموزعين
-              </h2>
-              <p className="text-gray-700 max-w-2xl mx-auto">
-                نقدم دعماً شاملاً وحوافز مميزة لضمان نجاح شراكتنا
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                {
-                  icon: <FaMapMarkedAlt className="text-3xl text-pharaonic-gold" />,
-                  title: "حصرية إقليمية",
-                  description: "احصل على حقوق التوزيع الحصرية في منطقتك الجغرافية المحددة"
-                },
-                {
-                  icon: <FaDollarSign className="text-3xl text-pharaonic-gold" />,
-                  title: "هوامش ربح عالية",
-                  description: "هوامش ربح تنافسية تصل إلى 50% مع خصومات إضافية للكميات الكبيرة"
-                },
-                {
-                  icon: <FaTruck className="text-3xl text-pharaonic-gold" />,
-                  title: "دعم لوجستي",
-                  description: "نظام شحن وتوزيع متطور مع تتبع الشحنات وضمان التسليم"
-                },
-                {
-                  icon: <FaUsers className="text-3xl text-pharaonic-gold" />,
-                  title: "تدريب الفريق",
-                  description: "برامج تدريبية شاملة لفريق المبيعات والدعم الفني"
-                },
-                {
-                  icon: <FaChartLine className="text-3xl text-pharaonic-gold" />,
-                  title: "دعم تسويقي",
-                  description: "حملات تسويقية مشتركة ومواد ترويجية مجانية"
-                },
-                {
-                  icon: <FaAward className="text-3xl text-pharaonic-gold" />,
-                  title: "شهادة معتمدة",
-                  description: "شهادة موزع معتمد وحقوق استخدام العلامة التجارية"
-                }
-              ].map((benefit, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-white rounded-2xl p-6 shadow-lg text-center hover:shadow-xl transition-all duration-300"
-                >
-                  <div className="mb-4">{benefit.icon}</div>
-                  <h3 className="text-xl font-bold text-hieroglyph-black mb-3">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-gray-600">
-                    {benefit.description}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Requirements */}
-        <section className="py-16 px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {/* Requirements */}
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
-                className="bg-white rounded-2xl p-8 shadow-lg"
-              >
-                <h2 className="text-2xl font-bold text-hieroglyph-black mb-6">
-                  متطلبات الانضمام للبرنامج
-                </h2>
-                <ul className="space-y-4">
-                  {[
-                    "خبرة لا تقل عن 3 سنوات في مجال التوزيع",
-                    "شبكة توزيع قائمة في المنطقة المستهدفة",
-                    "رأس مال كافي للاستثمار الأولي",
-                    "فريق مبيعات مدرب ومؤهل",
-                    "مستودع مناسب لتخزين المنتجات",
-                    "نظام إدارة المخزون والمبيعات",
-                    "التزام بمعايير الجودة والخدمة",
-                    "خطة تسويقية للمنطقة المستهدفة"
-                  ].map((requirement, index) => (
-                    <li key={index} className="flex items-start">
-                      <FaCheckCircle className="text-pharaonic-gold mt-1 mr-3 flex-shrink-0" />
-                      <span className="text-gray-700">{requirement}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-
-              {/* Support Package */}
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
-                className="bg-white rounded-2xl p-8 shadow-lg"
-              >
-                <h2 className="text-2xl font-bold text-hieroglyph-black mb-6">
-                  حزمة الدعم المقدمة
-                </h2>
-                <ul className="space-y-4">
-                  {[
-                    "دليل شامل للموزع المعتمد",
-                    "تدريب مكثف لمدة أسبوعين",
-                    "مواد تسويقية وترويجية مجانية",
-                    "نظام إدارة الطلبات الإلكتروني",
-                    "دعم فني على مدار الساعة",
-                    "زيارات دورية من فريق الدعم",
-                    "تحديثات منتظمة للمنتجات",
-                    "برامج تحفيزية ومكافآت الأداء"
-                  ].map((support, index) => (
-                    <li key={index} className="flex items-start">
-                      <FaCheckCircle className="text-pharaonic-gold mt-1 mr-3 flex-shrink-0" />
-                      <span className="text-gray-700">{support}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-        {/* Success Metrics */}
-        <section className="py-16 px-4">
-          <div className="max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-12"
-            >
-              <h2 className="text-3xl font-bold text-hieroglyph-black mb-4">
-                إنجازات شبكة الموزعين
-              </h2>
-              <p className="text-gray-700">
-                أرقام تعكس نجاح برنامج الموزعين المعتمدين
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              {[
-                {
-                  number: "50+",
-                  label: "موزع معتمد",
-                  description: "في 25 دولة حول العالم"
-                },
-                {
-                  number: "95%",
-                  label: "معدل الرضا",
-                  description: "من الموزعين المعتمدين"
-                },
-                {
-                  number: "200%",
-                  label: "نمو المبيعات",
-                  description: "متوسط نمو الموزعين سنوياً"
-                },
-                {
-                  number: "24/7",
-                  label: "دعم مستمر",
-                  description: "خدمة عملاء على مدار الساعة"
-                }
-              ].map((metric, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-white rounded-2xl p-6 shadow-lg text-center"
-                >
-                  <div className="text-4xl font-bold text-pharaonic-gold mb-2">
-                    {metric.number}
-                  </div>
-                  <h3 className="text-lg font-semibold text-hieroglyph-black mb-2">
-                    {metric.label}
-                  </h3>
-                  <p className="text-sm text-gray-600">
-                    {metric.description}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Application Form */}
-        <section id="distributor-form" className="py-16 px-4">
-          <div className="max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="bg-white rounded-2xl p-8 shadow-lg"
-            >
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-hieroglyph-black mb-4">
-                  طلب الانضمام لبرنامج الموزعين
-                </h2>
-                <p className="text-gray-700">
-                  املأ النموذج وسيتواصل معك فريق التوزيع خلال 72 ساعة
-                </p>
-              </div>
-
-              {/* Status Messages */}
-              <AnimatePresence>
-                {submitStatus === 'success' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -20, scale: 0.9 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -20, scale: 0.9 }}
-                    className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl"
-                  >
-                    <div className="flex items-center space-x-3 space-x-reverse">
-                      <span className="text-xl">✅</span>
-                      <div>
-                        <h4 className="font-semibold text-green-800">تم إرسال الطلب بنجاح!</h4>
-                        <p className="text-sm text-green-600">{submitMessage}</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-
-                {submitStatus === 'error' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -20, scale: 0.9 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -20, scale: 0.9 }}
-                    className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl"
-                  >
-                    <div className="flex items-center space-x-3 space-x-reverse">
-                      <span className="text-xl">❌</span>
-                      <div>
-                        <h4 className="font-semibold text-red-800">خطأ في الإرسال</h4>
-                        <p className="text-sm text-red-600">{submitMessage}</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    اسم الشركة *
-                  </label>
-                  <input
-                    type="text"
-                    name="companyName"
-                    value={formData.companyName}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
-                    placeholder="اسم شركتك"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    اسم الشخص المسؤول *
-                  </label>
-                  <input
-                    type="text"
-                    name="contactName"
-                    value={formData.contactName}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
-                    placeholder="اسمك الكامل"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    البريد الإلكتروني *
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
-                    placeholder="email@company.com"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    رقم الهاتف *
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
-                    placeholder="+20 123 456 7890"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    البلد *
-                  </label>
-                  <input
-                    type="text"
-                    name="country"
-                    value={formData.country}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
-                    placeholder="مصر"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    المدينة *
-                  </label>
-                  <input
-                    type="text"
-                    name="city"
-                    value={formData.city}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
-                    placeholder="القاهرة"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    سنوات الخبرة في التوزيع *
-                  </label>
-                  <select
-                    name="experience"
-                    value={formData.experience}
-                    onChange={handleInputChange}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
-                  >
-                    <option value="">اختر سنوات الخبرة</option>
-                    <option value="1-3">1-3 سنوات</option>
-                    <option value="3-5">3-5 سنوات</option>
-                    <option value="5-10">5-10 سنوات</option>
-                    <option value="10+">أكثر من 10 سنوات</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    المبيعات المتوقعة شهرياً
-                  </label>
-                  <select
-                    name="estimatedSales"
-                    value={formData.estimatedSales}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
-                  >
-                    <option value="">اختر المبيعات المتوقعة</option>
-                    <option value="100-500">100 - 500 قطعة</option>
-                    <option value="500-1000">500 - 1000 قطعة</option>
-                    <option value="1000-2000">1000 - 2000 قطعة</option>
-                    <option value="2000+">أكثر من 2000 قطعة</option>
-                  </select>
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    العلامات التجارية الحالية
-                  </label>
-                  <input
-                    type="text"
-                    name="currentBrands"
-                    value={formData.currentBrands}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
-                    placeholder="اذكر العلامات التجارية التي توزعها حالياً"
-                  />
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    قنوات التوزيع المتاحة
-                  </label>
-                  <input
-                    type="text"
-                    name="salesChannels"
-                    value={formData.salesChannels}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
-                    placeholder="متاجر التجزئة، المتاجر الإلكترونية، الفنادق، إلخ"
-                  />
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    خطة التوزيع والتسويق *
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                    rows={5}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pharaonic-gold focus:border-pharaonic-gold"
-                    placeholder="أخبرنا عن خطتك لتوزيع وتسويق منتجاتنا في منطقتك..."
-                  />
-                </div>
-
-                <div className="md:col-span-2">
-                  <motion.button
-                    type="submit"
-                    disabled={submitStatus === 'loading'}
-                    className={`w-full py-4 px-8 rounded-xl font-semibold transition-all duration-300 ${
-                      submitStatus === 'loading'
-                        ? 'bg-gray-400 cursor-not-allowed'
-                        : 'bg-gradient-to-r from-pharaonic-gold to-deep-blue hover:shadow-lg transform hover:scale-105'
-                    } text-white`}
-                    whileHover={submitStatus !== 'loading' ? { scale: 1.02, y: -2 } : {}}
-                    whileTap={submitStatus !== 'loading' ? { scale: 0.98 } : {}}
-                  >
-                    {submitStatus === 'loading' ? (
-                      <div className="flex items-center justify-center space-x-2 space-x-reverse">
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                        <span>جاري الإرسال إلى المصنع...</span>
-                      </div>
-                    ) : (
-                      <div className="flex items-center justify-center space-x-2 space-x-reverse">
-                        <span>📧</span>
-                        <span>إرسال طلب الانضمام إلى المصنع</span>
-                      </div>
-                    )}
-                  </motion.button>
-                  
-                  <div className="text-center text-sm text-gray-500 mt-3">
-                    <p>سيتم إرسال طلبك مباشرة إلى: <strong>sales@ykp-eg.com</strong></p>
-                    <p>وقت الاستجابة: خلال 72 ساعة</p>
-                  </div>
-                </div>
-              </form>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Contact Information */}
-        <section className="py-16 px-4">
-          <div className="max-w-4xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="bg-white rounded-2xl p-8 shadow-lg text-center"
-            >
-              <h2 className="text-2xl font-bold text-hieroglyph-black mb-6">
-                🏭 تواصل مع فريق إدارة الموزعين في المصنع
-              </h2>
-              <p className="text-gray-600 mb-6 text-center">
-                تواصل مباشرة مع فريق إدارة الموزعين في YKP Supplies للحصول على أسرع استجابة
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <motion.div 
-                  className="flex flex-col items-center p-4 bg-gradient-to-br from-pharaonic-gold/10 to-deep-blue/10 rounded-xl hover:shadow-lg transition-all duration-300"
-                  whileHover={{ scale: 1.05, y: -5 }}
-                >
-                  <FaEnvelope className="text-3xl text-pharaonic-gold mb-3" />
-                  <h3 className="font-semibold text-hieroglyph-black mb-2">إيميل المصنع</h3>
-                  <a href="mailto:sales@ykp-eg.com" className="text-pharaonic-gold hover:text-deep-blue transition-colors">
-                    sales@ykp-eg.com
-                  </a>
-                  <p className="text-xs text-gray-500 mt-1 text-center">لطلبات التوزيع</p>
-                </motion.div>
-                <motion.div 
-                  className="flex flex-col items-center p-4 bg-gradient-to-br from-pharaonic-gold/10 to-deep-blue/10 rounded-xl hover:shadow-lg transition-all duration-300"
-                  whileHover={{ scale: 1.05, y: -5 }}
-                >
-                  <FaPhone className="text-3xl text-pharaonic-gold mb-3" />
-                  <h3 className="font-semibold text-hieroglyph-black mb-2">هاتف المصنع</h3>
-                  <a href="tel:+201002406013" className="text-pharaonic-gold hover:text-deep-blue transition-colors">
-                    +20 100 240 6013
-                  </a>
-                  <p className="text-xs text-gray-500 mt-1 text-center">للتواصل المباشر</p>
-                </motion.div>
-                <motion.div 
-                  className="flex flex-col items-center p-4 bg-gradient-to-br from-pharaonic-gold/10 to-deep-blue/10 rounded-xl hover:shadow-lg transition-all duration-300"
-                  whileHover={{ scale: 1.05, y: -5 }}
-                >
-                  <FaWhatsapp className="text-3xl text-pharaonic-gold mb-3" />
-                  <h3 className="font-semibold text-hieroglyph-black mb-2">واتساب المصنع</h3>
-                  <a href="https://wa.me/201002406013" className="text-pharaonic-gold hover:text-deep-blue transition-colors" target="_blank" rel="noopener noreferrer">
-                    +20 100 240 6013
-                  </a>
-                  <p className="text-xs text-gray-500 mt-1 text-center">رسائل فورية</p>
-                </motion.div>
-              </div>
-              
-              <div className="mt-6 p-4 bg-gradient-to-r from-pharaonic-gold/20 to-deep-blue/20 rounded-xl text-center">
-                <h4 className="font-semibold text-hieroglyph-black mb-2">🏭 YKP Supplies</h4>
-                <p className="text-sm text-gray-600">مصنع الوسائد الفرعونية - القاهرة، مصر</p>
-                <p className="text-sm text-gray-600">Egyptian Travel Pillows Manufacturing - Cairo, Egypt</p>
-              </div>
-            </motion.div>
-          </div>
-        </section>
+        </div>
       </div>
-    </>
-  );
-};
 
-export default DistributorPage;
+      {/* Program Benefits */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            Distributor Partner Benefits
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-400 mt-2">
+            Designed to build profitable, long-term commercial relationships.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {benefits.map((b, idx) => {
+            const Icon = b.icon;
+            return (
+              <div
+                key={idx}
+                className="bg-slate-900 border border-slate-800 rounded-xl p-6 space-y-3 hover:border-[#D4AF37]/50 transition-colors"
+              >
+                <div className="w-10 h-10 rounded-lg bg-[#D4AF37]/10 text-[#D4AF37] flex items-center justify-center text-lg">
+                  <Icon />
+                </div>
+                <h3 className="text-base font-bold text-white">{b.title}</h3>
+                <p className="text-xs text-slate-300 leading-relaxed">{b.desc}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Application Form */}
+      <div className="bg-[#0A1020] border-t border-slate-800 py-16">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-10 shadow-2xl">
+            <div className="mb-8 border-b border-slate-800 pb-4">
+              <h2 className="text-2xl font-bold text-white">Distributor Application Form</h2>
+              <p className="text-xs sm:text-sm text-slate-400 mt-1">
+                Please complete the form below. Our commercial distribution team will review your business profile within 72 hours.
+              </p>
+            </div>
+
+            {submitted ? (
+              <div className="text-center py-10 space-y-6">
+                <div className="w-16 h-16 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto text-3xl">
+                  <FaCheckCircle />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-white">Application Received</h3>
+                  <p className="text-slate-300 text-sm mt-2 max-w-md mx-auto">
+                    Application ID: <strong>{resultData?.applicationId}</strong>. Our director of international distribution will contact you with terms and catalog materials.
+                  </p>
+                </div>
+                {resultData?.whatsappUrl && (
+                  <div className="pt-2">
+                    <a
+                      href={resultData.whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-md"
+                    >
+                      <FaWhatsapp className="text-base" />
+                      <span>Speed up Application on WhatsApp</span>
+                    </a>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {errorMsg && (
+                  <div className="p-4 rounded-xl bg-red-950/60 border border-red-800 text-red-200 text-xs">
+                    {errorMsg}
+                  </div>
+                )}
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                      placeholder="Contact executive name"
+                      className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-[#D4AF37]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                      Company Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      name="companyName"
+                      value={formData.companyName}
+                      onChange={handleChange}
+                      placeholder="Distributor legal entity"
+                      className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-[#D4AF37]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                      Country / Target Territory *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      name="country"
+                      value={formData.country}
+                      onChange={handleChange}
+                      placeholder="Country or region of distribution"
+                      className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-[#D4AF37]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                      Business Email *
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="distribution@company.com"
+                      className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-[#D4AF37]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                      Phone / WhatsApp *
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="+1 555 123 4567"
+                      className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-[#D4AF37]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                      Website
+                    </label>
+                    <input
+                      type="url"
+                      name="website"
+                      value={formData.website}
+                      onChange={handleChange}
+                      placeholder="https://distributor.com"
+                      className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-[#D4AF37]"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                      Business Type
+                    </label>
+                    <select
+                      name="businessType"
+                      value={formData.businessType}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-[#D4AF37]"
+                    >
+                      <option value="Wholesale Distributor">Wholesale Distributor</option>
+                      <option value="Importer / Trading House">Importer / Trading House</option>
+                      <option value="Retail Chain Buyer">Retail Chain Buyer</option>
+                      <option value="Airport Concessionaire">Airport Concessionaire</option>
+                      <option value="Online Retailer / Marketplace">Online Retailer / Marketplace</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                      Years in Business
+                    </label>
+                    <select
+                      name="yearsInBusiness"
+                      value={formData.yearsInBusiness}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-[#D4AF37]"
+                    >
+                      <option value="1-2 years">1 - 2 years</option>
+                      <option value="3-5 years">3 - 5 years</option>
+                      <option value="5-10 years">5 - 10 years</option>
+                      <option value="10+ years">10+ years</option>
+                    </select>
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                      Primary Sales Channels
+                    </label>
+                    <input
+                      type="text"
+                      name="salesChannels"
+                      value={formData.salesChannels}
+                      onChange={handleChange}
+                      placeholder="e.g. 45 airport stores, travel retail web store, department store concessions"
+                      className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-[#D4AF37]"
+                    />
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                      Estimated Order Quantity / Annual Volume
+                    </label>
+                    <input
+                      type="text"
+                      name="estimatedOrderQuantity"
+                      value={formData.estimatedOrderQuantity}
+                      onChange={handleChange}
+                      placeholder="e.g. 1,000 units initial order / 10,000 units annual forecast"
+                      className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-[#D4AF37]"
+                    />
+                  </div>
+
+                  <div className="sm:col-span-2">
+                    <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                      Message / Distribution Plan Overview
+                    </label>
+                    <textarea
+                      rows={4}
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Describe your current distribution network, key retailer accounts, and which YKP collections you plan to launch with..."
+                      className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-700 text-white text-xs focus:outline-none focus:border-[#D4AF37]"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full py-4 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-slate-950 font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/20 disabled:opacity-50"
+                >
+                  {submitting ? 'Transmitting Application...' : 'APPLY TO BECOME A DISTRIBUTOR'}
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
+    </Layout>
+  );
+}

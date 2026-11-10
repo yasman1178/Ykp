@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import Head from 'next/head';
+import Layout from '@/components/layout/Layout';
 import { FaCompass, FaHome, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 export default function Custom404() {
@@ -9,14 +9,13 @@ export default function Custom404() {
   const isRTL = router.locale === 'ar';
 
   return (
-    <>
-      <Head>
-        <title>{isRTL ? 'الصفحة غير موجودة | YKP Supplies' : 'Page Not Found | YKP Supplies'}</title>
-        <meta name="robots" content="noindex, follow" />
-      </Head>
+    <Layout
+      pageTitle={isRTL ? 'الصفحة غير موجودة | YKP Supplies' : 'Page Not Found | YKP Supplies'}
+      metaDescription="The page you are looking for is not found on YKP Supplies."
+    >
       <div
         dir={isRTL ? 'rtl' : 'ltr'}
-        className="min-h-screen bg-[#07090C] text-[#F3EFE6] flex items-center justify-center px-4 relative overflow-hidden"
+        className="min-h-[70vh] bg-[#07090C] text-[#F3EFE6] flex items-center justify-center px-4 relative overflow-hidden"
       >
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.08),transparent_70%)]" />
 
@@ -61,6 +60,6 @@ export default function Custom404() {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 }

@@ -24,7 +24,7 @@ import {
   FaEnvelope,
   FaPhoneAlt
 } from 'react-icons/fa';
-import SEO from '@/components/SEO';
+import Layout from '@/components/layout/Layout';
 
 interface WholesalePageProps {
   translations: any;
@@ -171,15 +171,14 @@ Notes: ${formData.customNotes}`;
   };
 
   return (
-    <div className="min-h-screen bg-[#07090C] text-slate-100 selection:bg-[#D4AF37] selection:text-black" dir={isRTL ? 'rtl' : 'ltr'}>
-      <SEO
-        title={isRTL ? 'توريد مخدات السفر والجمل المحبوب بالجملة | مصنع YKP Supplies' : 'Wholesale Travel Pillows & Plush Souvenirs B2B | YKP Supplies'}
-        description={isRTL
-          ? 'أسعار الجملة الرسمية لمخدات السفر الطبية الميموري فوم ودمية الجمل المحبوب من مصنع YKP Supplies بالقاهرة الجديدة. شحن مجاني شامل لباب المشتري بجميع محافظات مصر وتصدير عالمي.'
-          : 'Official B2B factory wholesale pricing for Egyptian memory foam travel pillows and The Beloved Camel plush toys. Free comprehensive doorstep delivery across Egypt and global FOB export.'}
-        canonicalUrl="https://www.ykp-eg.com/wholesale"
-        ogImage="/prodect/Print/master.jpg"
-      />
+    <Layout
+      pageTitle={isRTL ? 'توريد مخدات السفر والجمل المحبوب بالجملة | مصنع YKP Supplies' : 'Wholesale Travel Pillows & Plush Souvenirs B2B | YKP Supplies'}
+      metaDescription={isRTL
+        ? 'أسعار الجملة الرسمية لمخدات السفر الطبية الميموري فوم ودمية الجمل المحبوب من مصنع YKP Supplies بالقاهرة الجديدة. شحن مجاني شامل لباب المشتري بجميع محافظات مصر وتصدير عالمي.'
+        : 'Official B2B factory wholesale pricing for Egyptian memory foam travel pillows and The Beloved Camel plush toys. Free comprehensive doorstep delivery across Egypt and global FOB export.'}
+      canonicalUrl="https://www.ykp-eg.com/wholesale"
+      ogImage="/prodect/Print/master.jpg"
+    >
 
       {/* Hero Section */}
       <section className="relative pt-12 pb-16 overflow-hidden border-b border-amber-900/20 bg-gradient-to-b from-[#0F131A] via-[#0B0D11] to-[#07090C]">
@@ -878,7 +877,7 @@ Notes: ${formData.customNotes}`;
         )}
 
       </div>
-    </div>
+    </Layout>
   );
 }
 

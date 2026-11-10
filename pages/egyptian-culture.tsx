@@ -7,41 +7,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
-import { SEOHead } from '@/components/SEOHead';
+import Layout from '@/components/layout/Layout';
 
 const EgyptianCulturePage: React.FC = () => {
   return (
-    <>
-      <SEOHead
-        seoConfig={{
-          title: "الثقافة المصرية القديمة | Egyptian Culture - Ancient Heritage",
-          description: "اكتشف الثقافة المصرية القديمة وتراثها العريق. تعرف على الحضارة الفرعونية وكيف تؤثر على تصاميم وسائد السفر المصرية الحديثة.",
-          keywords: [
-            'الثقافة المصرية',
-            'التراث المصري',
-            'الحضارة الفرعونية',
-            'egyptian culture',
-            'ancient egypt',
-            'pharaonic heritage'
-          ],
-          openGraph: {
-            title: "الثقافة المصرية القديمة | Egyptian Culture",
-            description: "اكتشف الثقافة المصرية القديمة وتراثها العريق",
-            image: "/egyptian-culture-og.jpg",
-            url: "/egyptian-culture",
-            type: "website",
-            siteName: "Pharaonic Pillows"
-          },
-          twitter: {
-            card: "summary_large_image",
-            title: "الثقافة المصرية القديمة | Egyptian Culture",
-            description: "اكتشف الثقافة المصرية القديمة وتراثها العريق",
-            image: "/egyptian-culture-og.jpg"
-          }
-        }}
-        canonical="/egyptian-culture"
-      />
-
+    <Layout
+      pageTitle="الثقافة المصرية القديمة | Egyptian Culture - Ancient Heritage | YKP Supplies"
+      metaDescription="اكتشف الثقافة المصرية القديمة وتراثها العريق. تعرف على الحضارة الفرعونية وكيف تؤثر على تصاميم وسائد السفر المصرية الحديثة."
+      canonicalUrl="https://www.ykp-eg.com/egyptian-culture"
+    >
       <div className="min-h-screen bg-gradient-to-br from-papyrus via-desert-sand to-pharaonic-gold">
         {/* Hero Section */}
         <section className="relative py-20 px-4">
@@ -166,7 +140,7 @@ const EgyptianCulturePage: React.FC = () => {
           </div>
         </section>
       </div>
-    </>
+    </Layout>
   );
 };
 

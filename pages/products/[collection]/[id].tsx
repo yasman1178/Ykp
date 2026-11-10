@@ -3,9 +3,8 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { GetStaticProps, GetStaticPaths } from 'next';
-import { motion } from 'framer-motion';
-import { FaWhatsapp, FaShieldAlt, FaTruck, FaUndo, FaIndustry, FaCheck, FaPhoneAlt } from 'react-icons/fa';
-import SEO from '@/components/SEO';
+import Layout from '@/components/layout/Layout';
+import { FaWhatsapp, FaShieldAlt, FaIndustry, FaCheck, FaBoxes, FaTruck, FaQuestionCircle } from 'react-icons/fa';
 import { getTranslations } from '@/lib/translations';
 import { getProductImageSeo, LUXURY_COLLECTION_MAP } from '@/lib/product-image-seo';
 
@@ -30,8 +29,12 @@ interface ProductPageProps {
     features: string[];
     specifications: {
       material: string;
+      filling: string;
       dimensions: string;
       weight: string;
+      colors: string;
+      customization: string;
+      moq: string;
       care: string;
       warranty: string;
       barcode?: string;
@@ -57,7 +60,6 @@ export default function ProductDetailPage({
 }: ProductPageProps) {
   const isRTL = locale === 'ar';
   const [selectedImage, setSelectedImage] = useState(0);
-  const [quantity, setQuantity] = useState(1);
 
   const title = isRTL ? product.nameAr : product.name;
   const description = isRTL ? product.descriptionAr : product.description;
@@ -66,61 +68,37 @@ export default function ProductDetailPage({
   const currentGalleryImg = product.gallery[selectedImage] || product.image;
   const imageSeo = getProductImageSeo(currentGalleryImg);
 
-  const handleWhatsAppOrder = () => {
+  const handleWhatsAppInquiry = () => {
     const text = isRTL
-      ? `مرحباً مصنع YKP Supplies، أود الاستفسار وطلب مخدة السفر:\n- الموديل: ${product.nameAr} (${product.modelCode})\n- الكمية: ${quantity}\n- السعر التقريبي: $${product.unitPriceNum * quantity}\n- الرابط: https://www.ykp-eg.com/products/${product.collection}/${product.id}`
-      : `Hello YKP Supplies, I would like to order this travel pillow:\n- Model: ${product.name} (${product.modelCode})\n- Quantity: ${quantity}\n- Approx: $${product.unitPriceNum * quantity}\n- Link: https://www.ykp-eg.com/products/${product.collection}/${product.id}`;
+      ? `مرحباً مصنع YKP Supplies، أود الاستفسار عن أسعار الجملة لموديل:\n- الموديل: ${product.nameAr} (${product.modelCode})\n- الكتالوج: https://www.ykp-eg.com/products/${product.collection}/${product.id}`
+      : `Hello YKP Supplies, I would like to inquire about wholesale pricing and lead time for:\n- Model: ${product.name} (${product.modelCode})\n- Link: https://www.ykp-eg.com/products/${product.collection}/${product.id}`;
     window.open(`https://wa.me/201002406013?text=${encodeURIComponent(text)}`, '_blank');
   };
 
+  const faqs = [
+    {
+      q: 'What is the Minimum Order Quantity (MOQ) for this model?',
+      a: `Standard MOQ for this model is ${product.specifications.moq}. Mixed container orders with other YKP collections are accepted.`
+    },
+    {
+      q: 'Can we add our brand logo and custom packaging?',
+      a: 'Yes, full private-label customization is supported: woven tags, custom zipper pullers, embroidered logos, and branded gift or retail boxes.'
+    },
+    {
+      q: 'What are the production lead times and shipping options?',
+      a: 'Standard production is 2 to 4 weeks depending on batch volume. We dispatch sea freight via Alexandria and air cargo via Cairo Airport.'
+    }
+  ];
+
   return (
-    <div className="min-h-screen bg-[#07090C] text-slate-100 selection:bg-[#D4AF37] selection:text-black" dir={isRTL ? 'rtl' : 'ltr'}>
-      <SEO
-        title={`${title} | YKP Supplies`}
-        description={description}
-        canonicalUrl={`https://www.ykp-eg.com/products/${product.collection}/${product.id}`}
-        ogImage={product.image}
-        ogType="product"
-      />
-
-      {/* JSON-LD Schema */}
-      <Head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Product',
-              'name': product.name,
-              'description': product.description,
-              'image': [product.image, ...product.gallery],
-              'sku': product.modelCode,
-              'brand': {
-                '@type': 'Brand',
-                'name': 'YKP Supplies'
-              },
-              'manufacturer': {
-                '@type': 'Organization',
-                'name': 'YKP Supplies',
-                'url': 'https://www.ykp-eg.com'
-              },
-              'offers': {
-                '@type': 'Offer',
-                'price': product.unitPriceNum.toString(),
-                'priceCurrency': 'USD',
-                'availability': 'https://schema.org/InStock',
-                'seller': {
-                  '@type': 'Organization',
-                  'name': 'YKP Supplies'
-                }
-              }
-            })
-          }}
-        />
-      </Head>
-
+    <Layout
+      pageTitle={`${title} (${product.modelCode}) | Wholesale Manufacturer YKP Supplies`}
+      metaDescription={description}
+      canonicalUrl={`https://www.ykp-eg.com/products/${product.collection}/${product.id}`}
+      ogImage={product.image}
+    >
       {/* Breadcrumb Navigation */}
-      <section className="py-4 border-b border-slate-800 bg-[#0B0D11]">
+      <div className="py-4 border-b border-slate-800 bg-[#070C18]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex items-center gap-2 text-xs text-slate-400 font-mono">
             <Link href="/" className="hover:text-white transition-colors">{isRTL ? 'الرئيسية' : 'Home'}</Link>
@@ -131,13 +109,13 @@ export default function ProductDetailPage({
               {collectionTitle}
             </Link>
             <span>/</span>
-            <span className="text-[#D4AF37] font-semibold truncate max-w-xs">{title}</span>
+            <span className="text-[#D4AF37] font-semibold truncate max-w-xs">{product.modelCode}</span>
           </nav>
         </div>
-      </section>
+      </div>
 
-      {/* Product Details Section */}
-      <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Main Product Showcase Section */}
+      <div className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
           {/* Gallery Showcase (6 Cols) */}
@@ -145,13 +123,13 @@ export default function ProductDetailPage({
             <div className="relative aspect-square rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 p-6 flex items-center justify-center shadow-2xl">
               <Image
                 src={currentGalleryImg}
-                alt={imageSeo.altEn}
+                alt={imageSeo.altEn || product.name}
                 fill
                 className="object-contain p-4"
                 priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-              <div className="absolute top-4 left-4 bg-black/80 px-2.5 py-1 rounded text-xs font-mono text-[#D4AF37]">
+              <div className="absolute top-4 left-4 bg-black/80 px-2.5 py-1 rounded text-xs font-mono text-[#D4AF37] border border-[#D4AF37]/30">
                 {product.modelCode}
               </div>
             </div>
@@ -170,7 +148,7 @@ export default function ProductDetailPage({
                 >
                   <Image
                     src={img}
-                    alt={`${product.name} gallery image ${idx + 1}`}
+                    alt={`${product.name} detail view ${idx + 1}`}
                     fill
                     className="object-contain p-1"
                     sizes="20vw"
@@ -179,22 +157,22 @@ export default function ProductDetailPage({
               ))}
             </div>
 
-            {/* Trust Highlights */}
+            {/* Quick Factory Specs */}
             <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 grid grid-cols-3 gap-3 text-center text-xs">
               <div>
                 <FaIndustry className="text-[#D4AF37] mx-auto text-base mb-1" />
-                <span className="text-slate-300 font-medium block">{isRTL ? 'تصنيع محلي مباشر' : 'Direct Manufacturer'}</span>
-                <span className="text-[10px] text-slate-500">{isRTL ? 'القاهرة الجديدة' : 'New Cairo Facility'}</span>
+                <span className="text-slate-300 font-medium block">Direct Factory</span>
+                <span className="text-[10px] text-slate-500">Cairo, Egypt</span>
               </div>
               <div>
                 <FaShieldAlt className="text-[#D4AF37] mx-auto text-base mb-1" />
-                <span className="text-slate-300 font-medium block">{isRTL ? 'ميموري فوم 50D' : '50D Memory Foam'}</span>
-                <span className="text-[10px] text-slate-500">{isRTL ? 'راحة طبية معتمدة' : 'Orthopedic Core'}</span>
+                <span className="text-slate-300 font-medium block">50D Memory Foam</span>
+                <span className="text-[10px] text-slate-500">Certified Core</span>
               </div>
               <div>
                 <FaTruck className="text-[#D4AF37] mx-auto text-base mb-1" />
-                <span className="text-slate-300 font-medium block">{isRTL ? 'شحن لجميع الدول' : 'Global Export'}</span>
-                <span className="text-[10px] text-slate-500">{isRTL ? 'شحن فوري وسريع' : 'Air & Sea Freight'}</span>
+                <span className="text-slate-300 font-medium block">Global Freight</span>
+                <span className="text-[10px] text-slate-500">FCL / LCL Ports</span>
               </div>
             </div>
           </div>
@@ -202,264 +180,279 @@ export default function ProductDetailPage({
           {/* Product Specifications & Order Engine (6 Cols) */}
           <div className="lg:col-span-6 space-y-6">
             <div className="space-y-2">
-              <span className="text-xs uppercase font-mono tracking-widest text-[#D4AF37] font-semibold block">
-                {collectionTitle}
-              </span>
-              <h1 className="text-2xl sm:text-4xl font-bold text-white font-serif tracking-tight">
+              <div className="flex items-center gap-2">
+                <span className="text-xs uppercase font-mono tracking-widest text-[#D4AF37] font-semibold">
+                  {collectionTitle}
+                </span>
+                <span className="text-slate-600">·</span>
+                <span className="text-xs font-mono text-slate-400">SKU: {product.modelCode}</span>
+              </div>
+
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">
                 {title}
               </h1>
-              <div className="flex items-center gap-3 pt-2">
-                <span className="text-2xl font-bold font-mono text-[#D4AF37]">{product.price}</span>
+
+              <div className="pt-2 flex items-center gap-3">
+                <span className="text-xs font-mono px-2.5 py-1 rounded bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/30">
+                  MOQ: {product.specifications.moq}
+                </span>
                 <span className="text-xs text-slate-400">
-                  {isRTL ? '(سعر التجزئة المقترح • خصم كميات للجملة)' : '(Suggested retail • Wholesale discounts available)'}
+                  Wholesale volume discounts available for distributors
                 </span>
               </div>
             </div>
 
-            {/* Description & Cultural Significance */}
-            <div className="p-5 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-3 text-xs leading-relaxed text-slate-300">
-              <h3 className="text-sm font-bold text-white font-serif flex items-center gap-2">
-                <span>𓂀</span>
-                {isRTL ? 'الرمز الفرعوني وقصة التصميم' : 'Egyptian Cultural Symbolism'}
+            {/* Description */}
+            <div className="text-sm text-slate-300 leading-relaxed space-y-3">
+              <p>{description}</p>
+              {product.culturalStory && (
+                <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-slate-300 space-y-1">
+                  <h4 className="font-bold text-white flex items-center gap-2">
+                    <span className="text-[#D4AF37]">𓂀</span>
+                    <span>Cultural Motif & Design Story</span>
+                  </h4>
+                  <p>{product.culturalStory}</p>
+                </div>
+              )}
+            </div>
+
+            {/* Specifications Matrix */}
+            <div className="p-5 rounded-xl bg-slate-900/50 border border-slate-800 space-y-3">
+              <h3 className="text-xs uppercase font-mono tracking-wider text-white font-bold">
+                Technical Specifications
               </h3>
-              <p>{isRTL ? product.culturalStoryAr : product.culturalStory}</p>
-              <div className="pt-2 border-t border-slate-800 flex items-center gap-2 text-slate-400">
-                <span className="text-slate-500">{isRTL ? 'الرمز الأثري:' : 'Symbol:'}</span>
-                <span className="text-slate-200 font-medium">{isRTL ? product.symbolAr : product.symbol}</span>
+              <div className="grid grid-cols-2 gap-3 text-xs">
+                <div>
+                  <span className="text-slate-500 block text-[10px]">Core Filling</span>
+                  <span className="text-slate-200 font-medium">{product.specifications.filling}</span>
+                </div>
+                <div>
+                  <span className="text-slate-500 block text-[10px]">Outer Cover</span>
+                  <span className="text-slate-200 font-medium">{product.specifications.material}</span>
+                </div>
+                <div>
+                  <span className="text-slate-500 block text-[10px]">Dimensions</span>
+                  <span className="text-slate-200 font-mono">{product.specifications.dimensions}</span>
+                </div>
+                <div>
+                  <span className="text-slate-500 block text-[10px]">Net Weight</span>
+                  <span className="text-slate-200 font-mono">{product.specifications.weight}</span>
+                </div>
+                <div>
+                  <span className="text-slate-500 block text-[10px]">Customization</span>
+                  <span className="text-slate-200 font-medium">{product.specifications.customization}</span>
+                </div>
+                <div>
+                  <span className="text-slate-500 block text-[10px]">Warranty</span>
+                  <span className="text-slate-200 font-medium">{product.specifications.warranty}</span>
+                </div>
               </div>
             </div>
 
-            {/* Key Technical Specifications */}
-            <div className="p-5 rounded-2xl bg-slate-900/40 border border-slate-800 space-y-2 text-xs">
-              <h3 className="text-sm font-bold text-white mb-2">{isRTL ? 'المواصفات الفنية' : 'Product Specifications'}</h3>
-              <div className="grid grid-cols-2 gap-2 text-slate-300">
-                <div>
-                  <span className="text-slate-500 block text-[10px]">{isRTL ? 'الحشوة' : 'Core Material'}</span>
-                  <span>{product.specifications.material}</span>
-                </div>
-                <div>
-                  <span className="text-slate-500 block text-[10px]">{isRTL ? 'الأبعاد' : 'Dimensions'}</span>
-                  <span className="font-mono">{product.specifications.dimensions}</span>
-                </div>
-                <div>
-                  <span className="text-slate-500 block text-[10px]">{isRTL ? 'الوزن' : 'Weight'}</span>
-                  <span className="font-mono">{product.specifications.weight}</span>
-                </div>
-                <div>
-                  <span className="text-slate-500 block text-[10px]">{isRTL ? 'العناية' : 'Care'}</span>
-                  <span>{product.specifications.care}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Dual Ordering Actions (Wholesale & Retail) */}
-            <div className="p-6 rounded-2xl bg-[#0E1118] border border-amber-900/30 space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-white">{isRTL ? 'الكمية المطلوبة:' : 'Quantity:'}</span>
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-7 h-7 rounded bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center font-bold"
-                  >
-                    -
-                  </button>
-                  <span className="font-mono text-white text-sm font-bold px-2">{quantity}</span>
-                  <button
-                    onClick={() => setQuantity(quantity + 1)}
-                    className="w-7 h-7 rounded bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center font-bold"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
+            {/* CTAs (Primary: REQUEST WHOLESALE PRICE, Secondary: CUSTOMIZE THIS PRODUCT) */}
+            <div className="p-6 rounded-2xl bg-slate-900 border border-[#D4AF37]/30 space-y-4">
+              <h3 className="text-sm font-bold text-white">Commercial Wholesale Inquiries</h3>
+              <p className="text-xs text-slate-300">
+                Contact our New Cairo sales department for tiered container pricing, pallet packing lists, and export freight quotes.
+              </p>
 
               <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                <button
-                  type="button"
-                  onClick={handleWhatsAppOrder}
-                  className="flex-1 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/20 transition-all"
+                <Link
+                  href={`/request-a-quote?product=${encodeURIComponent(product.name + ' [' + product.modelCode + ']')}`}
+                  className="flex-1 py-3.5 px-5 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-slate-950 font-bold text-xs uppercase tracking-wider text-center hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/15"
                 >
-                  <FaWhatsapp className="text-base" />
-                  <span>{isRTL ? 'طلب سريع للأفراد عبر واتساب' : 'Fast Retail Order via WhatsApp'}</span>
-                </button>
+                  REQUEST WHOLESALE PRICE
+                </Link>
 
                 <Link
-                  href={`/wholesale?product=${product.id}`}
-                  className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-black font-bold text-xs flex items-center justify-center hover:opacity-95 transition-opacity"
+                  href={`/custom-travel-pillows?model=${encodeURIComponent(product.modelCode)}`}
+                  className="flex-1 py-3.5 px-5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs uppercase tracking-wider text-center border border-slate-700 transition-colors"
                 >
-                  <span>{isRTL ? 'طلب عرض سعر جملة (B2B)' : 'Request Wholesale Quote'}</span>
+                  CUSTOMIZE THIS PRODUCT
                 </Link>
               </div>
 
-              <div className="text-center pt-2">
-                <Link
-                  href="/retail"
-                  className="text-xs text-slate-400 hover:text-[#D4AF37] underline"
+              <div className="pt-2 text-center">
+                <button
+                  type="button"
+                  onClick={handleWhatsAppInquiry}
+                  className="inline-flex items-center gap-2 text-xs text-emerald-400 hover:underline"
                 >
-                  {isRTL ? 'أو افتح صفحة نموذج التجزئة الكامل ←' : 'Or open full retail delivery form →'}
-                </Link>
+                  <FaWhatsapp />
+                  <span>Direct Inquiry via WhatsApp (+20 100 240 6013)</span>
+                </button>
               </div>
             </div>
 
           </div>
 
         </div>
-      </section>
 
-      {/* Related Products */}
-      {relatedProducts && relatedProducts.length > 0 && (
-        <section className="py-16 border-t border-slate-800 bg-[#0B0D11]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-xl sm:text-2xl font-bold text-white font-serif mb-8">
-              {isRTL ? 'موديلات أخرى مقترحة من نفس المجموعة' : 'Complementary Heritage Designs'}
-            </h2>
+        {/* Additional Section: Packaging & FAQ */}
+        <div className="mt-16 pt-12 border-t border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div className="space-y-4">
+            <h3 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+              <FaBoxes className="text-[#D4AF37]" />
+              <span>Packaging & Export Logistics</span>
+            </h3>
+            <ul className="space-y-2 text-xs text-slate-300">
+              <li className="flex items-start gap-2">
+                <FaCheck className="text-emerald-400 mt-0.5 shrink-0" />
+                <span><strong>Vacuum Shrink Compression:</strong> Available to maximize container load capacity by up to 60%.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <FaCheck className="text-emerald-400 mt-0.5 shrink-0" />
+                <span><strong>Retail Presentation:</strong> Color box with PVC window or branded drawstring carry pouch with hangtag.</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <FaCheck className="text-emerald-400 mt-0.5 shrink-0" />
+                <span><strong>Master Cartons:</strong> Standard 5-ply double-wall corrugated export master cartons with pallet straps.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+              <FaQuestionCircle className="text-[#D4AF37]" />
+              <span>Frequently Asked Questions</span>
+            </h3>
+            <div className="space-y-3">
+              {faqs.map((f, i) => (
+                <div key={i} className="p-3.5 rounded-lg bg-slate-900 border border-slate-800 text-xs">
+                  <h4 className="font-semibold text-white">{f.q}</h4>
+                  <p className="text-slate-400 mt-1">{f.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Related Products */}
+        {relatedProducts && relatedProducts.length > 0 && (
+          <div className="mt-16 pt-12 border-t border-slate-800">
+            <h3 className="text-xl font-bold text-white mb-6">
+              Related Travel Pillows in this Collection
+            </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
               {relatedProducts.map((rel) => (
                 <Link
                   key={rel.id}
                   href={`/products/${rel.collection}/${rel.id}`}
-                  className="group rounded-xl bg-slate-900/70 border border-slate-800 hover:border-[#D4AF37]/50 p-3 transition-all"
+                  className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden hover:border-[#D4AF37]/50 transition-all p-3 group"
                 >
-                  <div className="relative aspect-square rounded-lg overflow-hidden bg-slate-950 mb-3">
-                    <Image
+                  <div className="relative aspect-square bg-slate-950 rounded-lg overflow-hidden mb-3">
+                    <img
                       src={rel.image}
                       alt={rel.name}
-                      fill
-                      className="object-contain p-2 group-hover:scale-105 transition-transform"
-                      sizes="25vw"
+                      className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform"
                     />
                   </div>
-                  <h4 className="text-xs font-bold text-white font-serif line-clamp-1 group-hover:text-[#D4AF37] transition-colors">
+                  <h4 className="text-xs font-bold text-white line-clamp-1 group-hover:text-[#D4AF37] transition-colors">
                     {rel.name}
                   </h4>
-                  <span className="text-xs font-mono text-[#D4AF37] font-semibold mt-1 block">
-                    {rel.price}
-                  </span>
+                  <span className="text-[10px] text-slate-400 font-mono mt-1 block">Request Quote</span>
                 </Link>
               ))}
             </div>
           </div>
-        </section>
-      )}
+        )}
 
-    </div>
+      </div>
+    </Layout>
   );
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths: { params: { collection: string; id: string } }[] = [];
-  const collections = ['royal', 'sacred', 'heritage', 'custom', 'premium', 'classic', 'print'];
+  const b123Paths = Array.from({ length: 23 }, (_, i) => ({
+    params: { collection: 'b123', id: `b123-${(i + 1).toString().padStart(3, '0')}` }
+  }));
+  const tPaths = Array.from({ length: 21 }, (_, i) => ({
+    params: { collection: 't', id: `t-${(i + 1).toString().padStart(3, '0')}` }
+  }));
+  const tbPaths = Array.from({ length: 36 }, (_, i) => ({
+    params: { collection: 'tb', id: `tb-${(i + 1).toString().padStart(3, '0')}` }
+  }));
+  const customPaths = Array.from({ length: 5 }, (_, i) => ({
+    params: { collection: 'print', id: `print-${(i + 1).toString().padStart(3, '0')}` }
+  }));
 
-  collections.forEach(collection => {
-    const isPremium = collection === 'royal' || collection === 'premium';
-    const isClassic = collection === 'sacred' || collection === 'classic';
-    const isCustom = collection === 'custom' || collection === 'print';
-    const count = isPremium ? 23 : isClassic ? 21 : isCustom ? 5 : 36;
+  const souvenirPaths = [
+    { params: { collection: 'souvenirs', id: 'camel-plush-22cm' } },
+    { params: { collection: 'souvenirs', id: 'camel-plush-28cm' } }
+  ];
 
-    for (let i = 1; i <= count; i++) {
-      const id = isPremium ? `b123-${i.toString().padStart(3, '0')}` :
-        isClassic ? `t-${i.toString().padStart(3, '0')}` :
-          isCustom ? `print-${i.toString().padStart(3, '0')}` :
-            `tb-${i.toString().padStart(3, '0')}`;
-      paths.push({
-        params: { collection, id }
-      });
-    }
-  });
-
-  // Add The Beloved Camel plush paths
-  paths.push({ params: { collection: 'souvenirs', id: 'camel-plush-22cm' } });
-  paths.push({ params: { collection: 'souvenirs', id: 'camel-plush-28cm' } });
+  const allPaths = [...b123Paths, ...tPaths, ...tbPaths, ...customPaths, ...souvenirPaths];
 
   return {
-    paths,
-    fallback: 'blocking'
+    paths: allPaths,
+    fallback: false
   };
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const { params } = context;
-  const collection = (params?.collection as string) || 'royal';
-  const id = (params?.id as string) || 'b123-001';
+  const { collection, id } = context.params as { collection: string; id: string };
 
-  // Special handling for The Beloved Camel Plush collection
-  if (id.startsWith('camel') || collection === 'souvenirs' || collection === 'heritage-souvenirs') {
-    const is22 = id.includes('22');
+  if (collection === 'souvenirs') {
+    const is28 = id.includes('28');
     const camelProduct = {
-      id: is22 ? 'camel-plush-22cm' : 'camel-plush-28cm',
-      modelCode: is22 ? 'YKP-CAMEL-22' : 'YKP-CAMEL-28',
-      image: is22 ? '/assets/aistudio/1794114379573_df8dd34d.jpg' : '/assets/aistudio/file_000000000604820aa5649d2a0b525298_e93a9b68.png',
-      name: is22 ? 'The Beloved Camel - Pharaonic Plush Toy (22 cm)' : 'The Beloved Camel - Grand Pharaonic Deluxe Plush (28 cm)',
-      nameAr: is22 ? 'الجمل المحبوب - دمية قطيفة بتصميم فرعوني (٢٢ سم)' : 'الجمل المحبوب - دمية قطيفة فرعونية فاخرة الحجم الكبير (٢٨ سم)',
-      price: is22 ? '$18' : '$26',
-      unitPriceNum: is22 ? 18 : 26,
-      description: is22
-        ? 'Authentic Egyptian handcrafted plush camel with embroidered pharaonic saddle ("I ❤ EGYPT") and ancient protective motifs. Designed with ultra-soft velvet and child-safe materials in New Cairo.'
-        : 'Grand Deluxe 28 cm Egyptian pharaonic plush camel with opulent embroidered ceremonial saddle, fluffy plush mane, and reinforced standing legs. Perfect for luxury hotels, VIP suites, and collector displays.',
-      descriptionAr: is22
-        ? 'دمية قطيفة فرعونية أصلية فائقة النعومة بمقاس 22 سم، مع سرج مطرز بنقوش الأهرامات وتطريز I Love Egypt. آمنة تماماً للأطفال ومثالية كهدايا وتذكارات سياحية.'
-        : 'الإصدار الملكي الكبير الفاخر بمقاس 28 سم من دمية الجمل المحبوب. تطريز احتفالي فاخر بخيوط ذهبية وأرجل مدعمة للوقوف، مخصصة للأجنحة الفندقية VIP وكبار الزوار.',
-      culturalStory: 'In ancient Egyptian tradition and modern desert heritage, the camel is the noble protector of desert journeys and the beloved companion of travelers.',
-      culturalStoryAr: 'يجسد الجمل في التراث المصري رمز الصبر والشهامة ورفيق الترحال في صحاري مصر، مزيناً في هذا التصميم بنقوش فرعونية أصيلة تروي حكاية حضارة عريقة.',
+      id,
+      modelCode: is28 ? 'YKP-CAMEL-28' : 'YKP-CAMEL-22',
+      image: is28
+        ? '/assets/aistudio/file_000000000604820aa5649d2a0b525298_e93a9b68.png'
+        : '/assets/aistudio/1794114379573_df8dd34d.jpg',
+      name: is28
+        ? 'The Beloved Camel - Grand Pharaonic Deluxe Plush (28 cm)'
+        : 'The Beloved Camel - Egyptian Pharaonic Plush Toy (22 cm)',
+      nameAr: is28
+        ? 'الجمل المحبوب - دمية قطيفة فرعونية فاخرة (28 سم)'
+        : 'الجمل المحبوب - دمية قطيفة فرعونية أصيلة (22 سم)',
+      price: is28 ? '$28' : '$22',
+      unitPriceNum: is28 ? 28 : 22,
+      description: is28
+        ? 'Grand Deluxe 28 cm Egyptian pharaonic plush camel with opulent embroidered ceremonial saddle, fluffy plush mane, and reinforced standing legs. Perfect for luxury hotels, VIP suites, and collector displays.'
+        : 'Authentic Egyptian handcrafted plush camel with embroidered pharaonic saddle ("I ❤ EGYPT") and ancient protective motifs. Designed with ultra-soft velvet and child-safe materials in New Cairo.',
+      descriptionAr: is28
+        ? 'دمية جمل فرعونية فاخرة مقاس 28 سم مع سرج احتفالي ملكي مطرز بالذهب وأرجل معززة للوقوف.'
+        : 'دمية جمل فرعونية أصلية مقاس 22 سم مع سرج فرعوني مطرز فخم ومخمل فائق النعومة.',
+      culturalStory: 'Camels have symbolized resilience, hospitality, and endurance across Egyptian history.',
+      culturalStoryAr: 'يرمز الجمل في التراث المصري للتحمل والضيافة الكريمة ومغامرات الصحراء الخالدة.',
       collection: 'souvenirs',
-      collectionName: 'Heritage Souvenirs & Plush',
-      collectionNameAr: 'مجموعة التذكارات والهدايا التراثية',
-      symbol: 'Pharaonic Desert Camel & Sacred Ankh',
-      symbolAr: 'الجمل التراثي ومفتاح الحياة',
-      features: [
-        'Super-Soft Hypoallergenic Velvet Micro-Plush',
-        'Handcrafted Pharaonic Embroidered Saddle',
-        'Child-Safe Non-Toxic Materials (EN-71 Certified)',
-        'Custom Hotel & Tourism Branding Available'
-      ],
+      collectionName: 'Pharaonic Heritage Souvenirs',
+      collectionNameAr: 'مجموعة التذكارات الفرعونية',
+      symbol: 'Pharaonic Camel & Ankh',
+      symbolAr: 'سرج الهودج ومفتاح الحياة',
+      features: ['Child Safe EN-71', 'Ultra-Soft Velvet', 'Embroidered Saddle', 'Custom Hotel Branding Available'],
       specifications: {
-        material: 'Ultra-Soft Velvet Plush & Virgin PP Cotton',
-        dimensions: is22 ? '22 x 14 x 22 cm' : '28 x 18 x 28 cm',
-        weight: is22 ? '240g' : '380g',
-        care: 'Surface wipe with damp cloth or gentle hand wash 30°C',
-        warranty: '1-Year Manufacturer Workmanship Guarantee'
+        material: 'Ultra-Soft Velvet Plush',
+        filling: 'Hypoallergenic Virgin PP Cotton',
+        dimensions: is28 ? '28 x 18 x 28 cm' : '22 x 14 x 22 cm',
+        weight: is28 ? '380g' : '240g',
+        colors: 'Royal Blue, Desert Gold, Imperial Purple, Lotus Pink',
+        customization: 'Logo embroidery on saddle for 50+ units',
+        moq: '130 units',
+        care: 'Hand wash 30°C / Surface damp sponge wipe',
+        warranty: '1-Year Stitching & Integrity Guarantee'
       },
       gallery: [
-        '/assets/aistudio/1794114379573_df8dd34d.jpg',
+        is28
+          ? '/assets/aistudio/file_000000000604820aa5649d2a0b525298_e93a9b68.png'
+          : '/assets/aistudio/1794114379573_df8dd34d.jpg',
         '/assets/aistudio/1794122038268_02f24669.jpg',
-        '/assets/aistudio/file_000000000604820aa5649d2a0b525298_e93a9b68.png',
         '/assets/aistudio/file_00000000bdd4820a898fb93da354784f_9e2791fa.png'
       ]
     };
 
     const relatedProducts = [
       {
-        id: is22 ? 'camel-plush-28cm' : 'camel-plush-22cm',
-        name: is22 ? 'The Beloved Camel (28 cm)' : 'The Beloved Camel (22 cm)',
-        price: is22 ? '$26' : '$18',
-        image: is22 ? '/assets/aistudio/file_000000000604820aa5649d2a0b525298_e93a9b68.png' : '/assets/aistudio/1794114379573_df8dd34d.jpg',
+        id: is28 ? 'camel-plush-22cm' : 'camel-plush-28cm',
+        name: is28 ? 'The Beloved Camel (22 cm)' : 'The Beloved Camel Grand (28 cm)',
+        price: is28 ? '$22' : '$28',
+        image: is28 ? '/assets/aistudio/1794114379573_df8dd34d.jpg' : '/assets/aistudio/file_000000000604820aa5649d2a0b525298_e93a9b68.png',
         collection: 'souvenirs'
-      },
-      {
-        id: 'b123-001',
-        name: 'Royal Tutankhamun Gold Travel Pillow',
-        price: '$75',
-        image: '/prodect/b123/1.webp',
-        collection: 'royal'
-      },
-      {
-        id: 't-001',
-        name: 'Sacred Ankh Protective Travel Pillow',
-        price: '$35',
-        image: '/prodect/t/1.webp',
-        collection: 'sacred'
-      },
-      {
-        id: 'tb-001',
-        name: 'Hieroglyphic Temple Relief Travel Pillow',
-        price: '$45',
-        image: '/prodect/tb/1.webp',
-        collection: 'heritage'
       }
     ];
 
     const translations = getTranslations(context.locale || 'en');
-
     return {
       props: {
         product: camelProduct,
@@ -480,12 +473,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const mainImg = `/prodect/${imgFolder}/${productNum}.${imgExt}`;
 
   const imageSeo = getProductImageSeo(mainImg);
-
   const priceNum = isPremium ? 75 : isClassic ? 35 : isCustom ? 45 : 45;
 
   const product = {
     id,
-    modelCode: imageSeo.modelCode,
+    modelCode: imageSeo.modelCode || id.toUpperCase(),
     image: mainImg,
     name: imageSeo.titleEn,
     nameAr: imageSeo.titleAr,
@@ -501,17 +493,21 @@ export const getStaticProps: GetStaticProps = async (context) => {
     symbol: imageSeo.symbol,
     symbolAr: imageSeo.symbolAr,
     features: [
-      'High-Density Ergonomic Memory Foam',
-      'Breathable Egyptian Cotton Cover',
+      'High-Density 50D Viscoelastic Memory Foam',
+      'Breathable Removable Velvet/Cotton Cover',
       'Authentic Hieroglyphic Embroidery',
-      'Washable Zippered Enclosure'
+      'Smooth Concealed Nylon Zipper'
     ],
     specifications: {
-      material: imageSeo.materialEn,
-      dimensions: imageSeo.dimensions,
-      weight: imageSeo.weight,
-      care: 'Machine washable cover (gentle cycle)',
-      warranty: '2-Year Manufacturer Defect Guarantee'
+      material: imageSeo.materialEn || 'Egyptian Velvet & Cotton Blend',
+      filling: 'High-Density 50D Viscoelastic Polyurethane Memory Foam',
+      dimensions: imageSeo.dimensions || '30 x 28 x 12 cm',
+      weight: imageSeo.weight || '380g',
+      colors: 'Royal Blue, Desert Sand, Deep Black, Lotus Terracotta',
+      customization: 'Custom embroidery, woven labels, silicone pullers',
+      moq: '50 - 100 units',
+      care: 'Removable cover machine washable at 30°C',
+      warranty: '2-Year Manufacturing Guarantee'
     },
     gallery: [
       mainImg,
@@ -520,7 +516,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     ]
   };
 
-  // 4 Related Products
   const relatedProducts = [1, 2, 3, 4].map((offset) => {
     const relNum = ((productNum + offset) % 20) + 1;
     const relImg = `/prodect/${imgFolder}/${relNum}.${imgExt}`;

@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import Layout from '@/components/layout/Layout';
 import { SEOHead } from '@/components/SEOHead';
 import { 
   FaHandshake, 
@@ -99,37 +100,11 @@ const PartnershipPage: React.FC = () => {
   };
 
   return (
-    <>
-      <SEOHead
-        seoConfig={{
-          title: "الشراكات الاستراتيجية | Strategic Partnerships - Pharaonic Pillows",
-          description: "انضم إلى شبكة شركائنا الاستراتيجيين. فرص شراكة متنوعة في التوزيع، التصنيع، والتسويق مع الوسائد الفرعونية.",
-          keywords: [
-            'الشراكات الاستراتيجية',
-            'شراكة تجارية',
-            'فرص الاستثمار',
-            'strategic partnerships',
-            'business collaboration',
-            'investment opportunities'
-          ],
-          openGraph: {
-            title: "الشراكات الاستراتيجية | Strategic Partnerships - Pharaonic Pillows",
-            description: "انضم إلى شبكة شركائنا الاستراتيجيين. فرص شراكة متنوعة في التوزيع والتصنيع والتسويق",
-            image: "/partnership-og.jpg",
-            url: "/partnership",
-            type: "website",
-            siteName: "Pharaonic Pillows"
-          },
-          twitter: {
-            card: "summary_large_image",
-            title: "الشراكات الاستراتيجية | Strategic Partnerships - Pharaonic Pillows",
-            description: "انضم إلى شبكة شركائنا الاستراتيجيين. فرص شراكة متنوعة في التوزيع والتصنيع والتسويق",
-            image: "/partnership-og.jpg"
-          }
-        }}
-        canonical="/partnership"
-      />
-
+    <Layout
+      pageTitle="الشراكات الاستراتيجية | Strategic Partnerships - YKP Supplies"
+      metaDescription="انضم إلى شبكة شركائنا الاستراتيجيين. فرص شراكة متنوعة في التوزيع، التصنيع، والتسويق مع مصنع YKP Supplies."
+      canonicalUrl="https://www.ykp-eg.com/partnership"
+    >
       <div className="min-h-screen bg-gradient-to-br from-papyrus via-desert-sand to-pharaonic-gold">
         {/* Hero Section */}
         <section className="relative py-20 px-4">
@@ -652,7 +627,7 @@ const PartnershipPage: React.FC = () => {
           </div>
         </section>
       </div>
-    </>
+    </Layout>
   );
 };
 

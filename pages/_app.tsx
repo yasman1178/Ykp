@@ -1,7 +1,6 @@
 import type { AppProps } from 'next/app';
 import { AnimatePresence } from 'framer-motion';
 import Head from 'next/head';
-import Layout from '@/components/layout/Layout';
 import CookieConsentBanner from '@/components/CookieConsentBanner';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 import { useCookieConsent } from '@/hooks/useCookieConsent';
@@ -30,12 +29,10 @@ export default function App({ Component, pageProps, router }: AppProps) {
         <GoogleAnalytics measurementId={GA_MEASUREMENT_ID} />
       )}
 
-      <Layout {...pageProps}>
-        <AnimatePresence mode="wait" initial={false}>
-          <Component {...pageProps} key={router.asPath} />
-        </AnimatePresence>
-        <CookieConsentBanner />
-      </Layout>
+      <AnimatePresence mode="wait" initial={false}>
+        <Component {...pageProps} key={router.asPath} />
+      </AnimatePresence>
+      <CookieConsentBanner />
     </>
   );
 }

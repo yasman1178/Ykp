@@ -1,15 +1,18 @@
 import React from 'react';
 import Head from 'next/head';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/router';
 import Header from './Header';
 import Footer from './Footer';
-import { pageTransitions } from '@/components/effects/EgyptianAnimations';
+
+const LayoutContext = React.createContext<boolean>(false);
 
 export interface LayoutProps {
   children: React.ReactNode;
   pageTitle?: string;
   metaDescription?: string;
-  egyptianTheme?: 'gold' | 'blue' | 'terracotta';
+  keywords?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
   showBreadcrumbs?: boolean;
   className?: string;
   translations?: any;
@@ -18,64 +21,80 @@ export interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({
   children,
-  pageTitle = 'YKP Supplies - Egyptian Pharaonic Travel Pillows Manufacturer',
-  metaDescription = 'Premium Egyptian travel pillows manufactured by YKP Supplies in New Cairo. High-density memory foam with authentic Pharaonic heritage for global wholesale and retail.',
-  egyptianTheme = 'gold',
-  showBreadcrumbs = false,
+  pageTitle = 'Egyptian Travel Pillow Manufacturer for Global Brands | YKP Supplies',
+  metaDescription = 'YKP Supplies manufactures high-density memory foam travel pillows, custom OEM private label travel collections, and Egyptian heritage products in Cairo for global B2B distributors and retailers.',
+  keywords = 'travel pillow manufacturer, wholesale travel pillows, Egyptian travel pillow manufacturer, custom travel pillows, private label travel pillows, memory foam neck pillow wholesale, YKP Supplies, Egypt manufacturing',
+  canonicalUrl,
+  ogImage = '/images/factory/factory-line.jpg',
   className = '',
   translations,
   locale = 'en',
 }) => {
-  const themeClasses = {
-    gold: 'bg-gradient-to-br from-papyrus to-desert-sand',
-    blue: 'bg-gradient-to-br from-nile-blue-light to-deep-blue-light',
-    terracotta: 'bg-gradient-to-br from-terracotta-light to-terracotta',
-  };
+  const router = useRouter();
+  const isNested = React.useContext(LayoutContext);
+  if (isNested) {
+    return <>{children}</>;
+  }
+
+  const currentLocale = router.locale || locale;
+  const isRTL = currentLocale === 'ar';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.ykp-eg.com';
+  const currentCanonical = canonicalUrl || `${siteUrl}${router.asPath.split('?')[0]}`;
 
   return (
-    <>
+    <LayoutContext.Provider value={true}>
       <Head>
         <title>{pageTitle}</title>
         <meta name="description" content={metaDescription} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:image" content="/og-image.jpg" />
-
-        {/* Twitter */}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:title" content={pageTitle} />
-        <meta property="twitter:description" content={metaDescription} />
-        <meta property="twitter:image" content="/og-image.jpg" />
-
-        {/* Additional SEO */}
-        <meta name="keywords" content="Egyptian travel pillows, Pharaonic design, memory foam, wholesale, B2B, travel comfort, Egyptian heritage, YKP Supplies" />
+        <meta name="keywords" content={keywords} />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <meta name="author" content="YKP Supplies" />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://www.ykp-eg.com" />
+        <link rel="canonical" href={currentCanonical} />
+        <link rel="icon" href="/favicon.ico" />
 
-        {/* Structured Data */}
+        {/* Open Graph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="YKP Supplies" />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:image" content={ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`} />
+        <meta property="og:url" content={currentCanonical} />
+        <meta property="og:locale" content={isRTL ? 'ar_EG' : 'en_US'} />
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={metaDescription} />
+        <meta name="twitter:image" content={ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`} />
+
+        {/* Structured Data: Organization & Manufacturer */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Organization",
+              "@type": ["Organization", "Manufacturer"],
               "name": "YKP Supplies",
-              "description": metaDescription,
+              "alternateName": ["YKP Travel Products", "شركة واي كيه بي للمستلزمات"],
               "url": "https://www.ykp-eg.com",
               "logo": "https://www.ykp-eg.com/logo.png",
-              "contactPoint": {
-                "@type": "ContactPoint",
-                "telephone": "+20-100-240-6013",
-                "contactType": "sales",
-                "areaServed": "Worldwide",
-                "availableLanguage": ["English", "Arabic"]
+              "description": metaDescription,
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "New Cairo",
+                "addressRegion": "Cairo Governorate",
+                "addressCountry": "EG"
               },
+              "contactPoint": [
+                {
+                  "@type": "ContactPoint",
+                  "telephone": "+20-100-240-6013",
+                  "contactType": "sales",
+                  "areaServed": "Worldwide",
+                  "availableLanguage": ["English", "Arabic"]
+                }
+              ],
               "sameAs": [
                 "https://www.linkedin.com/in/ykp-eg-483b8a398",
                 "https://www.facebook.com/new.cairo.893792"
@@ -85,78 +104,16 @@ const Layout: React.FC<LayoutProps> = ({
         />
       </Head>
 
-      <div className={`min-h-screen flex flex-col ${className}`}>
-        <Header translations={translations} locale={locale} />
+      <div className={`min-h-screen flex flex-col bg-slate-950 text-slate-100 font-sans selection:bg-[#D4AF37] selection:text-slate-950 ${className}`} dir={isRTL ? 'rtl' : 'ltr'}>
+        <Header translations={translations} locale={currentLocale} />
 
-        <main className="flex-1 relative">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={pageTitle}
-              initial={pageTransitions.fadeInUp.initial}
-              animate={pageTransitions.fadeInUp.animate}
-              exit={pageTransitions.fadeInUp.exit}
-              transition={pageTransitions.fadeInUp.transition}
-              className="w-full"
-            >
-              {children}
-            </motion.div>
-          </AnimatePresence>
+        <main className="flex-1 w-full relative">
+          {children}
         </main>
 
-        <Footer translations={translations} locale={locale} />
+        <Footer translations={translations} locale={currentLocale} />
       </div>
-
-      {/* Egyptian floating elements */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        {/* Floating hieroglyphs */}
-        <motion.div
-          className="absolute top-1/4 left-10 text-pharaonic-gold opacity-10 font-hieroglyphic text-6xl"
-          animate={{
-            y: [-20, 20, -20],
-            rotate: [-5, 5, -5],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        >
-          𓂀
-        </motion.div>
-
-        <motion.div
-          className="absolute top-3/4 right-10 text-pharaonic-gold opacity-10 font-hieroglyphic text-4xl"
-          animate={{
-            y: [20, -20, 20],
-            rotate: [5, -5, 5],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1,
-          }}
-        >
-          𓁹
-        </motion.div>
-
-        <motion.div
-          className="absolute top-1/2 left-1/4 text-pharaonic-gold opacity-5 font-hieroglyphic text-8xl"
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.05, 0.1, 0.05],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 2,
-          }}
-        >
-          𓋹
-        </motion.div>
-      </div>
-    </>
+    </LayoutContext.Provider>
   );
 };
 

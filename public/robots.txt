@@ -7,19 +7,22 @@ User-agent: *
 
 # Allow all public pages for crawling
 Allow: /
+Allow: /request-a-quote
 Allow: /products/
-Allow: /products/b123/
-Allow: /products/t/
-Allow: /products/tb/
-Allow: /blog/
-Allow: /about
-Allow: /contact
+Allow: /manufacturing
+Allow: /factory
+Allow: /custom-travel-pillows
+Allow: /wholesale-travel-pillows
 Allow: /wholesale
-Allow: /partnership
 Allow: /distributor
-Allow: /services
-Allow: /egyptian-culture
-Allow: /pharaonic-symbols
+Allow: /museum-tourist-gifts
+Allow: /corporate-travel-gifts
+Allow: /about
+Allow: /quality
+Allow: /international-shipping
+Allow: /blog/
+Allow: /faq
+Allow: /contact
 
 # Disallow admin and API routes
 Disallow: /admin/

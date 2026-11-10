@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaWhatsapp, FaShieldAlt, FaTruck, FaUndo, FaStar, FaCheck, FaPhoneAlt, FaRegPaperPlane } from 'react-icons/fa';
 import SEO from '@/components/SEO';
+import Layout from '@/components/layout/Layout';
 import { getTranslations } from '@/lib/translations';
 import { ALL_PRODUCTS, COLLECTION_SUMMARIES } from '@/data/products';
 import { getProductImageSeo } from '@/lib/product-image-seo';
@@ -87,15 +88,14 @@ export default function RetailPage({ translations: t, locale }: RetailPageProps)
   };
 
   return (
-    <div className="min-h-screen bg-[#0B0D11] text-slate-100 selection:bg-[#D4AF37] selection:text-black" dir={isRTL ? 'rtl' : 'ltr'}>
-      <SEO
-        title={isRTL ? 'طلب مخدات السفر الفرعونية للأفراد والتجزئة | YKP Supplies' : 'Retail Direct Travel Pillows - Authentic Egyptian Memory Foam | YKP Supplies'}
-        description={isRTL
-          ? 'اقتنِ مخدة السفر الفرعونية الفاخرة للاستخدام الشخصي أو كهدية تذكارية راقية. ميموري فوم طبي عالي الكثافة، قطن مصري فاخر، وشحن مباشر لجميع المحافظات وحول العالم.'
-          : 'Order authentic Egyptian Pharaonic memory foam travel pillows directly for personal travel or luxury gifts. Worldwide express shipping & direct manufacturer guarantee from New Cairo.'}
-        ogImage={activeProduct?.primaryImage}
-        canonicalUrl="https://www.ykp-eg.com/retail"
-      />
+    <Layout
+      pageTitle={isRTL ? 'طلب مخدات السفر الفرعونية للأفراد والتجزئة | YKP Supplies' : 'Retail Direct Travel Pillows - Authentic Egyptian Memory Foam | YKP Supplies'}
+      metaDescription={isRTL
+        ? 'اقتنِ مخدة السفر الفرعونية الفاخرة للاستخدام الشخصي أو كهدية تذكارية راقية. ميموري فوم طبي عالي الكثافة، قطن مصري فاخر، وشحن مباشر لجميع المحافظات وحول العالم.'
+        : 'Order authentic Egyptian Pharaonic memory foam travel pillows directly for personal travel or luxury gifts. Worldwide express shipping & direct manufacturer guarantee from New Cairo.'}
+      canonicalUrl="https://www.ykp-eg.com/retail"
+    >
+      <div className="bg-[#0B0D11] text-slate-100 selection:bg-[#D4AF37] selection:text-black" dir={isRTL ? 'rtl' : 'ltr'}>
 
       {/* Hero Header */}
       <section className="relative pt-12 pb-16 border-b border-amber-900/20 overflow-hidden bg-gradient-to-b from-[#131720] to-[#0B0D11]">
@@ -415,7 +415,8 @@ export default function RetailPage({ translations: t, locale }: RetailPageProps)
 
         </div>
       </section>
-    </div>
+      </div>
+    </Layout>
   );
 }
 

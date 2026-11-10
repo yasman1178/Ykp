@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GetStaticProps } from 'next';
 import Link from 'next/link';
+import Layout from '@/components/layout/Layout';
 import { SEOHead } from '@/components/SEOHead';
 import { PHARAONIC_SYMBOLS_ARTICLES, BlogArticle } from '@/data/blog-articles';
 
@@ -175,40 +176,11 @@ export default function PharaonicSymbols({ articles }: PharaonicSymbolsProps) {
   const periods = ['all', 'Old Kingdom', 'New Kingdom', 'All Periods', 'Ptolemaic Period'];
 
   return (
-    <>
-      <SEOHead
-        seoConfig={{
-          title: "الرموز الفرعونية | Pharaonic Symbols - Ancient Egyptian Heritage",
-          description: "اكتشف الرموز الفرعونية المقدسة ومعانيها العميقة. من أنوبيس إلى عين حورس، تعرف على التراث المصري القديم وكيف يلهم تصاميم وسائد السفر المصرية الفاخرة.",
-          keywords: [
-            'الرموز الفرعونية',
-            'pharaonic symbols',
-            'ancient egyptian symbols',
-            'رموز مصرية قديمة',
-            'أنوبيس',
-            'عين حورس',
-            'الجعران المقدس',
-            'egyptian heritage',
-            'pharaonic culture'
-          ],
-          openGraph: {
-            title: "الرموز الفرعونية | Pharaonic Symbols",
-            description: "اكتشف الرموز الفرعونية المقدسة ومعانيها العميقة",
-            image: "/pharaonic-symbols-og.jpg",
-            url: "/pharaonic-symbols",
-            type: "website",
-            siteName: "Pharaonic Pillows"
-          },
-          twitter: {
-            card: "summary_large_image",
-            title: "الرموز الفرعونية | Pharaonic Symbols",
-            description: "اكتشف الرموز الفرعونية المقدسة ومعانيها العميقة",
-            image: "/pharaonic-symbols-og.jpg"
-          }
-        }}
-        canonical="/pharaonic-symbols"
-      />
-
+    <Layout
+      pageTitle="الرموز الفرعونية | Pharaonic Symbols - Ancient Egyptian Heritage | YKP Supplies"
+      metaDescription="اكتشف الرموز الفرعونية المقدسة ومعانيها العميقة. من أنوبيس إلى عين حورس، تعرف على التراث المصري القديم وكيف يلهم تصاميم وسائد السفر المصرية الفاخرة."
+      canonicalUrl="https://www.ykp-eg.com/pharaonic-symbols"
+    >
       <div className="min-h-screen bg-gradient-to-br from-papyrus via-desert-sand to-pharaonic-gold">
         {/* Hero Section */}
         <section className="relative py-20 px-4 overflow-hidden">
@@ -475,7 +447,7 @@ export default function PharaonicSymbols({ articles }: PharaonicSymbolsProps) {
           </div>
         </section>
       </div>
-    </>
+    </Layout>
   );
 }
 

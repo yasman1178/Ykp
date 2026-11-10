@@ -1,380 +1,165 @@
-import { GetStaticProps } from 'next';
+import React, { useState, useMemo } from 'react';
+import Head from 'next/head';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { PHARAONIC_SYMBOLS_ARTICLES, BlogArticle, getFeaturedArticles } from '@/data/blog-articles';
-import { TARGET_KEYWORDS } from '@/lib/seo-content';
-import { SEOHead } from '@/components/SEOHead';
-import EgyptianTags from '@/components/EgyptianTags';
-import ProgressiveReveal from '@/components/ProgressiveReveal';
-import EgyptianCTA from '@/components/EgyptianCTA';
-import BlogCategories from '@/components/blog/BlogCategories';
-import BlogSearch from '@/components/blog/BlogSearch';
 import { useRouter } from 'next/router';
-import React, { useState, useEffect } from 'react';
+import Layout from '@/components/layout/Layout';
+import { FaSearch, FaArrowRight, FaArrowLeft, FaBookOpen } from 'react-icons/fa';
+import { B2B_ARTICLES, B2BArticle } from '@/data/b2b-12-articles';
 
-interface Category {
-  name: string;
-  arabicName: string;
-  slug: string;
-}
-
-interface BlogIndexProps {
-  articles: BlogArticle[];
-  featuredArticles: BlogArticle[];
-  categories: Category[];
-}
-
-export default function BlogIndex({ articles, featuredArticles, categories }: BlogIndexProps) {
+export default function BlogListingPage() {
   const router = useRouter();
-  const currentCategory = (router.query.category as string) || 'all';
+  const isRTL = router.locale === 'ar';
+  const Arrow = isRTL ? FaArrowLeft : FaArrowRight;
 
-  const filteredArticles = currentCategory && currentCategory !== 'all'
-    ? articles.filter(article => 
-        article.category === currentCategory || 
-        article.symbol?.name?.toLowerCase().replace(/\s+/g, '-') === currentCategory
-      )
-    : articles;
+  const [activeCategory, setActiveCategory] = useState<string>('All');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const structuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'Blog',
-    name: 'YKP Supplies Blog - Egyptian Travel Pillows & Pharaonic Souvenirs',
-    description: 'Practical guides, cultural heritage stories, care tips, and wholesale sourcing insights for Egyptian memory foam travel pillows and plush toys.',
-    url: 'https://www.ykp-eg.com/blog',
-    blogPost: featuredArticles.map(article => ({
-      '@type': 'BlogPosting',
-      headline: article.title,
-      description: article.description,
-      url: `https://www.ykp-eg.com/blog/${article.slug}`,
-      datePublished: article.publishDate,
-      author: {
-        '@type': 'Person',
-        name: article.author
-      }
-    }))
-  };
+  const categories = ['All', 'Manufacturing', 'Wholesale', 'Private Label', 'Travel Industry', 'Egyptian Heritage'];
+
+  const filteredArticles = useMemo(() => {
+    let result = [...B2B_ARTICLES];
+
+    if (activeCategory !== 'All') {
+      result = result.filter((a) => a.category === activeCategory);
+    }
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      result = result.filter(
+        (a) =>
+          a.title.toLowerCase().includes(q) ||
+          a.description.toLowerCase().includes(q) ||
+          a.category.toLowerCase().includes(q)
+      );
+    }
+
+    return result;
+  }, [activeCategory, searchQuery]);
 
   return (
-    <>
-      <SEOHead
-        seoConfig={{
-          title: "مدونة مخدات السفر والتراث المصري | YKP Supplies Blog",
-          description: "أدلة اختيار مخدات السفر، العناية بالميموري فوم، أسرار القطن المصري، وأحدث نصائح وتوريد الهدايا التذكارية بالجملة والتجزئة.",
-          keywords: [
-            ...TARGET_KEYWORDS.primary.arabic,
-            ...TARGET_KEYWORDS.primary.english,
-            'مخدة سفر',
-            'مخدة رقبة',
-            'تذكارات مصرية',
-            'Travel pillow blog',
-            'Wholesale souvenirs Egypt'
-          ],
-          openGraph: {
-            title: "مدونة مخدات السفر والتراث المصري | YKP Supplies",
-            description: "أدلة عملية وتذكارات فرعونية ومعايير توريد مخدات السفر الطبية من مصنع YKP Supplies.",
-            image: "https://www.ykp-eg.com/prodect/b123/1.webp",
-            url: "https://www.ykp-eg.com/blog",
-            type: "website",
-            siteName: "YKP Supplies"
-          },
-          twitter: {
-            card: "summary_large_image",
-            title: "مدونة مخدات السفر والتراث المصري | YKP Supplies",
-            description: "أدلة وتذكارات مخدات السفر الفرعونية من مصنع YKP Supplies بالقاهرة.",
-            image: "https://www.ykp-eg.com/prodect/b123/1.webp"
-          }
-        }}
-        structuredData={structuredData}
-        canonical="https://www.ykp-eg.com/blog"
-      />
-
-      <div className="min-h-screen bg-white">
-        {/* Newspaper-Style Header */}
-        <section className="relative py-12 px-4 border-b-4 border-black bg-white">
-          <div className="max-w-7xl mx-auto">
-            {/* Newspaper Masthead */}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center border-b-2 border-black pb-6 mb-6"
-            >
-              {/* Date and Edition */}
-              <div className="flex justify-between items-center text-xs uppercase tracking-wider mb-4 text-gray-600">
-                <span>{new Date().toLocaleDateString('ar-EG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
-                <span className="font-bold">CAIRO EDITION</span>
-                <span>{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
-              </div>
-
-              {/* Main Masthead */}
-              <h1
-                className="text-6xl md:text-8xl font-bold text-black mb-2 tracking-tight"
-                style={{ fontFamily: 'Playfair Display, serif', fontWeight: 900 }}
-              >
-                THE PHARAONIC TIMES
-              </h1>
-              <div className="text-xl md:text-2xl text-black mb-3" style={{ fontFamily: 'Playfair Display, serif', fontStyle: 'italic' }}>
-                جريدة الأزمنة الفرعونية
-              </div>
-
-              {/* Tagline */}
-              <div className="flex items-center justify-center gap-4 text-xs uppercase tracking-widest text-gray-700">
-                <span className="border-t border-black w-16"></span>
-                <span>Ancient Wisdom • Modern Comfort • Egyptian Heritage</span>
-                <span className="border-t border-black w-16"></span>
-              </div>
-            </motion.div>
-
-            {/* Navigation Bar */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex justify-center gap-8 text-sm uppercase tracking-wider font-semibold text-gray-800 pb-4"
-            >
-              <a href="#featured" className="hover:text-amber-600 transition-colors">Featured</a>
-              <span className="text-gray-300">|</span>
-              <a href="#all-articles" className="hover:text-amber-600 transition-colors">All Articles</a>
-              <span className="text-gray-300">|</span>
-              <Link href="/products" className="hover:text-amber-600 transition-colors">Products</Link>
-              <span className="text-gray-300">|</span>
-              <Link href="/contact" className="hover:text-amber-600 transition-colors">Contact</Link>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Blog Categories */}
-        <BlogCategories categories={categories} />
-
-        {/* Blog Search */}
+    <Layout
+      pageTitle="Travel Pillow Manufacturing & Wholesale Blog | YKP Supplies"
+      metaDescription="Industry guides, manufacturing walkthroughs, wholesale strategies, and private label insights from Egyptian travel pillow manufacturer YKP Supplies."
+      canonicalUrl="https://www.ykp-eg.com/blog"
+    >
+      <div className="bg-[#070C18] border-b border-slate-800 py-14 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <BlogSearch onSearch={(query) => {
-            router.push({
-              pathname: router.pathname,
-              query: query ? { ...router.query, search: query } : { category: router.query.category },
-            });
-          }} />
+          <div className="max-w-3xl space-y-4">
+            <span className="text-xs uppercase tracking-widest font-mono text-[#D4AF37] font-semibold">
+              {isRTL ? 'المركز المعرفي للصناعة والتصدير' : 'B2B Knowledge & Industry Insights'}
+            </span>
+            <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight text-balance">
+              Travel Pillow Manufacturing & Wholesale Insights
+            </h1>
+            <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
+              Explore in-depth engineering analyses, wholesale sourcing strategies, export shipping procedures, and market trends written by our Cairo manufacturing team.
+            </p>
+          </div>
         </div>
-
-        {/* Newspaper-Style Featured Articles */}
-        <section id="featured" className="py-12 px-4 bg-gray-50">
-          <div className="max-w-7xl mx-auto">
-            {/* Section Header */}
-            <div className="border-b-4 border-black pb-3 mb-8">
-              <h2 className="text-4xl font-bold text-black uppercase tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
-                Today&apos;s Headlines
-              </h2>
-              <p className="text-lg text-gray-700 mt-1" style={{ fontFamily: 'Playfair Display, serif', fontStyle: 'italic' }}>
-                عناوين اليوم الرئيسية
-              </p>
-            </div>
-
-            {/* Lead Story (First Article - Large) */}
-            {featuredArticles[0] && (
-              <Link href={`/blog/${featuredArticles[0].slug}`}>
-                <motion.article
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="mb-12 pb-12 border-b-2 border-gray-300 hover:bg-white transition-colors duration-300 p-6 -m-6 cursor-pointer group"
-                >
-                  <div className="grid md:grid-cols-2 gap-8">
-                    {/* Lead Image */}
-                    <div className="relative h-96 bg-gradient-to-br from-amber-100 to-blue-100 flex items-center justify-center border-4 border-black">
-                      <div className="text-9xl">{getSymbolIcon(featuredArticles[0].symbol.name)}</div>
-                      <div className="absolute top-4 left-4 bg-black text-white px-4 py-2 text-xs uppercase tracking-wider font-bold">
-                        Featured Story
-                      </div>
-                    </div>
-
-                    {/* Lead Content */}
-                    <div className="flex flex-col justify-center">
-                      <div className="text-xs uppercase tracking-widest text-gray-600 mb-3 font-semibold">
-                        {featuredArticles[0].symbol.name} • {featuredArticles[0].readingTime} MIN READ
-                      </div>
-                      <h3
-                        className="text-5xl font-bold text-black mb-4 leading-tight group-hover:text-amber-700 transition-colors"
-                        style={{ fontFamily: 'Playfair Display, serif' }}
-                      >
-                        {featuredArticles[0].arabicTitle}
-                      </h3>
-                      <h4 className="text-2xl font-semibold text-gray-700 mb-4 leading-snug">
-                        {featuredArticles[0].title}
-                      </h4>
-                      <p className="text-lg text-gray-700 leading-relaxed mb-6 line-clamp-4">
-                        {featuredArticles[0].description}
-                      </p>
-                      <div className="flex items-center gap-4 text-sm text-gray-600">
-                        <span>By {featuredArticles[0].author}</span>
-                        <span>•</span>
-                        <span>{new Date(featuredArticles[0].publishDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
-                      </div>
-                    </div>
-                  </div>
-                </motion.article>
-              </Link>
-            )}
-
-            {/* Secondary Stories (Grid Layout) */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredArticles.slice(1).map((article, index) => (
-                <Link key={article.id} href={`/blog/${article.slug}`}>
-                  <motion.article
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="border-b-2 border-gray-300 pb-6 hover:bg-white transition-colors duration-300 p-4 -m-4 cursor-pointer group"
-                  >
-                    {/* Article Image */}
-                    <div className="relative h-48 bg-gradient-to-br from-gray-100 to-amber-50 flex items-center justify-center border-2 border-black mb-4">
-                      <div className="text-6xl">{getSymbolIcon(article.symbol.name)}</div>
-                      <div className="absolute top-2 right-2 bg-black text-white px-3 py-1 text-xs font-bold">
-                        {article.readingTime} MIN
-                      </div>
-                    </div>
-
-                    {/* Article Content */}
-                    <div className="text-xs uppercase tracking-widest text-gray-600 mb-2 font-semibold">
-                      {article.symbol.name}
-                    </div>
-                    <h3
-                      className="text-2xl font-bold text-black mb-2 leading-tight group-hover:text-amber-700 transition-colors line-clamp-2"
-                      style={{ fontFamily: 'Playfair Display, serif' }}
-                    >
-                      {article.arabicTitle}
-                    </h3>
-                    <h4 className="text-lg font-semibold text-gray-700 mb-3 leading-snug line-clamp-2">
-                      {article.title}
-                    </h4>
-                    <p className="text-gray-600 leading-relaxed line-clamp-3 mb-4">
-                      {article.description}
-                    </p>
-                    <div className="text-xs text-gray-500">
-                      {new Date(article.publishDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                    </div>
-                  </motion.article>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-
-
-        {/* All Articles Section - Newspaper Columns */}
-        <section id="all-articles" className="py-12 px-4 bg-white">
-          <div className="max-w-7xl mx-auto">
-            {/* Section Header */}
-            <div className="border-b-4 border-black pb-3 mb-8">
-              <h2 className="text-4xl font-bold text-black uppercase tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
-                Complete Coverage
-              </h2>
-              <p className="text-lg text-gray-700 mt-1" style={{ fontFamily: 'Playfair Display, serif', fontStyle: 'italic' }}>
-                التغطية الكاملة للرموز الفرعونية
-              </p>
-            </div>
-
-            {/* Newspaper Columns Layout */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {filteredArticles.map((article, index) => ( // Use filteredArticles here
-                <Link key={article.id} href={`/blog/${article.slug}`}>
-                  <motion.article
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: (index % 4) * 0.1 }}
-                    className="border-b border-gray-300 pb-4 hover:bg-gray-50 transition-colors duration-300 p-3 -m-3 cursor-pointer group"
-                  >
-                    {/* Small Icon */}
-                    <div className="w-full h-32 bg-gray-100 flex items-center justify-center border border-gray-300 mb-3">
-                      <div className="text-4xl">{getSymbolIcon(article.symbol.name)}</div>
-                    </div>
-
-                    {/* Article Info */}
-                    <div className="text-xs uppercase tracking-wider text-gray-500 mb-2 font-semibold">
-                      {article.symbol.name}
-                    </div>
-                    <h3
-                      className="text-lg font-bold text-black mb-2 leading-tight group-hover:text-amber-700 transition-colors line-clamp-3"
-                      style={{ fontFamily: 'Playfair Display, serif' }}
-                    >
-                      {article.arabicTitle}
-                    </h3>
-                    <p className="text-sm text-gray-600 leading-relaxed line-clamp-2 mb-2">
-                      {article.description}
-                    </p>
-                    <div className="text-xs text-gray-500">
-                      {article.readingTime} min read
-                    </div>
-                  </motion.article>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <EgyptianCTA
-          arabicTitle="اكتشف مجموعة الوسائد المصرية الفاخرة"
-          title="Discover Our Premium Egyptian Travel Pillow Collection"
-          arabicDescription="استمتع بالراحة الفائقة مع وسائد السفر المصرية المصنوعة من الميموري فوم والمستوحاة من الرموز الفرعونية الخالدة"
-          description="Experience ultimate comfort with our Egyptian travel pillows made from memory foam and inspired by timeless Pharaonic symbols"
-          primaryButton={{
-            arabicText: 'تسوق الآن',
-            text: 'Shop Now',
-            href: '/products',
-            icon: (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            )
-          }}
-          variant="gradient"
-          symbolIcon="𓆣"
-        />
       </div>
-    </>
+
+      {/* Filter and Category Bar */}
+      <div className="bg-slate-900/90 border-b border-slate-800 sticky top-20 z-30 backdrop-blur-md py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+          <div className="relative w-full md:w-72">
+            <input
+              type="text"
+              placeholder="Search guides and topics..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-9 pr-4 py-2 rounded-lg bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#D4AF37]"
+            />
+            <FaSearch className="absolute left-3 top-3 text-slate-500 text-xs" />
+          </div>
+
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${
+                  activeCategory === cat
+                    ? 'bg-[#D4AF37] text-slate-950 font-bold'
+                    : 'bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Articles Grid */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredArticles.map((art) => (
+            <article
+              key={art.slug}
+              className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-[#D4AF37]/50 transition-all flex flex-col justify-between group shadow-lg"
+            >
+              <div>
+                <div className="relative h-52 bg-slate-950 overflow-hidden">
+                  <img
+                    src={art.image}
+                    alt={art.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-3 left-3">
+                    <span className="inline-block px-2.5 py-1 rounded bg-[#0B132B]/90 text-[10px] font-mono font-bold text-[#D4AF37] border border-[#D4AF37]/30">
+                      {art.category}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="p-6 space-y-2">
+                  <div className="text-[11px] font-mono text-slate-400 flex items-center gap-2">
+                    <span>{art.date}</span>
+                    <span>·</span>
+                    <span>{art.readTime}</span>
+                  </div>
+                  <h2 className="text-base font-bold text-white group-hover:text-[#D4AF37] transition-colors leading-snug">
+                    <Link href={`/blog/${art.slug}`}>{art.title}</Link>
+                  </h2>
+                  <p className="text-xs text-slate-400 line-clamp-3 leading-relaxed">
+                    {art.description}
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-6 pt-0">
+                <Link
+                  href={`/blog/${art.slug}`}
+                  className="inline-flex items-center gap-2 text-xs font-bold text-[#D4AF37] hover:underline"
+                >
+                  <span>Read Complete Guide</span>
+                  <Arrow className="text-[10px]" />
+                </Link>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      {/* Bottom B2B Inquiry Banner */}
+      <div className="bg-[#070C18] border-t border-slate-800 py-16 text-center">
+        <div className="max-w-2xl mx-auto px-4 space-y-4">
+          <h3 className="text-xl sm:text-2xl font-bold text-white">
+            Have a Specific Sourcing Question for Our Engineers?
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-400">
+            Reach our Cairo manufacturing desk for custom advice on foam formulations, container cube utilization, and private label execution.
+          </p>
+          <div className="pt-2">
+            <Link
+              href="/request-a-quote"
+              className="inline-block px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-slate-950 font-bold text-xs uppercase tracking-wider hover:brightness-110 transition-all shadow-lg"
+            >
+              REQUEST A WHOLESALE QUOTE
+            </Link>
+          </div>
+        </div>
+      </div>
+    </Layout>
   );
 }
-
-function getSymbolIcon(symbolName: string): string {
-  const icons: { [key: string]: string } = {
-    'Anubis': '𓃥',
-    'Royal Scarab': '𓆣',
-    'Queen Nefertiti': '𓇳',
-    'Great Pyramids': '𓉴',
-    'Eye of Horus': '𓂀',
-    'Ankh': '𓋹',
-    'Sacred Lotus': '𓆸',
-    'Great Sphinx': '𓎛',
-    'Queen Cleopatra': '𓇯',
-    "Pharaoh's Crown": '𓋑'
-  };
-  return icons[symbolName] || '𓀀';
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  const articles = PHARAONIC_SYMBOLS_ARTICLES;
-  const featuredArticles = getFeaturedArticles();
-
-  // Extract unique categories for navigation
-  const uniqueCategories = Array.from(new Set(articles.map(article => article.symbol.name)))
-    .map(name => {
-      const article = articles.find(art => art.symbol.name === name);
-      return {
-        name: article?.symbol.name || name,
-        arabicName: article?.symbol.arabicName || name,
-        slug: name.toLowerCase().replace(/\s+/g, '-'),
-      };
-    });
-
-  return {
-    props: {
-      articles,
-      featuredArticles,
-      categories: uniqueCategories,
-    },
-    revalidate: 86400, // Revalidate once per day
-  };
-};
