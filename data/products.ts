@@ -16,14 +16,13 @@ export const CAMEL_PRODUCTS: Product[] = [
     shortDescription: 'Handcrafted Egyptian plush camel (22 cm) with pharaonic embroidered saddle and super-soft velvet.',
     price: {
       retail: 18,
-      wholesale: 12,
+      wholesale: 3,
       currency: 'USD',
-      minimumOrderQuantity: 1,
+      minimumOrderQuantity: 130,
       bulkDiscounts: [
-        { quantity: 50, discount: 15 },
-        { quantity: 100, discount: 25 },
-        { quantity: 250, discount: 35 },
-        { quantity: 500, discount: 40 }
+        { quantity: 130, discount: 0 },
+        { quantity: 500, discount: 5 },
+        { quantity: 1000, discount: 10 }
       ]
     },
     pricing: {
@@ -33,10 +32,9 @@ export const CAMEL_PRODUCTS: Product[] = [
         currency: 'USD'
       },
       wholesale: [
-        { minQuantity: 50, unitPrice: 10.5, discount: 15, currency: 'USD' },
-        { minQuantity: 100, unitPrice: 9.5, discount: 25, currency: 'USD' },
-        { minQuantity: 250, unitPrice: 8.5, discount: 35, currency: 'USD' },
-        { minQuantity: 500, unitPrice: 7.5, discount: 40, currency: 'USD' }
+        { minQuantity: 130, unitPrice: 3.0, discount: 0, currency: 'USD' },
+        { minQuantity: 500, unitPrice: 2.85, discount: 5, currency: 'USD' },
+        { minQuantity: 1000, unitPrice: 2.7, discount: 10, currency: 'USD' }
       ]
     },
     images: [
@@ -197,28 +195,26 @@ export const CAMEL_PRODUCTS: Product[] = [
     description: 'Grand Deluxe 28 cm Egyptian pharaonic plush camel with opulent embroidered ceremonial saddle, fluffy plush mane, and reinforced standing legs. Perfect for luxury hotels, VIP suites, and collector displays.',
     shortDescription: 'Grand Deluxe Egyptian plush camel (28 cm) with ceremonial pharaonic saddle and luxury room decor presence.',
     price: {
-      retail: 26,
-      wholesale: 18,
+      retail: 22,
+      wholesale: 4,
       currency: 'USD',
-      minimumOrderQuantity: 1,
+      minimumOrderQuantity: 130,
       bulkDiscounts: [
-        { quantity: 50, discount: 15 },
-        { quantity: 100, discount: 25 },
-        { quantity: 250, discount: 35 },
-        { quantity: 500, discount: 40 }
+        { quantity: 130, discount: 0 },
+        { quantity: 500, discount: 5 },
+        { quantity: 1000, discount: 10 }
       ]
     },
     pricing: {
       retail: {
-        min: 26,
-        max: 32,
+        min: 22,
+        max: 26,
         currency: 'USD'
       },
       wholesale: [
-        { minQuantity: 50, unitPrice: 15.5, discount: 15, currency: 'USD' },
-        { minQuantity: 100, unitPrice: 14.0, discount: 25, currency: 'USD' },
-        { minQuantity: 250, unitPrice: 12.5, discount: 35, currency: 'USD' },
-        { minQuantity: 500, unitPrice: 11.5, discount: 40, currency: 'USD' }
+        { minQuantity: 130, unitPrice: 4.0, discount: 0, currency: 'USD' },
+        { minQuantity: 500, unitPrice: 3.8, discount: 5, currency: 'USD' },
+        { minQuantity: 1000, unitPrice: 3.6, discount: 10, currency: 'USD' }
       ]
     },
     images: [

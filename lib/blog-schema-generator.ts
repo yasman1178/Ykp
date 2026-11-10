@@ -7,8 +7,8 @@
 import { BlogArticle } from '@/data/blog-articles';
 
 // Base URL for the website
-const SITE_URL = 'https://ykp-eg.com';
-const SITE_NAME = 'Pharaonic Pillows';
+const SITE_URL = 'https://www.ykp-eg.com';
+const SITE_NAME = 'YKP Supplies';
 const LOGO_URL = `${SITE_URL}/logo.png`;
 
 /**

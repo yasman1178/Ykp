@@ -90,7 +90,7 @@ export const DEFAULT_SEO: SEOConfig = {
     title: 'YKP Supplies - Premium Egyptian Travel Pillows',
     description: 'Premium Egyptian travel pillows inspired by ancient Pharaonic designs. Memory foam comfort meets Egyptian heritage.',
     image: '/og-image-pharaonic-pillows.jpg',
-    url: 'https://ykp-eg.com',
+    url: 'https://www.ykp-eg.com',
     type: 'website',
     siteName: 'Pharaonic Pillows'
   },
@@ -107,8 +107,8 @@ export const DEFAULT_SEO: SEOConfig = {
     '@type': 'Organization',
     name: 'YKP Supplies',
     description: 'Premium Egyptian travel pillows inspired by ancient Pharaonic designs',
-    url: 'https://ykp-eg.com',
-    logo: 'https://ykp-eg.com/logo.png',
+    url: 'https://www.ykp-eg.com',
+    logo: 'https://www.ykp-eg.com/logo.png',
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: '+20-100-240-6013',
@@ -306,7 +306,7 @@ export const generateCollectionStructuredData = (collection: any) => {
     '@type': 'CollectionPage',
     name: collection.name,
     description: collection.description,
-    url: `https://ykp-eg.com/products/${collection.id}`,
+    url: `https://www.ykp-eg.com/products/${collection.id}`,
     mainEntity: {
       '@type': 'ItemList',
       numberOfItems: collection.totalProducts,
@@ -316,7 +316,7 @@ export const generateCollectionStructuredData = (collection: any) => {
         item: {
           '@type': 'Product',
           name: product.name,
-          url: `https://ykp-eg.com/products/${collection.id}/${product.id}`
+          url: `https://www.ykp-eg.com/products/${collection.id}/${product.id}`
         }
       })) || []
     }
@@ -413,7 +413,7 @@ export const generateEnhancedMetaTags = (seoConfig: SEOConfig, additionalTags: a
 
 // Generate sitemap data with enhanced structure
 export const generateSitemapData = () => {
-  const baseUrl = 'https://ykp-eg.com';
+  const baseUrl = 'https://www.ykp-eg.com';
   const currentDate = new Date().toISOString();
 
   return {

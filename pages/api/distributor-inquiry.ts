@@ -123,7 +123,7 @@ export default async function handler(
     // Send email to factory
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
-      to: 'ykp.supplies@gmail.com',
+      to: 'sales@ykp-eg.com',
       subject: `🚚 طلب انضمام لبرنامج الموزعين من ${inquiryData.companyName} - New Distributor Application`,
       html: factoryEmailContent,
       replyTo: inquiryData.email,
@@ -163,7 +163,7 @@ export default async function handler(
           <div style="text-align: center; margin: 30px 0;">
             <h3 style="color: #1E3A8A;">تواصل معنا مباشرة / Contact Us Directly</h3>
             <div style="display: inline-block; margin: 10px; padding: 15px; background-color: #f8f9fa; border-radius: 10px;">
-              <p style="margin: 0; color: #333;"><strong>📧 Email:</strong> <a href="mailto:ykp.supplies@gmail.com" style="color: #1E3A8A;">ykp.supplies@gmail.com</a></p>
+              <p style="margin: 0; color: #333;"><strong>📧 Email:</strong> <a href="mailto:sales@ykp-eg.com" style="color: #1E3A8A;">sales@ykp-eg.com</a></p>
             </div>
             <div style="display: inline-block; margin: 10px; padding: 15px; background-color: #f8f9fa; border-radius: 10px;">
               <p style="margin: 0; color: #333;"><strong>📞 Phone:</strong> <a href="tel:+201002406013" style="color: #1E3A8A;">+20 100 240 6013</a></p>

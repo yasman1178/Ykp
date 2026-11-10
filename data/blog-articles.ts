@@ -2,6 +2,7 @@
 // Comprehensive content strategy for Egyptian heritage and cultural education
 
 import { TARGET_KEYWORDS } from '@/lib/seo-content';
+import { STRATEGIC_30_ARTICLES } from '@/data/seo-30-articles';
 
 export interface BlogArticle {
   id: string;
@@ -15,6 +16,9 @@ export interface BlogArticle {
   lastModified: string;
   author: string;
   tags: string[];
+  category?: string;
+  lang?: 'ar' | 'en' | 'bilingual';
+  faqs?: { question: string; answer: string }[];
   seoKeywords: {
     primary: string[];
     secondary: string[];
@@ -37,11 +41,13 @@ export interface BlogArticle {
 export const PHARAONIC_SYMBOLS_ARTICLES: BlogArticle[] = [
   {
     id: 'anubis-god-death',
-    title: 'Anubis Travel Pillow Manufacturing | Egyptian Protection Symbol',
-    arabicTitle: 'تصنيع وسائد أنوبيس | رمز الحماية المصري القديم',
+    title: 'Anubis in Ancient Egypt: Meaning of the Sacred Jackal Guardian',
+    arabicTitle: 'معنى رمز أنوبيس في مصر القديمة: حارس الرحلات والبركة',
     slug: 'anubis-travel-pillow-manufacturing-egyptian-protection',
-    arabicSlug: 'تصنيع-وسائد-انوبيس-رمز-الحماية-المصري',
-    description: 'Discover the fascinating story of Anubis, the jackal-headed god who guided souls through the afterlife in ancient Egyptian mythology. Learn how this powerful symbol influences modern Egyptian travel pillow designs.',
+    arabicSlug: 'معنى-رمز-انوبيس-في-مصر-القديمة',
+    category: 'egypt-heritage',
+    lang: 'bilingual',
+    description: 'اكتشف قصة وأسرار الإله أنوبيس برأس ابن آوى في الحضارة المصرية القديمة، ودوره كحارس للرحلات والانتقال وحامي المسافرين عبر العصور.',
     content: `Anubis, the jackal-headed deity of ancient Egypt, stands as one of the most recognizable and powerful symbols in Egyptian mythology. As the guardian of the afterlife and guide for souls transitioning from life to death, Anubis represents protection, guidance, and safe passage - qualities that make him an ideal symbol for Egyptian travel pillows.
 
 ## The Historical Significance of Anubis
@@ -1480,7 +1486,41 @@ When you purchase The Beloved Camel, you support a vibrant, sustainable manufact
   }
 ];
 
-// Append Beloved Camel articles to main articles array
+// Map Strategic 30 Articles into BlogArticle interface
+export const STRATEGIC_BLOG_ARTICLES_MAPPED: BlogArticle[] = STRATEGIC_30_ARTICLES.map((sa) => ({
+  id: sa.id,
+  title: sa.title,
+  arabicTitle: sa.title,
+  slug: sa.slug,
+  arabicSlug: sa.slug,
+  description: sa.metaDescription,
+  content: sa.content,
+  publishDate: sa.publishDate,
+  lastModified: sa.lastModified,
+  author: sa.author.name,
+  tags: [sa.primaryKeyword, ...sa.secondaryKeywords],
+  category: sa.category,
+  lang: sa.lang,
+  faqs: sa.faqs,
+  seoKeywords: {
+    primary: [sa.primaryKeyword],
+    secondary: sa.secondaryKeywords,
+    longTail: []
+  },
+  relatedProducts: sa.ctaUrl ? [sa.ctaUrl] : ['b123-anubis-guardian'],
+  readingTime: sa.readingTime,
+  featured: sa.articleNumber <= 6,
+  symbol: {
+    name: sa.category === 'guides' ? 'Travel Guide' : sa.category === 'gifts' ? 'Egyptian Gift' : sa.category === 'kids' ? 'The Beloved Camel' : sa.category === 'b2b-sourcing' ? 'B2B Sourcing' : 'Heritage Care',
+    arabicName: sa.category === 'guides' ? 'دليل السفر' : sa.category === 'gifts' ? 'هدية تذكارية' : sa.category === 'kids' ? 'الجمل المحبوب' : sa.category === 'b2b-sourcing' ? 'توريد واستيراد' : 'العناية بالتراث',
+    meaning: sa.primaryKeyword,
+    historicalPeriod: 'Ancient & Modern Egyptian Heritage',
+    culturalSignificance: sa.metaDescription
+  }
+}));
+
+// Prepend Strategic 30 articles and append Beloved Camel articles
+PHARAONIC_SYMBOLS_ARTICLES.unshift(...STRATEGIC_BLOG_ARTICLES_MAPPED);
 PHARAONIC_SYMBOLS_ARTICLES.push(...BELOVED_CAMEL_ARTICLES);
 
 // Automated Weekly Publishing Helper

@@ -73,15 +73,15 @@ export default function BlogArticlePage({ article, relatedArticles }: BlogArticl
           keywords: seoMeta.keywords,
           openGraph: {
             ...seoMeta.openGraph,
-            image: `https://ykp-eg.com${ogImageUrl}`,
+            image: `https://www.ykp-eg.com${ogImageUrl}`,
           },
           twitter: {
             ...seoMeta.twitter,
-            image: `https://ykp-eg.com${twitterImageUrl}`
+            image: `https://www.ykp-eg.com${twitterImageUrl}`
           }
         }}
         structuredData={structuredData}
-        canonical={`https://ykp-eg.com/blog/${article.slug}`}
+        canonical={`https://www.ykp-eg.com/blog/${article.slug}`}
       />
 
       <div className="min-h-screen bg-papyrus-light/30">
@@ -292,7 +292,7 @@ export default function BlogArticlePage({ article, relatedArticles }: BlogArticl
       {showShareDialog && (
         <BlogShareDialog
           isOpen={showShareDialog}
-          url={`https://ykp-eg.com/blog/${article.slug}`}
+          url={`https://www.ykp-eg.com/blog/${article.slug}`}
           title={article.title}
           description={article.description}
           onClose={() => setShowShareDialog(false)}

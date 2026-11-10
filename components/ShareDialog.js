@@ -16,7 +16,7 @@ const ShareDialog = ({ isOpen, onClose, image }) => {
   const handleEmailShare = () => {
     const subject = 'Product Inquiry';
     const body = `I am interested in this product: ${image.path}`;
-    window.location.href = `mailto:ykp.supplies@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:sales@ykp-eg.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   return (

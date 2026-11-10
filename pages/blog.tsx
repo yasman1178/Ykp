@@ -26,23 +26,26 @@ interface BlogIndexProps {
 
 export default function BlogIndex({ articles, featuredArticles, categories }: BlogIndexProps) {
   const router = useRouter();
-  const currentCategorySlug = router.query.category as string;
+  const currentCategory = (router.query.category as string) || 'all';
 
-  const filteredArticles = currentCategorySlug
-    ? articles.filter(article => article.symbol.name.toLowerCase().replace(/\s+/g, '-') === currentCategorySlug)
+  const filteredArticles = currentCategory && currentCategory !== 'all'
+    ? articles.filter(article => 
+        article.category === currentCategory || 
+        article.symbol?.name?.toLowerCase().replace(/\s+/g, '-') === currentCategory
+      )
     : articles;
 
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'Blog',
-    name: 'Egyptian Pharaonic Symbols Blog - Ancient Wisdom & Travel Pillows',
-    description: 'Explore the fascinating world of ancient Egyptian symbols and their meanings. Discover how Pharaonic heritage inspires our premium Egyptian travel pillow designs.',
-    url: 'https://ykp-eg.com/blog',
+    name: 'YKP Supplies Blog - Egyptian Travel Pillows & Pharaonic Souvenirs',
+    description: 'Practical guides, cultural heritage stories, care tips, and wholesale sourcing insights for Egyptian memory foam travel pillows and plush toys.',
+    url: 'https://www.ykp-eg.com/blog',
     blogPost: featuredArticles.map(article => ({
       '@type': 'BlogPosting',
       headline: article.title,
       description: article.description,
-      url: `https://ykp-eg.com/blog/${article.slug}`,
+      url: `https://www.ykp-eg.com/blog/${article.slug}`,
       datePublished: article.publishDate,
       author: {
         '@type': 'Person',
@@ -55,35 +58,34 @@ export default function BlogIndex({ articles, featuredArticles, categories }: Bl
     <>
       <SEOHead
         seoConfig={{
-          title: "Egyptian Pharaonic Symbols Blog | Ancient Wisdom & Travel Pillows",
-          description: "Explore fascinating articles about ancient Egyptian symbols: Anubis, Scarab, Nefertiti, Pyramids, Eye of Horus, Ankh, Lotus, Sphinx, Cleopatra, and Pharaoh's Crown. Discover how these symbols inspire our premium Egyptian travel pillow designs.",
+          title: "مدونة مخدات السفر والتراث المصري | YKP Supplies Blog",
+          description: "أدلة اختيار مخدات السفر، العناية بالميموري فوم، أسرار القطن المصري، وأحدث نصائح وتوريد الهدايا التذكارية بالجملة والتجزئة.",
           keywords: [
             ...TARGET_KEYWORDS.primary.arabic,
             ...TARGET_KEYWORDS.primary.english,
-            'Egyptian symbols blog',
-            'Pharaonic heritage articles',
-            'ancient Egyptian culture',
-            'Egyptian travel pillow blog',
-            'رموز فرعونية ومعانيها',
-            'مدونة الثقافة المصرية القديمة'
+            'مخدة سفر',
+            'مخدة رقبة',
+            'تذكارات مصرية',
+            'Travel pillow blog',
+            'Wholesale souvenirs Egypt'
           ],
           openGraph: {
-            title: "Egyptian Pharaonic Symbols Blog | Ancient Wisdom & Travel Pillows",
-            description: "Explore fascinating articles about ancient Egyptian symbols and discover how they inspire our premium Egyptian travel pillow designs.",
-            image: "https://ykp-eg.com/blog-og-image.jpg",
-            url: "https://ykp-eg.com/blog",
+            title: "مدونة مخدات السفر والتراث المصري | YKP Supplies",
+            description: "أدلة عملية وتذكارات فرعونية ومعايير توريد مخدات السفر الطبية من مصنع YKP Supplies.",
+            image: "https://www.ykp-eg.com/prodect/b123/1.webp",
+            url: "https://www.ykp-eg.com/blog",
             type: "website",
-            siteName: "Pharaonic Pillows"
+            siteName: "YKP Supplies"
           },
           twitter: {
             card: "summary_large_image",
-            title: "Egyptian Pharaonic Symbols Blog | Ancient Wisdom & Travel Pillows",
-            description: "Explore fascinating articles about ancient Egyptian symbols and discover how they inspire our premium Egyptian travel pillow designs.",
-            image: "https://ykp-eg.com/blog-twitter-image.jpg"
+            title: "مدونة مخدات السفر والتراث المصري | YKP Supplies",
+            description: "أدلة وتذكارات مخدات السفر الفرعونية من مصنع YKP Supplies بالقاهرة.",
+            image: "https://www.ykp-eg.com/prodect/b123/1.webp"
           }
         }}
         structuredData={structuredData}
-        canonical="https://ykp-eg.com/blog"
+        canonical="https://www.ykp-eg.com/blog"
       />
 
       <div className="min-h-screen bg-white">

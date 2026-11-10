@@ -85,7 +85,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ translations: t, locale }) =>
         {
             icon: <FaEnvelope />,
             title: isRTL ? 'البريد الإلكتروني' : 'Email Us',
-            details: ['ykp.supplies@gmail.com'],
+            details: ['sales@ykp-eg.com'],
             description: isRTL ? 'تواصل مباشر مع فريق التصنيع' : 'Direct communication with our team',
         },
         {

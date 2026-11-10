@@ -43,18 +43,18 @@ export const generateOrganizationSchema = () => {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    '@id': 'https://ykp-eg.com/#organization',
+    '@id': 'https://www.ykp-eg.com/#organization',
     name: 'YKP Supplies',
     alternateName: 'Egyptian Pharaonic Travel Pillows',
     description: 'Premium Egyptian travel pillows inspired by ancient Pharaonic designs. Wholesale B2B opportunities for international distributors.',
-    url: 'https://ykp-eg.com',
+    url: 'https://www.ykp-eg.com',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://ykp-eg.com/logo.png',
+      url: 'https://www.ykp-eg.com/logo.png',
       width: 300,
       height: 100
     },
-    image: 'https://ykp-eg.com/og-image-pharaonic-pillows.jpg',
+    image: 'https://www.ykp-eg.com/og-image-pharaonic-pillows.jpg',
     foundingDate: '2020',
     foundingLocation: {
       '@type': 'Place',
@@ -127,19 +127,19 @@ export const generateWebsiteSchema = () => {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    '@id': 'https://ykp-eg.com/#website',
-    url: 'https://ykp-eg.com',
+    '@id': 'https://www.ykp-eg.com/#website',
+    url: 'https://www.ykp-eg.com',
     name: 'Pharaonic Pillows - Egyptian Travel Pillows',
     description: 'Premium Egyptian travel pillows with authentic Pharaonic designs. B2B wholesale opportunities for international distributors.',
     publisher: {
-      '@id': 'https://ykp-eg.com/#organization'
+      '@id': 'https://www.ykp-eg.com/#organization'
     },
     potentialAction: [
       {
         '@type': 'SearchAction',
         target: {
           '@type': 'EntryPoint',
-          urlTemplate: 'https://ykp-eg.com/search?q={search_term_string}'
+          urlTemplate: 'https://www.ykp-eg.com/search?q={search_term_string}'
         },
         'query-input': 'required name=search_term_string'
       }
@@ -150,7 +150,7 @@ export const generateWebsiteSchema = () => {
 
 // Product Schema
 export const generateProductSchema = (product: Product) => {
-  const baseUrl = 'https://ykp-eg.com';
+  const baseUrl = 'https://www.ykp-eg.com';
 
   return {
     '@context': 'https://schema.org',
@@ -254,7 +254,7 @@ export const generateProductSchema = (product: Product) => {
 
 // Collection Page Schema
 export const generateCollectionSchema = (collection: any) => {
-  const baseUrl = 'https://ykp-eg.com';
+  const baseUrl = 'https://www.ykp-eg.com';
 
   return {
     '@context': 'https://schema.org',
@@ -306,7 +306,7 @@ export const generateCollectionSchema = (collection: any) => {
 
 // Blog Article Schema
 export const generateArticleSchema = (article: BlogArticle) => {
-  const baseUrl = 'https://ykp-eg.com';
+  const baseUrl = 'https://www.ykp-eg.com';
 
   return {
     '@context': 'https://schema.org',
@@ -321,7 +321,7 @@ export const generateArticleSchema = (article: BlogArticle) => {
       url: `${baseUrl}/about`
     },
     publisher: {
-      '@id': 'https://ykp-eg.com/#organization'
+      '@id': 'https://www.ykp-eg.com/#organization'
     },
     datePublished: article.publishDate,
     dateModified: article.lastModified,
@@ -386,11 +386,11 @@ export const generateLocalBusinessSchema = () => {
   return {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    '@id': 'https://ykp-eg.com/#localbusiness',
+    '@id': 'https://www.ykp-eg.com/#localbusiness',
     name: 'Pharaonic Pillows',
-    image: 'https://ykp-eg.com/business-photo.jpg',
+    image: 'https://www.ykp-eg.com/business-photo.jpg',
     telephone: '+20-100-240-6013',
-    email: 'ykp.supplies@gmail.com',
+    email: 'sales@ykp-eg.com',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Cairo Business District',

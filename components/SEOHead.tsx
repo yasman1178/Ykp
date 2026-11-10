@@ -101,10 +101,11 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'Organization',
-            name: 'Pharaonic Pillows',
-            description: 'Premium Egyptian travel pillows inspired by ancient Pharaonic designs',
-            url: 'https://ykp-eg.com',
-            logo: 'https://ykp-eg.com/logo.png',
+            name: 'YKP Supplies - Pharaonic Pillows & The Beloved Camel',
+            description: 'Premium Egyptian travel pillows and authentic Egyptian souvenir plush toys directly from Cairo manufacturer.',
+            url: 'https://www.ykp-eg.com',
+            logo: 'https://www.ykp-eg.com/logo.png',
+            email: 'sales@ykp-eg.com',
             foundingDate: '2020',
             foundingLocation: {
               '@type': 'Place',
@@ -112,8 +113,8 @@ export const SEOHead: React.FC<SEOHeadProps> = ({
             },
             contactPoint: {
               '@type': 'ContactPoint',
-              telephone: '+20-XXX-XXX-XXXX',
-              contactType: 'customer service',
+              telephone: '+201002406013',
+              contactType: 'sales and customer service',
               availableLanguage: ['English', 'Arabic'],
               areaServed: 'Worldwide'
             },

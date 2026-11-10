@@ -17,7 +17,7 @@ export interface EmailConfig {
 export function getEmailConfig(): EmailConfig {
   const gmailUser = process.env.GMAIL_USER;
   const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
-  const contactEmail = process.env.CONTACT_EMAIL || 'ykp.supplies@gmail.com';
+  const contactEmail = process.env.CONTACT_EMAIL || 'sales@ykp-eg.com';
 
   if (!gmailUser) {
     throw new Error('GMAIL_USER environment variable is not set. Please check your .env.local file.');

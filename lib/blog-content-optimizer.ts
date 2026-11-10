@@ -157,9 +157,9 @@ export const generateEnhancedStructuredData = (article: BlogArticle) => {
     alternativeHeadline: article.arabicTitle,
     description: optimizeMetaDescription(article),
     image: [
-      `https://ykp-eg.com/blog-images/${article.slug}-featured.jpg`,
-      `https://ykp-eg.com/blog-images/${article.slug}-og.jpg`,
-      `https://ykp-eg.com/blog-images/${article.slug}-twitter.jpg`
+      `https://www.ykp-eg.com/blog-images/${article.slug}-featured.jpg`,
+      `https://www.ykp-eg.com/blog-images/${article.slug}-og.jpg`,
+      `https://www.ykp-eg.com/blog-images/${article.slug}-twitter.jpg`
     ],
     datePublished: article.publishDate,
     dateModified: article.lastModified,
@@ -177,7 +177,7 @@ export const generateEnhancedStructuredData = (article: BlogArticle) => {
       name: 'Pharaonic Pillows Egypt',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://ykp-eg.com/logo.png',
+        url: 'https://www.ykp-eg.com/logo.png',
         width: 200,
         height: 60
       },
@@ -188,7 +188,7 @@ export const generateEnhancedStructuredData = (article: BlogArticle) => {
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://ykp-eg.com/blog/${article.slug}`
+      '@id': `https://www.ykp-eg.com/blog/${article.slug}`
     },
     keywords: enhanceArticleSEO(article).seoKeywords.primary.join(', '),
     articleSection: 'Egyptian Culture and Heritage',
@@ -205,7 +205,7 @@ export const generateEnhancedStructuredData = (article: BlogArticle) => {
       '@type': 'Product',
       name: `${article.symbol.name} Egyptian Travel Pillow`,
       description: `Premium Egyptian travel pillow featuring ${article.symbol.name} design`,
-      url: `https://ykp-eg.com/products/${productId}`,
+      url: `https://www.ykp-eg.com/products/${productId}`,
       brand: {
         '@type': 'Brand',
         name: 'Pharaonic Pillows Egypt'
@@ -218,7 +218,7 @@ export const generateEnhancedStructuredData = (article: BlogArticle) => {
       '@type': 'Blog',
       name: 'Egyptian Pharaonic Symbols Blog',
       description: 'Comprehensive guide to ancient Egyptian symbols and their modern applications in travel accessories',
-      url: 'https://ykp-eg.com/blog'
+      url: 'https://www.ykp-eg.com/blog'
     }
   };
 };

@@ -171,8 +171,8 @@ export const generateBlogSEOMeta = (article: BlogArticle): {
     openGraph: {
       title: seoTitle,
       description: seoDescription,
-      image: `https://ykp-eg.com/blog-images/${article.slug}-og.jpg`,
-      url: `https://ykp-eg.com/blog/${article.slug}`,
+      image: `https://www.ykp-eg.com/blog-images/${article.slug}-og.jpg`,
+      url: `https://www.ykp-eg.com/blog/${article.slug}`,
       type: "article",
       siteName: "Pharaonic Pillows Egypt",
       locale: "en_US",
@@ -182,7 +182,7 @@ export const generateBlogSEOMeta = (article: BlogArticle): {
       card: "summary_large_image",
       title: seoTitle,
       description: seoDescription,
-      image: `https://ykp-eg.com/blog-images/${article.slug}-twitter.jpg`,
+      image: `https://www.ykp-eg.com/blog-images/${article.slug}-twitter.jpg`,
       site: "@ykp-eg",
       creator: "@ykp-eg"
     }
@@ -401,7 +401,7 @@ export const generateBlogStructuredData = (article: BlogArticle) => {
     headline: article.title,
     alternativeHeadline: article.arabicTitle,
     description: article.description,
-    image: `https://ykp-eg.com/blog-images/${article.slug}-featured.jpg`,
+    image: `https://www.ykp-eg.com/blog-images/${article.slug}-featured.jpg`,
     datePublished: article.publishDate,
     dateModified: article.lastModified,
     author: {
@@ -414,14 +414,14 @@ export const generateBlogStructuredData = (article: BlogArticle) => {
       name: 'Pharaonic Pillows Egypt',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://ykp-eg.com/logo.png',
+        url: 'https://www.ykp-eg.com/logo.png',
         width: 200,
         height: 60
       }
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://ykp-eg.com/blog/${article.slug}`
+      '@id': `https://www.ykp-eg.com/blog/${article.slug}`
     },
     keywords: article.seoKeywords.primary.join(', '),
     articleSection: 'Egyptian Culture and Heritage',
@@ -438,7 +438,7 @@ export const generateBlogStructuredData = (article: BlogArticle) => {
       '@type': 'Product',
       name: product.name,
       description: product.description,
-      url: `https://ykp-eg.com/products/${product.collection}/${product.id}`,
+      url: `https://www.ykp-eg.com/products/${product.collection}/${product.id}`,
       brand: {
         '@type': 'Brand',
         name: 'Pharaonic Pillows Egypt'

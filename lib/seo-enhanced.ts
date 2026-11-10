@@ -147,7 +147,7 @@ export const DEFAULT_ARABIC_KEYWORD_STRATEGY: ArabicKeywordStrategy = {
  */
 export function generateHreflangTags(
   basePath: string,
-  baseUrl: string = 'https://ykp-eg.com'
+  baseUrl: string = 'https://www.ykp-eg.com'
 ): HreflangTag[] {
   return [
     {
@@ -300,7 +300,7 @@ export function generateBilingualMetaTags(
 /**
  * Generate enhanced SEO configuration for homepage
  */
-export function generateHomepageEnhancedSEO(baseUrl: string = 'https://ykp-eg.com'): EnhancedSEOConfig {
+export function generateHomepageEnhancedSEO(baseUrl: string = 'https://www.ykp-eg.com'): EnhancedSEOConfig {
   return {
     title: {
       en: 'Egyptian Travel Pillows Manufacturing | مخدات سفر تصنيع | Wholesale B2B',
@@ -381,7 +381,7 @@ export function generateProductEnhancedSEO(
   productNameAr: string,
   productDescriptionAr: string,
   productPath: string,
-  baseUrl: string = 'https://ykp-eg.com'
+  baseUrl: string = 'https://www.ykp-eg.com'
 ): EnhancedSEOConfig {
   return {
     title: {

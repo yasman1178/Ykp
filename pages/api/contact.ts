@@ -36,7 +36,7 @@ export default async function handler(
       });
       return res.status(500).json({ 
         success: false, 
-        message: 'Email service not configured. Please contact us directly at ykp.supplies@gmail.com or call +20 100 240 6013'
+        message: 'Email service not configured. Please contact us directly at sales@ykp-eg.com or call +20 100 240 6013'
       });
     }
 
@@ -116,7 +116,7 @@ export default async function handler(
     // Send email to company
     await transporter.sendMail({
       from: `"YKP Supplies Website" <${process.env.EMAIL_USER}>`,
-      to: 'ykp.supplies@gmail.com', // Company email
+      to: 'sales@ykp-eg.com', // Company email
       subject: `🏭 New Manufacturing Inquiry: ${subject}`,
       html: emailContent,
       replyTo: email, // Set reply-to as the customer's email
@@ -159,7 +159,7 @@ export default async function handler(
               <strong>Call us directly:</strong> +20 100 240 6013
             </p>
             <p style="margin: 5px 0; color: #374151;">
-              <strong>Email:</strong> ykp.supplies@gmail.com
+              <strong>Email:</strong> sales@ykp-eg.com
             </p>
             <p style="margin: 5px 0; color: #374151;">
               <strong>Business Hours:</strong> Sunday - Thursday, 9 AM - 6 PM (Cairo Time)
@@ -180,7 +180,7 @@ export default async function handler(
         
         <div style="text-align: center; margin-top: 20px; color: #666; font-size: 12px;">
           <p>This is an automated confirmation from YKP Supplies</p>
-          <p>Please do not reply to this email. For questions, contact us at ykp.supplies@gmail.com</p>
+          <p>Please do not reply to this email. For questions, contact us at sales@ykp-eg.com</p>
         </div>
       </div>
     `;
@@ -202,7 +202,7 @@ export default async function handler(
     
     res.status(500).json({ 
       success: false, 
-      message: 'Failed to send message. Please try again or contact us directly at ykp.supplies@gmail.com',
+      message: 'Failed to send message. Please try again or contact us directly at sales@ykp-eg.com',
       error: error instanceof Error ? error.message : 'Unknown error'
     });
   }

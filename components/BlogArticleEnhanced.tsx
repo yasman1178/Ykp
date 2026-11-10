@@ -133,6 +133,29 @@ export default function BlogArticleEnhanced({
           )}
         </motion.div>
 
+        {/* FAQ Section */}
+        {article.faqs && article.faqs.length > 0 && (
+          <div className="mt-12 p-6 md:p-8 bg-gradient-to-br from-amber-50/80 to-white rounded-2xl border-2 border-pharaonic-gold/30 shadow-sm relative z-10">
+            <h3 className="text-2xl font-bold text-black mb-6 flex items-center">
+              <span className="text-pharaonic-gold text-2xl ml-3">❓</span>
+              الأسئلة الأكثر شيوعاً | Frequently Asked Questions
+            </h3>
+            <div className="space-y-4">
+              {article.faqs.map((faq, idx) => (
+                <details key={idx} className="group bg-white p-5 rounded-xl border border-gray-200 shadow-sm transition-all" open={idx === 0}>
+                  <summary className="font-bold text-gray-900 cursor-pointer list-none flex justify-between items-center text-base md:text-lg">
+                    <span>{faq.question}</span>
+                    <span className="text-pharaonic-gold font-bold group-open:rotate-180 transition-transform ml-2">▼</span>
+                  </summary>
+                  <p className="mt-3 text-gray-700 leading-relaxed text-sm md:text-base pt-3 border-t border-gray-100">
+                    {faq.answer}
+                  </p>
+                </details>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Internal Links Section */}
         {showInternalLinks && internalLinks.length > 0 && (
           <BlogInternalLinks
@@ -298,7 +321,7 @@ export default function BlogArticleEnhanced({
       {showShareDialog && (
         <BlogShareDialog
           isOpen={showShareDialog}
-          url={`https://ykp-eg.com/blog/${article.slug}`}
+          url={`https://www.ykp-eg.com/blog/${article.slug}`}
           title={article.title}
           description={article.description}
           onClose={() => setShowShareDialog(false)}

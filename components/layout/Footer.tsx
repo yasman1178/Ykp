@@ -136,7 +136,7 @@ const Footer: React.FC<FooterProps> = ({ locale = 'en' }) => {
               </div>
               <div className="flex items-center gap-2.5">
                 <FaEnvelope className="text-[#D4AF37] shrink-0" />
-                <span>deliveryeg1@gmail.com</span>
+                <a href="mailto:sales@ykp-eg.com" className="hover:text-white transition-colors">sales@ykp-eg.com</a>
               </div>
               <div className="pt-2">
                 <span className="inline-block text-[11px] text-emerald-400 font-mono bg-emerald-950/40 border border-emerald-800/40 px-2.5 py-1 rounded">

@@ -17,7 +17,7 @@ export interface SitemapEntry {
 
 // Generate sitemap entries for all blog articles
 export const generateBlogSitemapEntries = (): SitemapEntry[] => {
-  const baseUrl = 'https://ykp-eg.com';
+  const baseUrl = 'https://www.ykp-eg.com';
 
   return PHARAONIC_SYMBOLS_ARTICLES.map(article => {
     const seoUrls = generateBlogSEOUrl(article);
@@ -43,7 +43,7 @@ export const generateBlogSitemapEntries = (): SitemapEntry[] => {
 
 // Generate blog index sitemap entry
 export const generateBlogIndexSitemapEntry = (): SitemapEntry => {
-  const baseUrl = 'https://ykp-eg.com';
+  const baseUrl = 'https://www.ykp-eg.com';
 
   return {
     url: `${baseUrl}/blog`,
@@ -93,7 +93,7 @@ ${xmlEntries}
 // Generate robots.txt entries for blog
 export const generateBlogRobotsTxt = (): string[] => {
   return [
-    'Sitemap: https://ykp-eg.com/sitemap-blog.xml',
+    'Sitemap: https://www.ykp-eg.com/sitemap-blog.xml',
     '',
     '# Blog specific rules',
     'Allow: /blog/',

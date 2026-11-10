@@ -583,7 +583,7 @@ const PartnershipPage: React.FC = () => {
                   </motion.button>
                   
                   <div className="text-center text-sm text-gray-500 mt-3">
-                    <p>سيتم إرسال طلبك مباشرة إلى: <strong>ykp.supplies@gmail.com</strong></p>
+                    <p>سيتم إرسال طلبك مباشرة إلى: <strong>sales@ykp-eg.com</strong></p>
                     <p>وقت الاستجابة: خلال 48 ساعة</p>
                   </div>
                 </div>
@@ -614,8 +614,8 @@ const PartnershipPage: React.FC = () => {
                 >
                   <FaEnvelope className="text-3xl text-pharaonic-gold mb-3" />
                   <h3 className="font-semibold text-hieroglyph-black mb-2">إيميل المصنع</h3>
-                  <a href="mailto:ykp.supplies@gmail.com" className="text-pharaonic-gold hover:text-deep-blue transition-colors">
-                    ykp.supplies@gmail.com
+                  <a href="mailto:sales@ykp-eg.com" className="text-pharaonic-gold hover:text-deep-blue transition-colors">
+                    sales@ykp-eg.com
                   </a>
                   <p className="text-xs text-gray-500 mt-1 text-center">للشراكات والتعاون</p>
                 </motion.div>

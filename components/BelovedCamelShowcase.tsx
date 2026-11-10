@@ -33,7 +33,7 @@ export default function BelovedCamelShowcase({ locale = 'en' }: BelovedCamelShow
   const [orderMode, setOrderMode] = useState<'retail' | 'b2b'>('retail');
 
   // B2B customizer state
-  const [b2bQuantity, setB2bQuantity] = useState<number>(100);
+  const [b2bQuantity, setB2bQuantity] = useState<number>(130);
   const [brandingLocation, setBrandingLocation] = useState<'saddle' | 'collar' | 'both'>('saddle');
   const [companyName, setCompanyName] = useState<string>('');
   const [customPackaging, setCustomPackaging] = useState<boolean>(true);
@@ -78,21 +78,11 @@ export default function BelovedCamelShowcase({ locale = 'en' }: BelovedCamelShow
     { id: 'lotus-pink', nameEn: 'Lotus Blossom Pink', nameAr: 'وردي زهرة اللوتس', hex: '#E58EB0' },
   ];
 
-  // Pricing calculations
-  const basePriceRetail = selectedSize === '22cm' ? 18 : 26; // USD
-  const basePriceWholesale = selectedSize === '22cm' ? 12 : 18; // USD base
-
-  // B2B discount tiers
-  const getB2bDiscount = (qty: number) => {
-    if (qty >= 500) return 40;
-    if (qty >= 250) return 35;
-    if (qty >= 100) return 25;
-    if (qty >= 50) return 15;
-    return 0;
-  };
-
-  const discountPercent = getB2bDiscount(b2bQuantity);
-  const unitPriceWholesale = +(basePriceWholesale * (1 - discountPercent / 100)).toFixed(2);
+  // Confirmed Wholesale & Retail Pricing
+  const basePriceRetail = selectedSize === '22cm' ? 18 : 22; // USD
+  const retailPriceEgp = selectedSize === '22cm' ? 380 : 460; // EGP
+  const basePriceWholesale = selectedSize === '22cm' ? 3 : 4; // Confirmed official wholesale price
+  const unitPriceWholesale = basePriceWholesale;
   const totalB2bPrice = Math.round(unitPriceWholesale * b2bQuantity);
 
   // Generate WhatsApp dynamic links
@@ -289,7 +279,7 @@ Please send digital mockup and delivery schedule.`;
                   </>
                 ) : (
                   <>
-                    <span className="text-[11px] text-slate-400 block">{isRTL ? 'سعر الجملة للقطعة (خصم ' + discountPercent + '%)' : `B2B Price (-${discountPercent}%)`}</span>
+                    <span className="text-[11px] text-slate-400 block">{isRTL ? 'سعر الجملة الرسمي للقطعة' : 'Official B2B Wholesale Price'}</span>
                     <span className="text-2xl font-bold font-mono text-[#D4AF37]">${unitPriceWholesale} <span className="text-xs text-slate-400">USD</span></span>
                     <span className="text-[10px] text-emerald-400 block font-medium">{isRTL ? 'للكميات والمؤسسات' : 'B2B Corporate Tier'}</span>
                   </>
@@ -322,7 +312,7 @@ Please send digital mockup and delivery schedule.`;
                     {isRTL ? 'المقاس الكلاسيكي المحبوب: مناسب لأيدي الأطفال، وحقائب السفر، والتوزيعات السياحية الترحيبية.' : 'Compact & lightweight: perfect for kids, travel carry-on, and room welcome amenities.'}
                   </p>
                   <div className="mt-3 pt-2 border-t border-slate-800/80 text-[11px] text-[#D4AF37] font-mono font-medium">
-                    {orderMode === 'retail' ? '$18 USD / 380 EGP' : '$7.50 - $10.50 USD (Wholesale)'}
+                    {orderMode === 'retail' ? '$18 USD / 380 EGP' : '$3.00 USD (MOQ 130 pcs)'}
                   </div>
                 </button>
 
@@ -344,7 +334,7 @@ Please send digital mockup and delivery schedule.`;
                     {isRTL ? 'المقاس الكبير الفخم: أرجل مدعمة للوقوف، سرج عريض بنقوش فرعونية غنية، ومثالي للأجنحة الفندقية VIP.' : 'Large grand plush with reinforced standing stance, deluxe pharaonic harness, and luxury suite decor.'}
                   </p>
                   <div className="mt-3 pt-2 border-t border-slate-800/80 text-[11px] text-[#D4AF37] font-mono font-medium">
-                    {orderMode === 'retail' ? '$26 USD / 550 EGP' : '$11.50 - $15.50 USD (Wholesale)'}
+                    {orderMode === 'retail' ? '$22 USD / 460 EGP' : '$4.00 USD (MOQ 130 pcs)'}
                   </div>
                 </button>
               </div>
@@ -408,7 +398,13 @@ Please send digital mockup and delivery schedule.`;
                       {isRTL ? 'حاسبة طلبيات الفنادق وشركات السياحة' : 'Hospitality B2B Customizer & Quote Calculator'}
                     </span>
                   </div>
-                  <span className="text-[11px] text-slate-400 font-mono">MOQ: 50 pcs</span>
+                  <span className="text-[11px] text-emerald-400 font-mono font-semibold">{isRTL ? 'حد أدنى: 130 قطعة • توصيل مصر مجاني' : 'MOQ: 130 pcs • Free Egypt Delivery'}</span>
+                </div>
+
+                {/* Free Delivery Banner */}
+                <div className="p-2.5 rounded-xl bg-emerald-950/40 border border-emerald-800/40 text-emerald-300 text-xs flex items-center gap-2">
+                  <FaCheckCircle className="shrink-0 text-emerald-400" />
+                  <span>{isRTL ? 'شحن مجاني وشامل حتى باب المشتري بجميع محافظات مصر لطلبات الجملة.' : 'Free comprehensive doorstep delivery across all Egyptian governorates.'}</span>
                 </div>
 
                 {/* Company Name Input */}
@@ -428,23 +424,23 @@ Please send digital mockup and delivery schedule.`;
                 {/* Quantity Slider */}
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs text-slate-300">
-                    <span>{isRTL ? 'الكمية المطلوبة:' : 'Order Quantity:'}</span>
+                    <span>{isRTL ? 'الكمية المطلوبة (الحد الأدنى 130 قطعة):' : 'Order Quantity (MOQ 130 pcs):'}</span>
                     <span className="font-mono text-base font-bold text-[#D4AF37]">{b2bQuantity} {isRTL ? 'قطعة' : 'units'}</span>
                   </div>
                   <input
                     type="range"
-                    min="50"
+                    min="130"
                     max="1000"
-                    step="25"
+                    step="10"
                     value={b2bQuantity}
                     onChange={(e) => setB2bQuantity(Number(e.target.value))}
                     className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-[#D4AF37]"
                   />
                   <div className="flex justify-between text-[10px] text-slate-500 font-mono">
-                    <span>50 pcs (-15%)</span>
-                    <span>100 pcs (-25%)</span>
-                    <span>250 pcs (-35%)</span>
-                    <span>500+ pcs (-40%)</span>
+                    <span>130 pcs (MOQ)</span>
+                    <span>250 pcs</span>
+                    <span>500 pcs</span>
+                    <span>1,000+ pcs</span>
                   </div>
                 </div>
 
@@ -495,7 +491,7 @@ Please send digital mockup and delivery schedule.`;
                     <span className="text-xl font-bold font-mono text-white">${totalB2bPrice} <span className="text-xs text-[#D4AF37]">USD</span></span>
                   </div>
                   <div className="text-right rtl:text-left">
-                    <span className="text-emerald-400 font-mono font-bold block">-${discountPercent}% {isRTL ? 'خصم تجاري' : 'Discount'}</span>
+                    <span className="text-emerald-400 font-mono font-bold block">{isRTL ? 'سعر المصنع المباشر' : 'Direct Factory Rate'}</span>
                     <span className="text-[10px] text-slate-400">{isRTL ? 'مدة التصنيع: ٢ - ٣ أسابيع' : 'Lead time: 2-3 weeks'}</span>
                   </div>
                 </div>

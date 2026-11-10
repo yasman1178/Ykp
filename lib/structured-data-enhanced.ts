@@ -11,7 +11,7 @@ export interface BilingualStructuredData {
  * Generate Organization schema with Arabic company information
  */
 export function generateOrganizationSchemaEnhanced(
-  baseUrl: string = 'https://ykp-eg.com'
+  baseUrl: string = 'https://www.ykp-eg.com'
 ): BilingualStructuredData {
   return {
     '@context': 'https://schema.org',
@@ -66,7 +66,7 @@ export function generateOrganizationSchemaEnhanced(
         availableLanguage: ['English', 'Arabic', 'en', 'ar'],
         areaServed: 'Worldwide',
         contactOption: 'TollFree',
-        email: 'ykp.supplies@gmail.com',
+        email: 'sales@ykp-eg.com',
       },
       {
         '@type': 'ContactPoint',
@@ -74,7 +74,7 @@ export function generateOrganizationSchemaEnhanced(
         contactType: 'sales',
         availableLanguage: ['English', 'Arabic', 'en', 'ar'],
         areaServed: 'Worldwide',
-        email: 'ykp.supplies@gmail.com',
+        email: 'sales@ykp-eg.com',
       },
     ],
     sameAs: [
@@ -188,7 +188,7 @@ export function generateProductSchemaEnhanced(
     };
     availability: boolean;
   },
-  baseUrl: string = 'https://ykp-eg.com'
+  baseUrl: string = 'https://www.ykp-eg.com'
 ): BilingualStructuredData {
   return {
     '@context': 'https://schema.org',
@@ -349,7 +349,7 @@ export function generateProductSchemaEnhanced(
  */
 export function generateBreadcrumbSchemaEnhanced(
   breadcrumbs: Array<{ name: string; nameAr?: string; url: string }>,
-  baseUrl: string = 'https://ykp-eg.com'
+  baseUrl: string = 'https://www.ykp-eg.com'
 ): BilingualStructuredData {
   return {
     '@context': 'https://schema.org',
@@ -402,7 +402,7 @@ export function generateArticleSchemaEnhanced(
       significance: string;
     };
   },
-  baseUrl: string = 'https://ykp-eg.com'
+  baseUrl: string = 'https://www.ykp-eg.com'
 ): BilingualStructuredData {
   return {
     '@context': 'https://schema.org',
@@ -479,7 +479,7 @@ export function generateArticleSchemaEnhanced(
  * Generate LocalBusiness schema with Egyptian location data
  */
 export function generateLocalBusinessSchemaEnhanced(
-  baseUrl: string = 'https://ykp-eg.com'
+  baseUrl: string = 'https://www.ykp-eg.com'
 ): BilingualStructuredData {
   return {
     '@context': 'https://schema.org',
@@ -491,7 +491,7 @@ export function generateLocalBusinessSchemaEnhanced(
     image: `${baseUrl}/business-photo.jpg`,
     logo: `${baseUrl}/logo.png`,
     telephone: '+20-100-240-6013',
-    email: 'ykp.supplies@gmail.com',
+    email: 'sales@ykp-eg.com',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Cairo Business District',
@@ -558,7 +558,7 @@ export function generateLocalBusinessSchemaEnhanced(
  * Generate WebSite schema with search action
  */
 export function generateWebsiteSchemaEnhanced(
-  baseUrl: string = 'https://ykp-eg.com'
+  baseUrl: string = 'https://www.ykp-eg.com'
 ): BilingualStructuredData {
   return {
     '@context': 'https://schema.org',
@@ -596,7 +596,7 @@ export function generateCompleteStructuredData(
   pageType: 'homepage' | 'product' | 'article' | 'collection',
   data: any,
   breadcrumbs?: Array<{ name: string; nameAr?: string; url: string }>,
-  baseUrl: string = 'https://ykp-eg.com'
+  baseUrl: string = 'https://www.ykp-eg.com'
 ): BilingualStructuredData[] {
   const schemas: BilingualStructuredData[] = [];
 
